@@ -1,0 +1,1 @@
+Esto es un archivo dentro de una carpeta donde se almacenara todo lo relacionado con DB de este proyecto
