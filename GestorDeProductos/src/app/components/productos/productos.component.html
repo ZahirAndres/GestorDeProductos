@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <h2>Lista de Productos</h2>
+
+    <!-- Botón para ir a la página de creación de productos -->
+    <div class="mb-3">
+        <button class="btn btn-primary" (click)="irACrearProducto()">Crear Producto</button>
+    </div>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Código de Barras</th>
+                <th>Nombre Producto</th>
+                <th>Tamaño</th>
+                <th>Marca</th>
+                <th>Categoría</th>
+                <th>Precio por Pieza</th>
+                <th>Precio por Caja</th>
+                <th>Cantidad de Piezas por Caja</th>
+                <th>Proveedor</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let producto of productos">
+                <td>{{ producto.codigoBarras }}</td>
+                <td>{{ producto.nombreProducto }}</td>
+                <td>{{ producto.tamano }}</td>
+                <td>{{ producto.marca }}</td>
+                <td>{{ producto.categoria }}</td>
+                <td>{{ producto.precioPieza }}</td>
+                <td>{{ producto.precioCaja }}</td>
+                <td>{{ producto.cantidadPiezasPorCaja }}</td>
+                <td>{{ producto.proveedor }}</td>
+                <td>
+                    <button class="btn btn-danger" (click)="borrarProducto(producto.id)">
+                        Eliminar
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
