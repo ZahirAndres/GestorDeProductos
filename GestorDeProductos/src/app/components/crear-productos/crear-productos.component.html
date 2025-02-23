@@ -1,0 +1,65 @@
+<div class="container mt-4">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h2 class="text-center">Crear Nuevo Producto</h2>
+      </div>
+  
+      <div class="card-body">
+        <form #productoForm="ngForm" (ngSubmit)="crearProducto(productoForm)">
+          
+          <div class="mb-3">
+            <label for="codigoBarras" class="form-label">Código de Barras:</label>
+            <input type="text" id="codigoBarras" class="form-control" [(ngModel)]="producto.codigoBarras" name="codigoBarras" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="nombreProducto" class="form-label">Nombre del Producto:</label>
+            <input type="text" id="nombreProducto" class="form-control" [(ngModel)]="producto.nombreProducto" name="nombreProducto" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="tamaño" class="form-label">Tamaño:</label>
+            <input type="text" id="tamaño" class="form-control" [(ngModel)]="producto.tamano" name="tamaño" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="marca" class="form-label">Marca:</label>
+            <input type="text" id="marca" class="form-control" [(ngModel)]="producto.marca" name="marca" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="categoria" class="form-label">Categoría:</label>
+            <input type="text" id="categoria" class="form-control" [(ngModel)]="producto.categoria" name="categoria" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="precioPieza" class="form-label">Precio por Pieza:</label>
+            <input type="number" id="precioPieza" class="form-control" [(ngModel)]="producto.precioPieza" name="precioPieza" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="precioCaja" class="form-label">Precio por Caja:</label>
+            <input type="number" id="precioCaja" class="form-control" [(ngModel)]="producto.precioCaja" name="precioCaja" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="cantidadPiezasPorCaja" class="form-label">Cantidad de Piezas por Caja:</label>
+            <input type="number" id="cantidadPiezasPorCaja" class="form-control" [(ngModel)]="producto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="proveedor" class="form-label">Proveedor:</label>
+            <input type="text" id="proveedor" class="form-control" [(ngModel)]="producto.proveedor" name="proveedor" required />
+          </div>
+  
+          <div class="d-grid">
+            <button type="submit" class="btn btn-success">Crear Producto</button>
+          </div>
+  
+        </form>
+  
+        <div *ngIf="mensaje" class="alert alert-info mt-3 text-center">{{ mensaje }}</div>
+      </div>
+    </div>
+  </div>
+  
