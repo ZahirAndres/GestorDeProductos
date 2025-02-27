@@ -1,65 +1,114 @@
 <div class="container mt-4">
-    <div class="card shadow">
-      <div class="card-header bg-primary text-white">
-        <h2 class="text-center">Crear Nuevo Producto</h2>
-      </div>
-  
-      <div class="card-body">
-        <form #productoForm="ngForm" (ngSubmit)="crearProducto(productoForm)">
-          
-          <div class="mb-3">
-            <label for="codigoBarras" class="form-label">Código de Barras:</label>
-            <input type="text" id="codigoBarras" class="form-control" [(ngModel)]="producto.codigoBarras" name="codigoBarras" required />
+  <div class="card shadow">
+    <div class="card-header bg-primary text-white">
+      <h2 class="text-center">Crear Nuevo Producto</h2>
+    </div>
+
+    <div class="card-body">
+      <form #productoForm="ngForm" (ngSubmit)="crearProducto(productoForm)">
+        
+        <!-- Código de Barras -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="producto.codigoBarras" name="codigoBarras" required />
+          <label>Código de Barras</label>
+        </div>
+
+        <!-- Nombre del Producto -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="producto.nombreProducto" name="nombreProducto" required />
+          <label>Nombre del Producto</label>
+        </div>
+
+        <!-- Tamaño -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="producto.tamano" name="tamaño" required />
+          <label>Tamaño</label>
+        </div>
+
+        <!-- Marca -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="producto.marca" name="marca" required />
+          <label>Marca</label>
+        </div>
+
+        <!-- Imagen URL -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="producto.imagenUrl" name="imagenUrl" />
+          <label>URL de la Imagen (Opcional)</label>
+        </div>
+
+        <!-- Categoría -->
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" [(ngModel)]="producto.categoria" name="categoria" required />
+          <label>Categoría</label>
+        </div>
+
+        <!-- Precio por Pieza -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.precioPieza" name="precioPieza" min="0" required />
+          <label>Precio por Pieza</label>
+        </div>
+
+        <!-- Precio por Caja -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.precioCaja" name="precioCaja" min="0" required />
+          <label>Precio por Caja</label>
+        </div>
+
+        <!-- Cantidad de Piezas por Caja -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja" min="1" required />
+          <label>Cantidad de Piezas por Caja</label>
+        </div>
+
+        <!-- Proveedores -->
+        <div class="mb-3">
+          <label class="form-label">Proveedores</label>
+          <div class="d-flex">
+            <input type="text" class="form-control me-2" [(ngModel)]="proveedorInput" name="proveedorInput" />
+            <button type="button" class="btn btn-secondary" (click)="agregarProveedor()">Agregar</button>
           </div>
-  
-          <div class="mb-3">
-            <label for="nombreProducto" class="form-label">Nombre del Producto:</label>
-            <input type="text" id="nombreProducto" class="form-control" [(ngModel)]="producto.nombreProducto" name="nombreProducto" required />
+          <div class="mt-2">
+            <span class="badge bg-info me-1" *ngFor="let prov of producto.proveedor; let i = index">
+              {{ prov }} <span class="ms-1 text-danger" (click)="eliminarProveedor(i)" style="cursor:pointer;">✖</span>
+            </span>
           </div>
-  
-          <div class="mb-3">
-            <label for="tamaño" class="form-label">Tamaño:</label>
-            <input type="text" id="tamaño" class="form-control" [(ngModel)]="producto.tamano" name="tamaño" required />
-          </div>
-  
-          <div class="mb-3">
-            <label for="marca" class="form-label">Marca:</label>
-            <input type="text" id="marca" class="form-control" [(ngModel)]="producto.marca" name="marca" required />
-          </div>
-  
-          <div class="mb-3">
-            <label for="categoria" class="form-label">Categoría:</label>
-            <input type="text" id="categoria" class="form-control" [(ngModel)]="producto.categoria" name="categoria" required />
-          </div>
-  
-          <div class="mb-3">
-            <label for="precioPieza" class="form-label">Precio por Pieza:</label>
-            <input type="number" id="precioPieza" class="form-control" [(ngModel)]="producto.precioPieza" name="precioPieza" required />
-          </div>
-  
-          <div class="mb-3">
-            <label for="precioCaja" class="form-label">Precio por Caja:</label>
-            <input type="number" id="precioCaja" class="form-control" [(ngModel)]="producto.precioCaja" name="precioCaja" required />
-          </div>
-  
-          <div class="mb-3">
-            <label for="cantidadPiezasPorCaja" class="form-label">Cantidad de Piezas por Caja:</label>
-            <input type="number" id="cantidadPiezasPorCaja" class="form-control" [(ngModel)]="producto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja" required />
-          </div>
-  
-          <div class="mb-3">
-            <label for="proveedor" class="form-label">Proveedor:</label>
-            <input type="text" id="proveedor" class="form-control" [(ngModel)]="producto.proveedor" name="proveedor" required />
-          </div>
-  
-          <div class="d-grid">
-            <button type="submit" class="btn btn-success">Crear Producto</button>
-          </div>
-  
-        </form>
-  
-        <div *ngIf="mensaje" class="alert alert-info mt-3 text-center">{{ mensaje }}</div>
-      </div>
+        </div>
+
+        <!-- Stock Exhibe -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.stockExhibe" name="stockExhibe" min="0" required />
+          <label>Stock Exhibe</label>
+        </div>
+
+        <!-- Existencia Exhibida -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.existenciaExhibida" name="existenciaExhibida" min="0" required />
+          <label>Existencia Exhibida</label>
+        </div>
+
+        <!-- Stock en Almacén -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.stockAlamcen" name="stockAlamcen" min="0" required />
+          <label>Stock en Almacén</label>
+        </div>
+
+        <!-- Cantidad en Almacén -->
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control" [(ngModel)]="producto.cantidadAlamcen" name="cantidadAlamcen" min="0" required />
+          <label>Cantidad en Almacén</label>
+        </div>
+
+        <!-- Botones -->
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success">Crear Producto</button>
+          <button type="button" class="btn btn-warning" (click)="resetFormulario(productoForm)">Limpiar</button>
+        </div>
+
+      </form>
+
+      <!-- Mensaje de éxito o error -->
+      <div *ngIf="mensaje" class="alert alert-info mt-3 text-center">{{ mensaje }}</div>
     </div>
   </div>
-  
+</div>

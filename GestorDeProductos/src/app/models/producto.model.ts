@@ -1,13 +1,21 @@
 export interface Producto {
-    _id?: string; // MongoDB usa ObjectId, pero en Angular lo manejamos como string
-    codigoBarras: string;
-    nombreProducto: string;
-    tamano: string;
-    marca: string;
-    categoria: string;
-    precioPieza: number;
-    precioCaja: number;
-    cantidadPiezasPorCaja: number;
-    proveedor: string;
-  }
-  
+  _id?: string;
+  codigoBarras: string;
+  nombreProducto: string;
+  tamano: string;
+  marca: string;
+  imagenUrl?: string;
+  categoria: string;
+  precioPieza: number;
+  precioCaja: number;
+  cantidadPiezasPorCaja: number;
+  proveedor: string[];
+  stockExhibe: number;
+  existenciaExhibida: number;
+  stockAlamcen: number;
+  cantidadAlamcen: number;
+
+  // 🔹 Nueva propiedad opcional para el formulario
+  cantidadAgregada?: number;
+  mostrarFormulario?: boolean;
+}

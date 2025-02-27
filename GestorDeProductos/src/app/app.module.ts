@@ -8,12 +8,14 @@ import { RouterModule } from '@angular/router';
 import { CrearUsuariosComponent } from './components/crear-usuarios/crear-usuarios.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FormsModule } from '@angular/forms';
+import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecimiento/abastecimiento.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CrearUsuariosComponent,
-    UsuariosComponent
+    UsuariosComponent,
+    AbastecimientoComponent
   ],
   imports: [
     BrowserModule,

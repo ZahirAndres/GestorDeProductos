@@ -1,4 +1,4 @@
-package edu.utng.mx.backend.documentos;
+package edu.utng.mx.backend.controller;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;

@@ -4,11 +4,12 @@ import { ProductosComponent } from './components/productos/productos.component';
 import { CrearProductosComponent } from './components/crear-productos/crear-productos.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './components/crear-usuarios/crear-usuarios.component';
+import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecimiento/abastecimiento.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/inicio',
+    redirectTo: '/abastecimiento-estantes',
     pathMatch: 'full'
   },
 
@@ -28,7 +29,10 @@ const routes: Routes = [
       { path: 'ver', component: UsuariosComponent },            // Ruta para ver usuarios
       { path: 'crear', component: CrearUsuariosComponent }      // Ruta para crear usuarios
     ]
-  }
+  },
+
+  //Rutas del ayudante de pasillo
+  {path:'abastecimiento-estantes', component: AbastecimientoComponent } 
 ];
 
 @NgModule({

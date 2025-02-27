@@ -3,6 +3,8 @@ package edu.utng.mx.backend.documentos;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.annotation.Id;
 
+import java.util.List;
+
 @Document(collection = "Productos")
 public class Producto {
     @Id
@@ -12,34 +14,52 @@ public class Producto {
     private String nombreProducto;
     private String tamano;
     private String marca;
+    private String imagenUrl;
     private String categoria;
     private double precioPieza;
     private double precioCaja;
     private int cantidadPiezasPorCaja;
-    private String proveedor;
+    private List<String> proveedor; // Ahora es una lista, ya que el JSON usa un array
+
+    // Nuevos atributos
+    private int stockExhibe = 0; // Valor predeterminado
+    private int existenciaExhibida = 0; // Lo que se muestra
+    private int stockAlmacen = 0; // Valor predeterminado
+    private int cantidadAlmacen = 0; // Cantidad real en almacén
 
     // Constructor vacío
     public Producto() {
     }
 
     // Constructor con parámetros
-    public Producto(String codigoBarras, String nombreProducto, String tamano, String marca, 
-                    String categoria, double precioPieza, double precioCaja, int cantidadPiezasPorCaja, 
-                    String proveedor) {
+    public Producto(String _id, String codigoBarras, String nombreProducto, String tamano, String marca,
+                    String imagenUrl, String categoria, double precioPieza, double precioCaja,
+                    int cantidadPiezasPorCaja, List<String> proveedor, int stockExhibe, int existenciaExhibida,
+                    int stockAlmacen, int cantidadAlmacen) {
+        this._id = _id;
         this.codigoBarras = codigoBarras;
         this.nombreProducto = nombreProducto;
         this.tamano = tamano;
         this.marca = marca;
+        this.imagenUrl = imagenUrl;
         this.categoria = categoria;
         this.precioPieza = precioPieza;
         this.precioCaja = precioCaja;
         this.cantidadPiezasPorCaja = cantidadPiezasPorCaja;
         this.proveedor = proveedor;
+        this.stockExhibe = stockExhibe;
+        this.existenciaExhibida = existenciaExhibida;
+        this.stockAlmacen = stockAlmacen;
+        this.cantidadAlmacen = cantidadAlmacen;
     }
 
     // Getters y Setters
     public String getId() {
         return _id;
+    }
+
+    public void setId(String _id) {
+        this._id = _id;
     }
 
     public String getCodigoBarras() {
@@ -62,8 +82,8 @@ public class Producto {
         return tamano;
     }
 
-    public void setTamano(String tamano) {
-        this.tamano = tamano;
+    public void setTamano(String tamaño) {
+        this.tamano = tamaño;
     }
 
     public String getMarca() {
@@ -72,6 +92,14 @@ public class Producto {
 
     public void setMarca(String marca) {
         this.marca = marca;
+    }
+
+    public String getImagenUrl() {
+        return imagenUrl;
+    }
+
+    public void setImagenUrl(String imagenUrl) {
+        this.imagenUrl = imagenUrl;
     }
 
     public String getCategoria() {
@@ -106,11 +134,43 @@ public class Producto {
         this.cantidadPiezasPorCaja = cantidadPiezasPorCaja;
     }
 
-    public String getProveedor() {
+    public List<String> getProveedor() {
         return proveedor;
     }
 
-    public void setProveedor(String proveedor) {
+    public void setProveedor(List<String> proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public int getStockExhibe() {
+        return stockExhibe;
+    }
+
+    public void setStockExhibe(int stockExhibe) {
+        this.stockExhibe = stockExhibe;
+    }
+
+    public int getExistenciaExhibida() {
+        return existenciaExhibida;
+    }
+
+    public void setExistenciaExhibida(int existenciaExhibida) {
+        this.existenciaExhibida = existenciaExhibida;
+    }
+
+    public int getStockAlmacen() {
+        return stockAlmacen;
+    }
+
+    public void setStockAlmacen(int stockAlmacen) {
+        this.stockAlmacen = stockAlmacen;
+    }
+
+    public int getCantidadAlmacen() {
+        return cantidadAlmacen;
+    }
+
+    public void setCantidadAlmacen(int cantidadAlmacen) {
+        this.cantidadAlmacen = cantidadAlmacen;
     }
 }
