@@ -39,7 +39,7 @@ export class AbastecimientoComponent implements OnInit {
           console.log('Producto actualizado:', response);
           producto.cantidadAgregada = 0;
           form.resetForm();
-          producto.mostrarFormulario = false; 
+          producto.mostrarFormulario = false;  
         },
         (error) => {
           console.error('Error al actualizar producto:', error);
