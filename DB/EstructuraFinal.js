@@ -36,8 +36,8 @@
     "Proveedor": [],
     "stockExhibe": 0, //El valor predeterminado
     "existenciaExhibida": 0, //Lo que vemos
-    "stockAlamcen": 0, //El valor predeterminado
-    "cantidadAlamcen": 0
+    "stockAlmacen": 0, //El valor predeterminado
+    "cantidadAlmacen": 0
   }
 ]
 
