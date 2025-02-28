@@ -9,13 +9,19 @@ import { CrearUsuariosComponent } from './components/crear-usuarios/crear-usuari
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { FormsModule } from '@angular/forms';
 import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecimiento/abastecimiento.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { ProductosAlmacenComponent } from './components/administrador/productos-almacen/productos-almacen.component';
+import { LotesAlmacenComponent } from './components/administrador/lotes-almacen/lotes-almacen.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CrearUsuariosComponent,
     UsuariosComponent,
-    AbastecimientoComponent
+    AbastecimientoComponent,
+    NavbarComponent,
+    ProductosAlmacenComponent,
+    LotesAlmacenComponent
   ],
   imports: [
     BrowserModule,
