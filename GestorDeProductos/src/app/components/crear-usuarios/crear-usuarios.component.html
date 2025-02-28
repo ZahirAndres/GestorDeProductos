@@ -1,0 +1,52 @@
+<div class="container mt-4">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white">
+        <h2 class="text-center">Crear Nuevo Usuario</h2>
+      </div>
+  
+      <div class="card-body">
+        <form #usuarioForm="ngForm" (ngSubmit)="crearUsuario(usuarioForm)">
+          
+          <div class="mb-3">
+            <label for="nombreUsuario" class="form-label">Nombre usuario:</label>
+            <input type="text" id="nombreUsuario" class="form-control" [(ngModel)]="usuario.nombreUsuario" name="nombreUsuario" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="apellidoPaterno" class="form-label">Apellido Paterno:</label>
+            <input type="text" id="apellidoPaterno" class="form-control" [(ngModel)]="usuario.apellidoPaterno" name="apellidoPaterno" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="apellidoMaterno" class="form-label">Apellido Materno:</label>
+            <input type="text" id="apellidoMaterno" class="form-control" [(ngModel)]="usuario.apellidoMaterno" name="apellidoMaterno" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="correo" class="form-label">Correo:</label>
+            <input type="email" id="correo" class="form-control" [(ngModel)]="usuario.correo" name="correo" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="contrasena" class="form-label">Contraseña:</label>
+            <input type="password" id="contrasena" class="form-control" [(ngModel)]="usuario.contrasena" name="contrasena" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="rol" class="form-label">Rol:</label>
+            <input type="text" id="rol" class="form-control" [(ngModel)]="usuario.rol" name="rol" required />
+          </div>
+  
+          <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección:</label>
+            <input type="text" id="direccion" class="form-control" [(ngModel)]="usuario.direccion" name="direccion" required />
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Crear Usuario</button>
+        </form>
+  
+        <div *ngIf="mensaje" class="alert alert-info mt-3 text-center">{{ mensaje }}</div>
+      </div>
+    </div>
+  </div>
+  

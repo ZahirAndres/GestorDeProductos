@@ -11,14 +11,14 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/Usuarios")
+@RequestMapping("/api/usuarios")
 public class UsuarioController {
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
     // Crear un nuevo usuario
-    @PostMapping
+    @PostMapping("/crear")
     public ResponseEntity<?> saveUsuario(@RequestBody Usuarios usuario) {
         try {
             Usuarios savedUser = usuarioRepositorio.save(usuario);
@@ -29,7 +29,7 @@ public class UsuarioController {
     }
 
     // Obtener todos los usuarios
-    @GetMapping
+    @GetMapping("/ver")
     public ResponseEntity<?> findAllUsuarios() {
         try {
             List<Usuarios> usuarios = usuarioRepositorio.findAll();
@@ -72,7 +72,7 @@ public class UsuarioController {
     }
 
     // Eliminar un usuario por su ObjectId
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/borrar/{id}")
     public ResponseEntity<?> deleteUsuario(@PathVariable String id) {
         try {
             // Verificar si el usuario existe
@@ -83,7 +83,7 @@ public class UsuarioController {
                 usuarioRepositorio.deleteById(id);
                 return new ResponseEntity<>("Usuario eliminado", HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("Usuario no encontrado", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Usuario no encontrado desde backend", HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

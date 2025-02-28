@@ -1,0 +1,69 @@
+<div class="container mt-4">
+    <h2 class="text-center">Lista de Productos</h2>
+
+    <!-- Botón para ir a la página de creación de productos -->
+    <div class="d-flex justify-content-between mb-3">
+        <button class="btn btn-primary" (click)="irACrearProducto()">Crear Producto</button>
+        <input type="text" class="form-control w-25" placeholder="Buscar producto..." />
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Imagen</th>
+                    <th>Código de Barras</th>
+                    <th>Nombre Producto</th>
+                    <th>Tamaño</th>
+                    <th>Marca</th>
+                    <th>Categoría</th>
+                    <th>Precio por Pieza</th>
+                    <th>Precio por Caja</th>
+                    <th>Piezas por Caja</th>
+                    <th>Proveedor</th>
+                    <th>Stock Exhibe</th>
+                    <th>Existencia Exhibida</th>
+                    <th>Stock Almacén</th>
+                    <th>Cantidad en Almacén</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let producto of productos">
+                    <td>
+                        <img [src]="producto.imagenUrl || 'https://via.placeholder.com/50'"
+                             alt="{{ producto.nombreProducto }}"
+                             class="img-thumbnail"
+                             style="width: 50px; height: 50px;">
+                    </td>
+                    <td>{{ producto.codigoBarras }}</td>
+                    <td>{{ producto.nombreProducto }}</td>
+                    <td>{{ producto.tamano }}</td>
+                    <td>{{ producto.marca }}</td>
+                    <td>{{ producto.categoria }}</td>
+                    <td>{{ producto.precioPieza | currency:'MXN' }}</td>
+                    <td>{{ producto.precioCaja | currency:'MXN' }}</td>
+                    <td>{{ producto.cantidadPiezasPorCaja }}</td>
+                    <td>
+                        <span *ngIf="producto.proveedor.length > 0; else noProveedor">
+                            {{ producto.proveedor.join(', ') }}
+                        </span>
+                        <ng-template #noProveedor>-</ng-template>
+                    </td>
+                    <td>{{ producto.stockExhibe }}</td>
+                    <td>{{ producto.existenciaExhibida }}</td>
+                    <td>{{ producto.stockAlmacen }}</td>
+                    <td>{{ producto.cantidadAlmacen }}</td>
+                    <td>
+                        <button class="btn btn-warning me-2" >
+                            ✏️ Editar
+                        </button>
+                        <button class="btn btn-danger" (click)="borrarProducto(producto._id)">
+                            ❌ Eliminar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
