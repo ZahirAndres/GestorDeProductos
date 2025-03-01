@@ -1,0 +1,55 @@
+<body>
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <!-- Centra las tarjetas -->
+      <div
+        class="col-md-4 mb-4 d-flex justify-content-center"
+        *ngFor="let producto of productos"
+      >
+        <div class="card shadow producto-card h-100">
+          <!-- Imagen del producto -->
+          <div class="producto-img-container">
+            <img
+              [src]="
+                producto.imagenUrl ||
+                'https://previews.123rf.com/images/georgepanfili/georgepanfili2003/georgepanfili200300742/148466965-404-error-logo-and-icon-vector-isolated-image.jpg'
+              "
+              class="producto-img"
+              alt="{{ producto.nombreProducto }}"
+            />
+          </div>
+
+          <div
+            class="card-body text-center d-flex flex-column justify-content-between"
+          >
+            <!-- Nombre del producto (truncado si es muy largo) -->
+            <h5
+              class="card-title text-truncate"
+              title="{{ producto.nombreProducto }}"
+            >
+              {{ producto.nombreProducto }}
+            </h5>
+
+            <!-- Categoría (truncado si es muy larga) -->
+            <p
+              class="card-text text-muted text-truncate"
+              title="{{ producto.categoria }}"
+            >
+              <strong>Categoría: </strong>{{ producto.categoria }}
+            </p>
+
+            <!-- Precio -->
+            <p class="card-text">
+              <strong>Precio: </strong> ${{ producto.precioPieza }} por pieza
+            </p>
+
+            <!-- Mensaje de Existencia -->
+            <p [ngClass]="producto.colorMensaje">
+              <strong>{{ producto.mensajeExistencia }}</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

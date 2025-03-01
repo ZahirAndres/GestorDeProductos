@@ -7,6 +7,7 @@ import { CrearUsuariosComponent } from './components/crear-usuarios/crear-usuari
 import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecimiento/abastecimiento.component';
 import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
 import { VerProductosComponent } from './components/almacenista/ver-productos/ver-productos.component';
+import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
 
 const routes: Routes = [
   {
@@ -66,7 +67,15 @@ const routes: Routes = [
     
     ]
       
-  }
+  },
+
+  //rutas cliente
+{
+  path: 'cliente',
+  children: [
+    { path: 'verProductos', component: VerProductosClienteComponent },           // Ruta para ver productos
+  ]
+}
 
 ];
 

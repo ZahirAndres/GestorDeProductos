@@ -30,4 +30,8 @@ public class FiltrosAyudanteServices {
     public List<Producto> buscarPorNombreYCategoria(String texto) {
         return filtroRepository.findByNombreYCategoria(texto);
     }
+
+    public List<Producto> productosDefectoPasillo(){
+        return filtroRepository.findByExistenciaExhibida();
+    }
 }
