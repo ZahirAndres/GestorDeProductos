@@ -5,14 +5,16 @@ import { CrearProductosComponent } from './components/crear-productos/crear-prod
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './components/crear-usuarios/crear-usuarios.component';
 import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecimiento/abastecimiento.component';
+import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/abastecimiento-estantes',
+    /* redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', */
+    redirectTo: '/almacenista/proveedores/ver',
     pathMatch: 'full'
   },
-
+  //Organizar las rutas de los productos
   // Rutas para Productos
   {
     path: 'productos',
@@ -22,7 +24,7 @@ const routes: Routes = [
     ]
   },
 
-  // Rutas para Usuarios
+  // Rutas para Clientes
   {
     path: 'usuarios',
     children: [
@@ -32,7 +34,30 @@ const routes: Routes = [
   },
 
   //Rutas del ayudante de pasillo
-  {path:'abastecimiento-estantes', component: AbastecimientoComponent } 
+  {
+    path: 'ayudante-pasillo',
+    children: [
+      {
+        path: 'abastecimiento-estantes',
+        children: [
+          { path: 'ver', component: AbastecimientoComponent }]
+      },
+    ]
+  },
+
+
+  //rutas del alamcenista
+
+  {
+    path: 'almacenista',
+    children: [
+      {
+        path: 'proveedores',
+        children: [
+          { path: 'ver', component: VerLotesComponent }] // Ruta para ver proveedores
+      }]
+  }
+
 ];
 
 @NgModule({
