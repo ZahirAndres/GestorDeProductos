@@ -25,8 +25,7 @@ import { LotesAlmacenComponent } from './components/administrador/lotes-almacen/
     UsuariosComponent,
     AbastecimientoComponent,
     ToolBarComponent,
-    FootComponent
-    NavbarComponent,
+    FootComponent,
     ProductosAlmacenComponent,
     LotesAlmacenComponent
 
