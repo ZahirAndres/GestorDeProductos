@@ -26,4 +26,8 @@ public class FiltrosAyudanteServices {
     public List<Producto> buscarPorCategoria(String categoria) {
         return filtroRepository.findByCategoria(categoria);
     }
+
+    public List<Producto> buscarPorNombreYCategoria(String texto) {
+        return filtroRepository.findByNombreYCategoria(texto);
+    }
 }

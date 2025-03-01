@@ -3,6 +3,8 @@ import { ProductoService } from '../../../services/crear-productos.service';
 import { Router } from '@angular/router';
 import { Producto } from '../../../models/producto.model';
 import { NgForm } from '@angular/forms';
+import { CategoriasService } from '../../../services/categorias.service';
+import { Categoria } from '../../../models/categoria.model';
 
 @Component({
   selector: 'app-abastecimiento',
@@ -11,11 +13,15 @@ import { NgForm } from '@angular/forms';
 })
 export class AbastecimientoComponent implements OnInit {
   productos: Producto[] = []; // Lista de productos
+  categorias: Categoria[] = []; // Lista de categorias
 
-  constructor(private productoService: ProductoService, private router: Router) {}
+  constructor(private productoService: ProductoService, 
+    private router: Router, 
+    private categoriaService: CategoriasService) {}
 
   ngOnInit(): void {
     this.cargarProductos();
+    this.cargarCategorias();  
   }
 
   cargarProductos(): void {
@@ -29,6 +35,19 @@ export class AbastecimientoComponent implements OnInit {
       }
     );
   }
+
+  cargarCategorias(): void {
+    this.categoriaService.getCategorias().subscribe(
+      (response: Categoria[]) => {
+        console.log("Respuesta de la API:", response); // ✅ Verificar la respuesta
+        this.categorias = response;
+      },
+      error => {
+        console.error("Error al cargar categorías:", error);
+      }
+    );
+  }
+  
 
   actualizarCantidad(form: NgForm, producto: Producto): void {
     if (form.valid) {

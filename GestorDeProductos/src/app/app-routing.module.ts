@@ -10,8 +10,8 @@ import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.
 const routes: Routes = [
   {
     path: '',
-    /* redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', */
-    redirectTo: '/almacenista/proveedores/ver',
+      redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', 
+    // redirectTo: '/almacenista/proveedores/ver',
     pathMatch: 'full'
   },
   //Organizar las rutas de los productos
