@@ -16,6 +16,7 @@ import { FootComponent } from './components/nav/foot/foot.component';
 import { NavbarComponent } from './components/nav/navbarAlmacenista/navbar.component';
 import { ProductosAlmacenComponent } from './components/administrador/productos-almacen/productos-almacen.component';
 import { LotesAlmacenComponent } from './components/administrador/lotes-almacen/lotes-almacen.component';
+import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
 
 
 @NgModule({
@@ -25,10 +26,11 @@ import { LotesAlmacenComponent } from './components/administrador/lotes-almacen/
     UsuariosComponent,
     AbastecimientoComponent,
     ToolBarComponent,
-    FootComponent
+    FootComponent,
     NavbarComponent,
     ProductosAlmacenComponent,
-    LotesAlmacenComponent
+    LotesAlmacenComponent,
+    VerLotesComponent
 
   ],
   imports: [
