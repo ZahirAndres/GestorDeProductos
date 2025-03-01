@@ -1,0 +1,115 @@
+<div class="container mt-4">
+    <div class="row">
+        <!-- Formulario a la izquierda con espacio extra y línea divisoria -->
+        <div class="col-md-4 pe-4 border-end">
+            <h4 class="mb-3">Registro de Lotes</h4>
+            <form>
+                <div class="mb-3">
+                    <label for="codigo" class="form-label">Código de lote</label>
+                    <input type="text" class="form-control" id="codigo" placeholder="Ingrese código">
+                </div>
+                <div class="mb-3">
+                    <label for="nombreProducto" class="form-label">Nombre del producto</label>
+                    <input type="text" class="form-control" id="nombreProducto" placeholder="Ingrese nombre">
+                </div>
+                <div class="mb-3">
+                    <label for="cantidadCajas" class="form-label">Cantidad de cajas</label>
+                    <input type="number" class="form-control" id="cantidadCajas" min="0" placeholder="Ingrese cantidad">
+                </div>
+                <div class="mb-3">
+                    <label for="fecha" class="form-label">Fecha de caducidad</label>
+                    <input type="date" class="form-control" id="fecha">
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Actualizar</button>
+            </form>
+        </div>
+
+        <!-- Lotes a la derecha con scroll -->
+        <div class="col-md-8">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4>Lotes</h4>
+                <div>
+                    <select class="form-select d-inline w-auto me-2">
+                        <option selected>Ordenar por Fecha</option>
+                        <option>Más reciente</option>
+                        <option>Más antiguo</option>
+                    </select>
+                    <select class="form-select d-inline w-auto">
+                        <option selected>Filtrar por Categoría</option>
+                        <option>Alimentos</option>
+                        <option>Bebidas</option>
+                        <option>Higiene</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Contenedor con Scroll -->
+            <div class="scrollable-container">
+                <div class="row">
+                    <!-- Card de Lotes -->
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: XYZ</h5>
+                                <p class="card-text">Cajas: 10</p>
+                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-25</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: ABC</h5>
+                                <p class="card-text">Cajas: 5</p>
+                                <p class="card-text"><small class="text-muted">Fecha: 2024-03-01</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: DEF</h5>
+                                <p class="card-text">Cajas: 7</p>
+                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-20</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Agregar más lotes de prueba para visualizar el scroll -->
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: GHI</h5>
+                                <p class="card-text">Cajas: 15</p>
+                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-10</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: JKL</h5>
+                                <p class="card-text">Cajas: 12</p>
+                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-18</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card shadow-sm">
+                            <div class="card-body">
+                                <h5 class="card-title">Producto: MNO</h5>
+                                <p class="card-text">Cajas: 8</p>
+                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-22</small></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div> 
+        </div> 
+    </div> 
+</div> 
