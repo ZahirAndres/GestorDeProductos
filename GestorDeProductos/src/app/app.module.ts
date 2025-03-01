@@ -27,10 +27,7 @@ import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.
     AbastecimientoComponent,
     ToolBarComponent,
     FootComponent,
-<<<<<<< HEAD
-=======
     NavbarComponent,
->>>>>>> 881ce7e50e58e149b3dfc24419eb9ea4d342c78f
     ProductosAlmacenComponent,
     LotesAlmacenComponent,
     VerLotesComponent
