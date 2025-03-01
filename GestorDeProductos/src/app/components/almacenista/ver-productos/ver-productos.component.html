@@ -1,84 +1,64 @@
-<div class="container mt-4">
-    <div class="row">
-        <!-- Sección de productos con filtros a la izquierda -->
-        <div class="col-md-8">
-            <h4 class="mb-3">Productos Disponibles</h4>
 
-            <!-- Filtros -->
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Lotes</h4>
-                <div>
-                    <select class="form-select d-inline w-auto">
-                        <option selected>Filtrar por Categoría</option>
-                        <option>Alimentos</option>
-                        <option>Bebidas</option>
-                        <option>Higiene</option>
-                    </select>
-                </div>
-            </div>
+<!-- Cards de productos -->
+<div class="product-cards">
+    <div *ngFor="let producto of productos" class="product-card">
+        <img [src]="producto.imagenUrl" alt="{{ producto.nombreProducto }}">
+        <h3>{{ producto.nombreProducto }}</h3>
+        <p>Categoría: {{ producto.categoria }}</p>
+        <p>Stock: {{ producto.stockExhibe }}</p>
 
-            <!-- Contenedor de productos -->
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto: XYZ</h5>
-                            <p class="card-text">Stock: 50</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto: ABC</h5>
-                            <p class="card-text">Stock: 30</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto: DEF</h5>
-                            <p class="card-text">Stock: 40</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="card shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title">Producto: GHI</h5>
-                            <p class="card-text">Stock: 20</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Formulario a la derecha -->
-        <div class="col-md-4 ps-4 border-start">
-            <h4 class="mb-3">Solicitud de Productos</h4>
-            <form>
-                <div class="mb-3">
-                    <label for="codigo" class="form-label">Código</label>
-                    <input type="text" class="form-control" id="codigo" placeholder="Ingrese código">
-                </div>
-                <div class="mb-3">
-                    <label for="producto" class="form-label">Producto</label>
-                    <input type="text" class="form-control" id="producto" placeholder="Ingrese producto">
-                </div>
-                <div class="mb-3">
-                    <label for="empleado" class="form-label">Empleado</label>
-                    <input type="text" class="form-control" id="empleado" placeholder="Ingrese empleado">
-                </div>
-                <div class="mb-3">
-                    <label for="cantidad" class="form-label">Cantidad solicitada</label>
-                    <input type="number" class="form-control" id="cantidad" min="1" placeholder="Ingrese cantidad">
-                </div>
-                <button type="submit" class="btn btn-success w-100">Aceptar</button>
-            </form>
+        <!-- Contenedor de botones -->
+        <div class="button-container">
+            <button (click)="openEditDialog(producto)">Editar</button>
+            <button (click)="deleteProducto(producto._id)">Eliminar</button>
+            <button (click)="viewExistencias(producto._id)">Ver existencias</button>
         </div>
     </div>
 </div>
+
+
+
+<div *ngIf="isEditDialogOpen" class="edit-dialog">
+    <div class="dialog-content">
+        <h2>Editar Producto</h2>
+        <form (ngSubmit)="updateProducto()">
+            <!-- Primera columna -->
+            <label for="nombreProducto">Nombre</label>
+            <input type="text" id="nombreProducto" [(ngModel)]="currentProducto.nombreProducto" name="nombreProducto">
+
+            <label for="codigoBarras">Código de barras</label>
+            <input type="text" id="codigoBarras" [(ngModel)]="currentProducto.codigoBarras" name="codigoBarras">
+
+            <label for="tamano">Tamaño</label>
+            <input type="text" id="tamano" [(ngModel)]="currentProducto.tamano" name="tamano">
+
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" [(ngModel)]="currentProducto.marca" name="marca">
+
+            <!-- Segunda columna -->
+            <label for="imagenUrl">Imagen URL</label>
+            <input type="text" id="imagenUrl" [(ngModel)]="currentProducto.imagenUrl" name="imagenUrl">
+
+            <label for="categoria">Categoría</label>
+            <input type="text" id="categoria" [(ngModel)]="currentProducto.categoria" name="categoria">
+
+            <label for="precioPieza">Precio por pieza</label>
+            <input type="number" id="precioPieza" [(ngModel)]="currentProducto.precioPieza" name="precioPieza">
+
+            <label for="precioCaja">Precio por caja</label>
+            <input type="number" id="precioCaja" [(ngModel)]="currentProducto.precioCaja" name="precioCaja">
+
+            <!-- Tercera columna (Cantidad por caja ocupa una fila completa) -->
+            <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
+            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="currentProducto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja">
+
+            <!-- Botones alineados al centro -->
+            <div class="dialog-buttons">
+                <button type="submit" class="save-button">Guardar cambios</button>
+                <button type="button" class="cancel-button" (click)="closeEditDialog()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
