@@ -5,7 +5,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import java.util.List;
 
-public interface  FiltrosAyudanteRepository extends MongoRepository<Producto, String> {
+public interface FiltrosAyudanteRepository extends MongoRepository<Producto, String> {
     @Query("{ 'codigoBarras': { $regex: ?0, $options: 'i' }, $expr: { $lte: [ '$existenciaExhibida', '$stockExhibe' ] } }")
     List<Producto> findByCodigoBarras(String codigoBarras);
 
@@ -14,4 +14,8 @@ public interface  FiltrosAyudanteRepository extends MongoRepository<Producto, St
 
     @Query("{ 'categoria': ?0, $expr: { $lte: [ '$existenciaExhibida', '$stockExhibe' ] } }")
     List<Producto> findByCategoria(String categoria);
+
+    @Query("{$and: [{ $or: [ { 'categoria': ?0 }, { 'nombreProducto': ?0 } ] }, { $expr: { $lte: [ '$existenciaExhibida', '$stockExhibe' ] } }]}")
+    List<Producto> findByNombreYCategoria(String filtro);
+
 }

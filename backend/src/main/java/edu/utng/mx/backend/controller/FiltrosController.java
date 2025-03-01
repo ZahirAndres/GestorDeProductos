@@ -30,4 +30,9 @@ public class FiltrosController {
     public List<Producto> buscarPorCategoria(@PathVariable String categoria) {
         return filtroService.buscarPorCategoria(categoria);
     }
+
+    @GetMapping("/buscarPorCategoriaONombre/{Filtro}")
+    public List<Producto> buscarPorCategoriaYNombre(@PathVariable String filtro){
+        return filtroService.buscarPorNombreYCategoria(filtro);
+    }
 }
