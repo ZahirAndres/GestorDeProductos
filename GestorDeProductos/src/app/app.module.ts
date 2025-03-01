@@ -18,6 +18,7 @@ import { ProductosAlmacenComponent } from './components/administrador/productos-
 import { LotesAlmacenComponent } from './components/administrador/lotes-almacen/lotes-almacen.component';
 import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
 import { VerProductosComponent } from './components/almacenista/ver-productos/ver-productos.component';
+import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { VerProductosComponent } from './components/almacenista/ver-productos/ve
     ProductosAlmacenComponent,
     LotesAlmacenComponent,
     VerLotesComponent,
-    VerProductosComponent
+    VerProductosComponent,
+    VerProductosClienteComponent
 
   ],
   imports: [

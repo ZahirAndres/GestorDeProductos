@@ -1,0 +1,48 @@
+/* Contenedor principal centrado */
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+/* Establece un tamaño fijo para todas las tarjetas */
+.producto-card {
+    width: 100%;
+    max-width: 350px;
+    height: 420px; /* Altura fija para uniformidad */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra el contenido */
+    text-align: center;
+}
+
+/* Ajusta el tamaño de la imagen y la centra */
+.producto-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px; /* Altura fija */
+    width: 100%;
+    overflow: hidden; /* Evita desbordamiento */
+}
+
+.producto-img {
+    width: 60%;
+    height: 200px; /* Altura fija */
+    position: center;
+  }
+
+/* Trunca el texto con puntos suspensivos si es muy largo */
+.text-truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.text-orange {
+    color: orange;
+  }
+
+  .text-verde {
+    color: rgb(157, 255, 0);
+  }
+  

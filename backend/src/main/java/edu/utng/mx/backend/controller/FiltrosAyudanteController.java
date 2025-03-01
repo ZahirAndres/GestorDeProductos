@@ -8,11 +8,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/productos/filtroAyudante/")
-public class FiltrosController {
+public class FiltrosAyudanteController {
 
     private final FiltrosAyudanteServices filtroService;
 
-    public FiltrosController(FiltrosAyudanteServices filtroService) {
+    public FiltrosAyudanteController(FiltrosAyudanteServices filtroService) {
         this.filtroService = filtroService;
     }
 
@@ -35,4 +35,10 @@ public class FiltrosController {
     public List<Producto> buscarPorCategoriaYNombre(@PathVariable String filtro){
         return filtroService.buscarPorNombreYCategoria(filtro);
     }
+
+    @GetMapping("/ProductosDefectoPasillo")
+    public List<Producto> productosDefectoPasillo(){
+        return filtroService.productosDefectoPasillo();
+    }
+    
 }
