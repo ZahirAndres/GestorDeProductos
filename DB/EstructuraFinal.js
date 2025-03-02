@@ -88,6 +88,7 @@
 [
   {
     "_id": "",
+    "codigoBarras" : 0,
     "producto": "",
     "precioAnterior": 0,
     "precioNuevo": 0,

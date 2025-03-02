@@ -4,9 +4,7 @@
             <app-registrar-lote></app-registrar-lote>
         </div>
 
-        <!-- Sección de lotes (Vista Maestro-Detalle) -->
         <div class="col-md-8">
-            <!-- Si hay un lote seleccionado, mostrar detalle -->
             <div *ngIf="loteSeleccionado; else maestroView">
                 <h4>Detalles del Lote</h4>
                 <div class="card shadow-sm">
@@ -15,31 +13,36 @@
                         <p class="card-text">Cajas: {{ loteSeleccionado.cantidadComprada }}</p>
                         <p class="card-text"><small class="text-muted">Fecha de caducidad: {{ loteSeleccionado.fechaCaducidad | date:'yyyy-MM-dd' }}</small></p>
                         <p class="card-text"><small class="text-muted">Código: {{ loteSeleccionado.codigoLote }}</small></p>
+                        <p class="card-text"><small class="text-muted">Código de Barras: {{ loteSeleccionado.codigoBarras }}</small></p>
                         <p class="card-text"><small class="text-muted">Fecha de registro: {{ loteSeleccionado.fechaRegistro | date:'yyyy-MM-dd' }}</small></p>
                         
-                        <!-- Botón para eliminar el lote -->
                         <button class="btn btn-danger w-100 mt-2" (click)="eliminarLote()">Eliminar Lote</button>
                         <button class="btn btn-secondary w-100 mt-2" (click)="regresar()">Regresar</button>
                     </div>
                 </div>
             </div>
 
-            <!-- Vista Maestro (Lista de lotes) -->
             <ng-template #maestroView>
-                <!-- Filtros de búsqueda y ordenación -->
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h4>Lotes</h4>
+                
+                    <!-- ComboBox para elegir tipo de búsqueda -->
+                    <select class="form-select w-auto me-2" [(ngModel)]="tipoBusqueda" (change)="filtrarLotes()">
+                        <option value="todos" selected>Todos</option>
+                        <option value="codigo">Código de Lote</option>
+                        <option value="nombre">Nombre del Producto</option>
+                    </select>
+                
+                    <!-- Input de búsqueda habilitado solo si se selecciona un filtro específico -->
                     <div class="input-group w-50">
-                        <input type="text" class="form-control" [(ngModel)]="filtroCodigo" placeholder="Buscar por código">
-                        <button class="btn btn-outline-primary" type="button" (click)="filtrarPorCodigoLote()">🔍</button>
-                    </div>
-                    <div class="input-group w-50 ms-2">
-                        <input type="text" class="form-control" [(ngModel)]="filtroNombre" placeholder="Buscar por nombre">
-                        <button class="btn btn-outline-secondary" type="button" (click)="filtrarPorNombre()">🔍</button>
+                        <input type="text" class="form-control" [(ngModel)]="filtroTexto" 
+                               [disabled]="!tipoBusqueda || tipoBusqueda === 'todos'" placeholder="Ingrese valor">
+                        <button class="btn btn-outline-primary" type="button" (click)="filtrarLotes()" 
+                                [disabled]="!tipoBusqueda || tipoBusqueda === 'todos' || !filtroTexto.trim()">🔍</button>
                     </div>
                 </div>
+                
 
-                <!-- Selector de ordenación -->
                 <div class="d-flex justify-content-end mb-3">
                     <label class="me-2">Ordenar por:</label>
                     <select class="form-select w-auto" [(ngModel)]="ordenamiento" (change)="ordenarLotes()">
@@ -48,23 +51,22 @@
                     </select>
                 </div>
 
-                <!-- Contenedor de lotes con scroll -->
                 <div class="scrollable-container">
                     <div class="row">
                         <div class="col-md-4" *ngFor="let lote of lotes">
                             <div class="card shadow-sm" (click)="seleccionarLote(lote)" style="cursor: pointer;">
                                 <div class="card-body">
                                     <h5 class="card-title">Producto: {{ lote.producto }}</h5>
+                                    <p class="card-text"><small class="text-muted">Código de lote: {{ lote.codigoLote }}</small></p>
+                                    <h6 class="card-title">Código de Barras: {{ lote.codigoBarras }}</h6>
                                     <p class="card-text">Cajas: {{ lote.cantidadComprada }}</p>
                                     <p class="card-text"><small class="text-muted">Fecha de caducidad: {{ lote.fechaCaducidad | date:'yyyy-MM-dd' }}</small></p>
-                                    <p class="card-text"><small class="text-muted">Código: {{ lote.codigoLote }}</small></p>
-                                    <p class="card-text"><small class="text-muted">Fecha de registro: {{ lote.fechaRegistro | date:'yyyy-MM-dd' }}</small></p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </ng-template>
-        </div> 
-    </div> 
+        </div>
+    </div>
 </div>

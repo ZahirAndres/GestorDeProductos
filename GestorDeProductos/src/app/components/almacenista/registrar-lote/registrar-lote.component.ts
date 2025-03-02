@@ -10,6 +10,7 @@ import { VerLotesComponent } from '../ver-lotes/ver-lotes.component';
 export class RegistrarLoteComponent {
   lote = {
     codigoLote: '',
+    codigoBarras: '',
     producto: '',
     cantidadComprada: 0,
     fechaCaducidad: '',
@@ -22,7 +23,7 @@ export class RegistrarLoteComponent {
    * Envía el lote al backend para su registro
    */
   registrarLote(): void {
-    if (!this.lote.codigoLote || !this.lote.producto || this.lote.cantidadComprada <= 0 || !this.lote.fechaCaducidad) {
+    if (!this.lote.codigoLote || !this.lote.codigoBarras|| !this.lote.producto || this.lote.cantidadComprada <= 0 || !this.lote.fechaCaducidad) {
       alert('Por favor, complete todos los campos correctamente.');
       return;
     }
@@ -46,6 +47,7 @@ export class RegistrarLoteComponent {
   resetFormulario(): void {
     this.lote = {
       codigoLote: '',
+      codigoBarras: '',
       producto: '',
       cantidadComprada: 0,
       fechaCaducidad: '',

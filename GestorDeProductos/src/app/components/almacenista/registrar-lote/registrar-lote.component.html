@@ -2,7 +2,11 @@
 <form>
     <div class="mb-3">
         <label for="codigo" class="form-label">Código de lote</label>
-        <input type="text" class="form-control" id="codigo" [(ngModel)]="lote.codigoLote" name="codigoLote" placeholder="Ingrese código">
+        <input type="text" class="form-control" id="codigo" [(ngModel)]="lote.codigoLote" name="codigoLote" placeholder="Ingrese código de lote">
+    </div>
+    <div class="mb-3">
+        <label for="codigoBarras" class="form-label">Código de barras del prodcuto</label>
+        <input type="text" class="form-control" id="codigo" [(ngModel)]="lote.codigoBarras" name="codigoBarras" placeholder="Ingrese código de barras">
     </div>
     <div class="mb-3">
         <label for="nombreProducto" class="form-label">Nombre del producto</label>

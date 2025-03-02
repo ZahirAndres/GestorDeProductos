@@ -9,6 +9,7 @@ public class Lote {
     @Id
     private String _id; // MongoDB lo asignará automáticamente
     private String codigoLote;
+    private String codigoBarras;
     private String producto;
     private Date fechaCaducidad;
     private int cantidadComprada;
@@ -19,10 +20,10 @@ public class Lote {
     }
 
     // Constructor con todos los parámetros
-    public Lote(String _id, String codigoLote, String producto, Date fechaCaducidad, int cantidadComprada, Date fechaRegistro) {
+    public Lote(String _id, String codigoLote, String codigoBarras, String producto, Date fechaCaducidad, int cantidadComprada, Date fechaRegistro) {
         this._id = _id;
         this.codigoLote = codigoLote;
-        this.producto = producto;
+        this.codigoBarras = codigoBarras;
         this.fechaCaducidad = fechaCaducidad;
         this.cantidadComprada = cantidadComprada;
         this.fechaRegistro = fechaRegistro;
@@ -34,6 +35,9 @@ public class Lote {
 
     public String getCodigoLote() { return codigoLote; }
     public void setCodigoLote(String codigoLote) { this.codigoLote = codigoLote; }
+
+    public String getCodigoBarras() { return codigoBarras; }
+    public void setCodigoBarras(String codigoBarras) { this.codigoBarras = codigoBarras; }
 
     public String getProducto() { return producto; }
     public void setProducto(String producto) { this.producto = producto; }

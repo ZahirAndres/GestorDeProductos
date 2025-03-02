@@ -64,6 +64,12 @@ public class AlmacenistaServices {
             (codigoLote != null && !codigoLote.isEmpty()) ? codigoLote : ""
         );
     }
+
+/*     public List<Lote> filtrarLotesPorCodigoBarras(String codigoBarras) {
+        return lotesRepository.filtroLotesPorCodigoBarras(
+            (codigoBarras != null && !codigoBarras.isEmpty()) ? codigoBarras : ""
+        );
+    } */
     
 
 }
