@@ -8,10 +8,10 @@ import { AlmacenistasService } from '../../../services/almacenistas/almacenistas
 })
 export class VerLotesComponent implements OnInit {
   lotes: any[] = [];
-  filtroNombre: string = '';
-  filtroCodigo: string = '';
+  filtroTexto: string = ''; // Campo de entrada para la búsqueda
+  tipoBusqueda: string = ''; // Selección del tipo de búsqueda (código de lote o nombre)
   ordenamiento: string = 'asc';
-  loteSeleccionado: any = null; // Almacena el lote seleccionado para la vista detalle
+  loteSeleccionado: any = null; 
 
   constructor(private almacenistasService: AlmacenistasService) {}
 
@@ -23,35 +23,42 @@ export class VerLotesComponent implements OnInit {
     this.almacenistasService.getLotes().subscribe((data) => {
       this.lotes = data.map(lote => ({
         ...lote,
-        _id: lote._id || lote.id // Asegurar que haya un identificador
+        _id: lote._id || lote.id 
       }));
       this.ordenarLotes();
     });
   }
 
-  filtrarPorNombre(): void {
-    if (!this.filtroNombre.trim()) {
+  /**
+   * Filtrar lotes dependiendo de la selección del usuario
+   */
+  filtrarLotes(): void {
+    if (!this.tipoBusqueda || this.tipoBusqueda === 'todos') {
+      // Si no se selecciona filtro o se elige "Todos", se cargan todos los lotes
       this.obtenerLotes();
       return;
     }
-
-    this.almacenistasService.filtrarLotesPorNombre(this.filtroNombre).subscribe((data) => {
-      this.lotes = data;
-      this.ordenarLotes();
-    });
-  }
-
-  filtrarPorCodigoLote(): void {
-    if (!this.filtroCodigo.trim()) {
-      this.obtenerLotes();
+  
+    if (!this.filtroTexto.trim()) {
+      
       return;
     }
-
-    this.almacenistasService.filtrarLotesPorCodigoLote(this.filtroCodigo).subscribe((data) => {
-      this.lotes = data;
-      this.ordenarLotes();
-    });
+  
+    if (this.tipoBusqueda === 'codigo') {
+      this.almacenistasService.filtrarLotesPorCodigoLote(this.filtroTexto).subscribe((data) => {
+        this.lotes = data;
+        this.ordenarLotes();
+        this.filtroTexto = ''; // Resetear input después de la búsqueda
+      });
+    } else if (this.tipoBusqueda === 'nombre') {
+      this.almacenistasService.filtrarLotesPorNombre(this.filtroTexto).subscribe((data) => {
+        this.lotes = data;
+        this.ordenarLotes();
+        this.filtroTexto = ''; // Resetear input después de la búsqueda
+      });
+    }
   }
+  
 
   ordenarLotes(): void {
     if (this.ordenamiento === 'asc') {
@@ -61,20 +68,13 @@ export class VerLotesComponent implements OnInit {
     }
   }
 
-  /**
-   * Maneja la selección de un lote para la vista detalle
-   * @param lote Lote seleccionado
-   */
   seleccionarLote(lote: any): void {
     this.loteSeleccionado = {
       ...lote,
-      _id: lote._id || lote.id // Garantizar que haya un identificador válido
+      _id: lote._id || lote.id
     };
   }
 
-  /**
-   * Elimina un lote seleccionado
-   */
   eliminarLote(): void {
     if (!this.loteSeleccionado?._id) {
       alert('Error: El lote no tiene un identificador válido.');
@@ -97,9 +97,6 @@ export class VerLotesComponent implements OnInit {
     );
   }
 
-  /**
-   * Regresa a la vista maestro
-   */
   regresar(): void {
     this.loteSeleccionado = null;
   }

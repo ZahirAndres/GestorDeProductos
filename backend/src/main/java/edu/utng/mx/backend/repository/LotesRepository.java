@@ -51,4 +51,9 @@ public interface LotesRepository extends MongoRepository<Lote, String> {
     })
     List<Lote> filtroLotesPorCodigoLote(String codigoLote);
 
+    /* @Aggregation(pipeline = {
+        "{ $match: { 'codigoBarras': ?0 } }",
+        "{ $sort: { 'fechaCaducidad': -1 } }"
+})
+List<Lote> filtroLotesPorCodigoBarras(String codigoBarras); */
 }
