@@ -12,9 +12,12 @@ export class VerProductosComponent implements OnInit {
   categories: string[] = ['Categoría 1', 'Categoría 2', 'Categoría 3']; // Reemplaza con las categorías que desees
   selectedCategory: string = '';
   isEditDialogOpen: boolean = false;
-  currentProducto: any = {};
+  isExistenciasDialogOpen: boolean = false
+  currentProducto: Producto | any = {};
+  cantidadSeleccionada: number = 0;
+  productoExistencias: any = {};
 
-  constructor(private productoService: ProductoService) {}
+  constructor(private productoService: ProductoService) { }
 
   ngOnInit(): void {
     this.loadProductos();
@@ -34,7 +37,7 @@ export class VerProductosComponent implements OnInit {
 
   // Filtrar productos por categoría
   filterByCategory(): void {
-    this.productos = this.productos.filter(producto => 
+    this.productos = this.productos.filter(producto =>
       !this.selectedCategory || producto.categoria === this.selectedCategory
     );
   }
@@ -78,9 +81,43 @@ export class VerProductosComponent implements OnInit {
     );
   }
 
-  // Ver existencias (opcional, según la funcionalidad)
+  // Abrir diálogo de existencias
   viewExistencias(id: string): void {
-    // Puedes agregar aquí la lógica para mostrar existencias
-    console.log('Ver existencias del producto', id);
+    console.log('ID recibido:', id); // Verifica que el ID llega correctamente
+    const productoSeleccionado = this.productos.find(prod => prod._id === id);
+  
+    if (productoSeleccionado) {
+      console.log('Producto seleccionado:', productoSeleccionado); 
+      this.productoExistencias = { ...productoSeleccionado }; 
+      this.isExistenciasDialogOpen = true; 
+    } else {
+      console.error('No se encontró el producto con ID:', id);
+    }
+  }
+
+  // Cerrar diálogo de existencias
+  closeExistenciasDialog(): void {
+    this.isExistenciasDialogOpen = false;
+  }
+
+  actualizarStock(): void {
+    if (this.productoExistencias.cantidadSeleccionada > 0) {
+      this.productoExistencias.stockExhibe -= this.productoExistencias.cantidadSeleccionada;
+
+      this.productoService.updateProducto(this.productoExistencias).subscribe(
+        (updatedProduct) => {
+          const index = this.productos.findIndex(prod => prod._id === updatedProduct._id);
+          if (index !== -1) {
+            this.productos[index] = updatedProduct; // Actualizar la lista de productos
+          }
+          this.closeExistenciasDialog();
+        },
+        (error) => {
+          console.error('Error actualizando stock:', error);
+        }
+      );
+    } else {
+      alert('Ingresa una cantidad válida.');
+    }
   }
 }
