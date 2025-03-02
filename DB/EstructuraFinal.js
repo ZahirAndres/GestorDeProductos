@@ -72,6 +72,7 @@
 ]
 
 //Colección Lotes Por Compra
+//NombreColeccion : Lotes
 [
   {
     "_id": "",
