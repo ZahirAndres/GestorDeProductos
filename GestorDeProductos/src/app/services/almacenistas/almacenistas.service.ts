@@ -7,7 +7,7 @@ import { CONFIG } from '../../config/config';
   providedIn: 'root'
 })
 export class AlmacenistasService {
-  private apiUri = CONFIG.apiUrl + '/almacenista';
+  private apiUri = CONFIG.apiUrl + '/proveedores';
 
   constructor(private http: HttpClient) { }
 
@@ -41,12 +41,12 @@ export class AlmacenistasService {
    * @param filtros filtros para filtrar los lotes
    * @returns los lotes que cumplen con los filtros
    */
-  filtrarLotes(filtros : {codigoLote?: string; fechaCaducidad?: string; producto? :string}): Observable<any[]>{
+  filtrarLotes(filtros : {categoria?: string; fecha?: string; nombre? :string}): Observable<any[]>{
     let params =  new HttpParams();
 
-    if(filtros.codigoLote) params = params.set('codigoLote', filtros.codigoLote);
-    if(filtros.fechaCaducidad) params = params.set('fechaCaducidad', filtros.fechaCaducidad);
-    if(filtros.producto) params = params.set('producto', filtros.producto);
+    if(filtros.categoria) params = params.set('categoria', filtros.categoria);
+    if(filtros.fecha) params = params.set('fecha', filtros.fecha);
+    if(filtros.nombre) params = params.set('nombre', filtros.nombre);
 
     return this.http.get<any[]>(`${this.apiUri}/lotes/filtrar`, {params});
   }
