@@ -1,7 +1,3 @@
-/*========================
-    FILTRO DE BRANDON
-========================*/
-
 async function buscarPorCodigoBarrasAyudantePasillo(codigoDeBarras) {
     const resultado = await db.Productos.find(
         { codigoBarras: {$regex : new RegExp(codigoDeBarras, "i")} },
