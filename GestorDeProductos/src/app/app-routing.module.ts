@@ -5,14 +5,17 @@ import { CrearProductosComponent } from './components/crear-productos/crear-prod
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 import { CrearUsuariosComponent } from './components/crear-usuarios/crear-usuarios.component';
 import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecimiento/abastecimiento.component';
+import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
+import { VerProductosComponent } from './components/almacenista/ver-productos/ver-productos.component';
+import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/abastecimiento-estantes',
+    redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', 
     pathMatch: 'full'
   },
-
+  //Organizar las rutas de los productos
   // Rutas para Productos
   {
     path: 'productos',
@@ -22,7 +25,7 @@ const routes: Routes = [
     ]
   },
 
-  // Rutas para Usuarios
+  // Rutas para Clientes
   {
     path: 'usuarios',
     children: [
@@ -32,7 +35,47 @@ const routes: Routes = [
   },
 
   //Rutas del ayudante de pasillo
-  {path:'abastecimiento-estantes', component: AbastecimientoComponent } 
+  {
+    path: 'ayudante-pasillo',
+    children: [
+      {
+        path: 'abastecimiento-estantes',
+        children: [
+          { path: 'ver', component: AbastecimientoComponent }]
+      },
+    ]
+  },
+
+
+  //rutas del alamcenista
+
+  {
+    path: 'almacenista',
+    children: [
+      {
+        path: 'lotes',
+        children: [
+          { path: 'ver', component: VerLotesComponent }] // Ruta para ver proveedores
+      },
+      {
+        path: 'productos',
+        children: [ 
+          { path: 'ver', component: VerProductosComponent}
+        ]
+      }
+    
+    ]
+      
+  },
+
+  //rutas cliente
+{
+  path: 'cliente',
+  children: [
+    { path: 'ver-productos', component: VerProductosClienteComponent },           // Ruta para ver productos
+  ]
+}
+
 ];
 
 @NgModule({

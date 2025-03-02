@@ -18,4 +18,7 @@ export interface Producto {
   // 🔹 Nueva propiedad opcional para el formulario
   cantidadAgregada?: number;
   mostrarFormulario?: boolean;
+  faltanteEnEstante?: number;
+  mensajeExistencia?: string;
+  colorMensaje?: string;
 }
