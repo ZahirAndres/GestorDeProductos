@@ -29,4 +29,9 @@ public class ClienteController {
     public List<Producto> findByCategoriaYNombreProducto(@PathVariable String categoria, @PathVariable String nombre) {
         return filtrosCliente.findByCategoriaYNombre(categoria, nombre);
     }
+
+    @GetMapping("filtrosCliente/defecto/")
+    public List<Producto> productosClienteDefecto() {
+        return filtrosCliente.productosClienteDefecto();
+    }
 }

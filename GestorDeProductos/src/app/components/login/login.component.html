@@ -1,0 +1,19 @@
+<div class="container-fluid  d-flex justify-content-center align-items-center" style="background-image: url('https://via.placeholder.com/1200x800'); background-size: cover;">
+    <div class="card shadow-lg p-4 rounded" style="max-width: 400px; width: 100%; opacity: 0.9;">
+      <div class="card-body">
+        <h3 class="text-center mb-4">Login</h3>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+          <div class="form-group mb-3">
+            <label for="staticEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="staticEmail" [(ngModel)]="usuario.correo" name="correo" placeholder="Email" required>
+          </div>
+          <div class="form-group mb-3">
+            <label for="inputPassword" class="form-label">Password</label>
+            <input type="password" class="form-control" id="inputPassword" placeholder="Password" [(ngModel)]="usuario.contrasena" name="contrasena" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

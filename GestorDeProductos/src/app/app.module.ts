@@ -19,7 +19,9 @@ import { LotesAlmacenComponent } from './components/administrador/lotes-almacen/
 import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
 import { VerProductosComponent } from './components/almacenista/ver-productos/ver-productos.component';
 import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
+import { LoginComponent } from './components/login/login.component';
 import { RegistrarLoteComponent } from './components/almacenista/registrar-lote/registrar-lote.component';
+
 
 
 @NgModule({
@@ -36,8 +38,8 @@ import { RegistrarLoteComponent } from './components/almacenista/registrar-lote/
     VerLotesComponent,
     VerProductosComponent,
     VerProductosClienteComponent,
+    LoginComponent,
     RegistrarLoteComponent
-
   ],
   imports: [
     BrowserModule,

@@ -24,3 +24,26 @@ const resultado = await db.Productos.find(
 
 return resultado; 
 }
+
+
+db.Usuarios.insertMany([
+    {
+      "nombreUsuario": "Carlos",
+      "apellidoPaterno": "Gonzalez",
+      "apellidoMaterno": "Martínez",
+      "correo": "carlos.gonzalez@example.com",
+      "contrasena": "1234",  // Recuerda que en la práctica, esto debería estar hasheado
+      "rol": "Almacenista",
+      "direccion": "Avenida Central 123, Ciudad de México"
+    },
+    {
+      "nombreUsuario": "María",
+      "apellidoPaterno": "Lopez",
+      "apellidoMaterno": "Fernández",
+      "correo": "maria.lopez@example.com",
+      "contrasena": "1234",  // Recuerda que en la práctica, esto debería estar hasheado
+      "rol": "Ayudante-Pasillo",
+      "direccion": "Calle de la Paz 45, Guadalajara"
+    }
+  ]);
+  
