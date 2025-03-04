@@ -23,6 +23,7 @@ export class LoginComponent {
           console.log(res.message);
           if(res.message == 'Almacenista'){
             this.router.navigate(['/almacenista/productos/ver']);
+            console.log(res.message);
           }else{
             this.router.navigate(['/ayudante-pasillo/abastecimiento-estantes/ver']);
           }
