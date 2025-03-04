@@ -23,6 +23,7 @@ export class VerProductosComponent implements OnInit {
     nombreProducto: '',
     stockNuevo: 0
   };
+  proveedorInput: string = '';
   
   mensaje: string = '';
 
@@ -98,20 +99,24 @@ export class VerProductosComponent implements OnInit {
   }
 
   deleteProducto(id: string): void {
+    console.log("ID recibido para borrar:", id);
     if (!id) {
       console.error('ID del producto no válido');
       return;
     }
+  
     this.productoService.deleteProducto(id).subscribe(
-      () => {
-        this.loadProductos();
+      (response) => {
+        console.log('Respuesta del servidor:', response);
+        alert('Producto borrado con éxito'); 
+        window.location.reload(); 
       },
       (error) => {
         console.error('Error al borrar producto:', error);
       }
     );
-  }   
-
+  }
+  
   openExistenciasDialog(producto: any) {
     console.log('Producto seleccionado para actualizar existencias:', producto);
     this.productoExistencias = { ...producto, stockNuevo: producto.stockTotal };
@@ -161,6 +166,7 @@ export class VerProductosComponent implements OnInit {
   }
 
   addProducto(): void {
+    console.log(this.newProducto);
     if (!this.newProducto.nombreProducto || !this.newProducto.categoria || this.newProducto.precioPieza <= 0) {
       this.mensaje = 'Por favor, llena los campos obligatorios correctamente.';
       return;
@@ -179,4 +185,17 @@ export class VerProductosComponent implements OnInit {
       }
     );
   }
+
+    // Agregar un proveedor al nuevo producto
+    agregarProveedor(): void {
+      if (this.proveedorInput.trim()) {
+        this.newProducto.proveedor.push(this.proveedorInput.trim());
+        this.proveedorInput = '';  // Limpiar el campo de proveedor
+      }
+    }
+  
+    // Eliminar un proveedor del nuevo producto
+    eliminarProveedor(index: number): void {
+      this.newProducto.proveedor.splice(index, 1);
+    }
 }

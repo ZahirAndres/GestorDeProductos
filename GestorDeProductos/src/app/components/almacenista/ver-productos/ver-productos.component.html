@@ -6,13 +6,13 @@
         <img [src]="producto.imagenUrl" alt="{{ producto.nombreProducto }}">
         <h3>{{ producto.nombreProducto }}</h3>
         <p>Categoría: {{ producto.categoria }}</p>
-        <p>Stock: {{ producto.stockAlamcen }}</p>
+        <p>Stock: {{ producto.stockAlmacen }}</p>
 
         <!-- Contenedor de botones -->
         <div class="button-container">
             <button (click)="openEditDialog(producto)">Editar</button>
-            <button (click)="deleteProducto(producto._id)">Eliminar</button>
-            <button (click)="openExistenciasDialog(producto)">Actualizar existencias</button>
+            <button (click)="deleteProducto(producto.id)">Eliminar</button>
+            <button (click)="openExistenciasDialog(producto)">Existencias</button>
         </div>
     </div>
 </div>
@@ -102,8 +102,15 @@
             <label for="categoria">Categoría</label>
             <input type="text" id="categoria" [(ngModel)]="newProducto.categoria" name="categoria">
 
-            <label for="proveedor">Proveedor</label>
-            <input type="text" id="proveedor" [(ngModel)]="newProducto.proveedor" name="proveedor">
+            <label for="proveedorInput">Proveedor</label>
+            <input type="text" id="proveedorInput" [(ngModel)]="proveedorInput" name="proveedorInput" />
+            <button type="button" (click)="agregarProveedor()">Agregar Proveedor</button>
+
+            <ul>
+                <li *ngFor="let proveedor of newProducto.proveedor; let i = index">
+                    {{ proveedor }} <button type="button" (click)="eliminarProveedor(i)">Eliminar</button>
+                </li>
+            </ul>
 
             <label for="precioPieza">Precio por pieza</label>
             <input type="number" id="precioPieza" [(ngModel)]="newProducto.precioPieza" name="precioPieza" required>

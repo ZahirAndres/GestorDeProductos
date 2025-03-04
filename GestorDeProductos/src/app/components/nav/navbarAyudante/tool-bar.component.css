@@ -1,3 +1,29 @@
-body {
-    padding-top: 70px; 
+/* Cambiar el color de fondo de la navbar */
+.navbar {
+    background-color: #6C48C5 !important; 
 }
+
+/* Cambiar el color de los textos dentro de la navbar a blanco */
+.navbar-light .navbar-nav .nav-link {
+    color: white !important; /* Cambia el color de los enlaces a blanco */
+}
+
+/* Si quieres cambiar el color de los elementos de la navbar (como el título) */
+.navbar-brand {
+    color: white !important;  /* Cambia el color del título a blanco */
+}
+
+/* Cambiar el fondo del botón a #FFF7F7 */
+.btn-custom {
+    background-color: #FFF7F7 !important;  /* Cambia el color de fondo */
+    color: #6C48C5 !important;  /* Cambia el color del texto (opcional, puedes cambiarlo al color que desees) */
+    border: none !important;  /* Elimina el borde si lo deseas */
+}
+
+/* Puedes cambiar también el color al pasar el cursor por encima */
+.btn-custom:hover {
+    background-color: #D9C1D9 !important;  /* Color de fondo cuando el cursor pasa sobre el botón */
+    color: #6C48C5 !important;  /* Cambiar el color del texto al pasar el cursor */
+}
+
+
