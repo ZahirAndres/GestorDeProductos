@@ -1,3 +1,4 @@
+<button class="add-product-button" (click)="openAddDialog()">Agregar Producto</button>
 
 <!-- Cards de productos -->
 <div class="product-cards">
@@ -5,24 +6,22 @@
         <img [src]="producto.imagenUrl" alt="{{ producto.nombreProducto }}">
         <h3>{{ producto.nombreProducto }}</h3>
         <p>Categoría: {{ producto.categoria }}</p>
-        <p>Stock: {{ producto.stockExhibe }}</p>
+        <p>Stock: {{ producto.stockAlamcen }}</p>
 
         <!-- Contenedor de botones -->
         <div class="button-container">
             <button (click)="openEditDialog(producto)">Editar</button>
             <button (click)="deleteProducto(producto._id)">Eliminar</button>
-            <button (click)="viewExistencias(producto._id)">Ver existencias</button>
+            <button (click)="openExistenciasDialog(producto)">Actualizar existencias</button>
         </div>
     </div>
 </div>
 
-
-
+<!-- Cuadro de diálogo para Editar Producto -->
 <div *ngIf="isEditDialogOpen" class="edit-dialog">
     <div class="dialog-content">
         <h2>Editar Producto</h2>
         <form (ngSubmit)="updateProducto()">
-            <!-- Primera columna -->
             <label for="nombreProducto">Nombre</label>
             <input type="text" id="nombreProducto" [(ngModel)]="currentProducto.nombreProducto" name="nombreProducto">
 
@@ -35,7 +34,6 @@
             <label for="marca">Marca</label>
             <input type="text" id="marca" [(ngModel)]="currentProducto.marca" name="marca">
 
-            <!-- Segunda columna -->
             <label for="imagenUrl">Imagen URL</label>
             <input type="text" id="imagenUrl" [(ngModel)]="currentProducto.imagenUrl" name="imagenUrl">
 
@@ -48,11 +46,9 @@
             <label for="precioCaja">Precio por caja</label>
             <input type="number" id="precioCaja" [(ngModel)]="currentProducto.precioCaja" name="precioCaja">
 
-            <!-- Tercera columna (Cantidad por caja ocupa una fila completa) -->
             <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
             <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="currentProducto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja">
 
-            <!-- Botones alineados al centro -->
             <div class="dialog-buttons">
                 <button type="submit" class="save-button">Guardar cambios</button>
                 <button type="button" class="cancel-button" (click)="closeEditDialog()">Cancelar</button>
@@ -61,33 +57,67 @@
     </div>
 </div>
 
-<!-- Cuadro de diálogo para Ver Existencias -->
-<!-- Cuadro de diálogo de existencias -->
+<!-- Cuadro de diálogo para Actualizar Existencias -->
 <div *ngIf="isExistenciasDialogOpen" class="existencias-dialog">
     <div class="dialog-content">
-      <h2>Actualizar Existencias</h2>
-      <form (ngSubmit)="actualizarStock()">
-        
-        <label for="codigoBarras">Código de Barras</label>
-        <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras" readonly>
-  
-        <label for="nombreProducto">Nombre del Producto</label>
-        <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto" name="nombreProducto" readonly>
-  
-        <label for="cantidadSeleccionada">Cantidad a Restar</label>
-        <input type="number" id="cantidadSeleccionada" [(ngModel)]="productoExistencias.cantidadSeleccionada" name="cantidadSeleccionada">
-  
-        <div class="dialog-buttons">
-          <button type="submit" class="save-button">Actualizar Stock</button>
-          <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
-        </div>
-      </form>
+        <h2>Actualizar Existencias</h2>
+        <form (ngSubmit)="actualizarStock()">
+            <label for="codigoBarras">Código de Barras</label>
+            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras" readonly>
+
+            <label for="nombreProducto">Nombre del Producto</label>
+            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto" name="nombreProducto" readonly>
+
+            <label for="stockNuevo">Nuevo Stock</label>
+            <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
+
+            <div class="dialog-buttons">
+                <button type="submit" class="save-button">Actualizar Stock</button>
+                <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
+            </div>
+        </form>
     </div>
-  </div>
-  
+</div>
 
+<!-- Formulario para agregar producto -->
+<div *ngIf="isAddDialogOpen" class="add-dialog">
+    <div class="dialog-content">
+        <h2>Agregar Nuevo Producto</h2>
+        <form (ngSubmit)="addProducto()">
+            <label for="nombreProducto">Nombre</label>
+            <input type="text" id="nombreProducto" [(ngModel)]="newProducto.nombreProducto" name="nombreProducto" required>
 
+            <label for="codigoBarras">Código de barras</label>
+            <input type="text" id="codigoBarras" [(ngModel)]="newProducto.codigoBarras" name="codigoBarras" required>
 
+            <label for="tamano">Tamaño</label>
+            <input type="text" id="tamano" [(ngModel)]="newProducto.tamano" name="tamano">
 
+            <label for="marca">Marca</label>
+            <input type="text" id="marca" [(ngModel)]="newProducto.marca" name="marca">
 
+            <label for="imagenUrl">Imagen URL</label>
+            <input type="text" id="imagenUrl" [(ngModel)]="newProducto.imagenUrl" name="imagenUrl">
 
+            <label for="categoria">Categoría</label>
+            <input type="text" id="categoria" [(ngModel)]="newProducto.categoria" name="categoria">
+
+            <label for="proveedor">Proveedor</label>
+            <input type="text" id="proveedor" [(ngModel)]="newProducto.proveedor" name="proveedor">
+
+            <label for="precioPieza">Precio por pieza</label>
+            <input type="number" id="precioPieza" [(ngModel)]="newProducto.precioPieza" name="precioPieza" required>
+
+            <label for="precioCaja">Precio por caja</label>
+            <input type="number" id="precioCaja" [(ngModel)]="newProducto.precioCaja" name="precioCaja">
+
+            <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
+            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="newProducto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja">
+
+            <div class="dialog-buttons">
+                <button type="submit" class="save-button">Agregar Producto</button>
+                <button type="button" class="cancel-button" (click)="closeAddDialog()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>

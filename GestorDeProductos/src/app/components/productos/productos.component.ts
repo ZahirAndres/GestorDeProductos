@@ -32,7 +32,7 @@ export class ProductosComponent implements OnInit {
   }
 
   borrarProducto(id: string): void {
-    this.productoServices.deteleteProducto(id).subscribe(
+    this.productoServices.deleteProducto(id).subscribe(
       () => {
         this.cargarProductos();
       },
