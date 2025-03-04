@@ -1,115 +1,72 @@
 <div class="container mt-4">
     <div class="row">
-        <!-- Formulario a la izquierda con espacio extra y línea divisoria -->
         <div class="col-md-4 pe-4 border-end">
-            <h4 class="mb-3">Registro de Lotes</h4>
-            <form>
-                <div class="mb-3">
-                    <label for="codigo" class="form-label">Código de lote</label>
-                    <input type="text" class="form-control" id="codigo" placeholder="Ingrese código">
-                </div>
-                <div class="mb-3">
-                    <label for="nombreProducto" class="form-label">Nombre del producto</label>
-                    <input type="text" class="form-control" id="nombreProducto" placeholder="Ingrese nombre">
-                </div>
-                <div class="mb-3">
-                    <label for="cantidadCajas" class="form-label">Cantidad de cajas</label>
-                    <input type="number" class="form-control" id="cantidadCajas" min="0" placeholder="Ingrese cantidad">
-                </div>
-                <div class="mb-3">
-                    <label for="fecha" class="form-label">Fecha de caducidad</label>
-                    <input type="date" class="form-control" id="fecha">
-                </div>
-                <button type="submit" class="btn btn-primary w-100">Actualizar</button>
-            </form>
+            <app-registrar-lote></app-registrar-lote>
         </div>
 
-        <!-- Lotes a la derecha con scroll -->
         <div class="col-md-8">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <h4>Lotes</h4>
-                <div>
-                    <select class="form-select d-inline w-auto me-2">
-                        <option selected>Ordenar por Fecha</option>
-                        <option>Más reciente</option>
-                        <option>Más antiguo</option>
-                    </select>
-                    <select class="form-select d-inline w-auto">
-                        <option selected>Filtrar por Categoría</option>
-                        <option>Alimentos</option>
-                        <option>Bebidas</option>
-                        <option>Higiene</option>
-                    </select>
+            <div *ngIf="loteSeleccionado; else maestroView">
+                <h4>Detalles del Lote</h4>
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">Producto: {{ loteSeleccionado.producto }}</h5>
+                        <p class="card-text">Cajas: {{ loteSeleccionado.cantidadComprada }}</p>
+                        <p class="card-text"><small class="text-muted">Fecha de caducidad: {{ loteSeleccionado.fechaCaducidad | date:'yyyy-MM-dd' }}</small></p>
+                        <p class="card-text"><small class="text-muted">Código: {{ loteSeleccionado.codigoLote }}</small></p>
+                        <p class="card-text"><small class="text-muted">Código de Barras: {{ loteSeleccionado.codigoBarras }}</small></p>
+                        <p class="card-text"><small class="text-muted">Fecha de registro: {{ loteSeleccionado.fechaRegistro | date:'yyyy-MM-dd' }}</small></p>
+                        
+                        <button class="btn btn-danger w-100 mt-2" (click)="eliminarLote()">Eliminar Lote</button>
+                        <button class="btn btn-secondary w-100 mt-2" (click)="regresar()">Regresar</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- Contenedor con Scroll -->
-            <div class="scrollable-container">
-                <div class="row">
-                    <!-- Card de Lotes -->
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto: XYZ</h5>
-                                <p class="card-text">Cajas: 10</p>
-                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-25</small></p>
-                            </div>
-                        </div>
+            <ng-template #maestroView>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h4>Lotes</h4>
+                
+                    <!-- ComboBox para elegir tipo de búsqueda -->
+                    <select class="form-select w-auto me-2" [(ngModel)]="tipoBusqueda" (change)="filtrarLotes()">
+                        <option value="todos" selected>Todos</option>
+                        <option value="codigo">Código de Lote</option>
+                        <option value="nombre">Nombre del Producto</option>
+                    </select>
+                
+                    <!-- Input de búsqueda habilitado solo si se selecciona un filtro específico -->
+                    <div class="input-group w-50">
+                        <input type="text" class="form-control" [(ngModel)]="filtroTexto" 
+                               [disabled]="!tipoBusqueda || tipoBusqueda === 'todos'" placeholder="Ingrese valor">
+                        <button class="btn btn-outline-primary" type="button" (click)="filtrarLotes()" 
+                                [disabled]="!tipoBusqueda || tipoBusqueda === 'todos' || !filtroTexto.trim()">🔍</button>
                     </div>
-
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto: ABC</h5>
-                                <p class="card-text">Cajas: 5</p>
-                                <p class="card-text"><small class="text-muted">Fecha: 2024-03-01</small></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto: DEF</h5>
-                                <p class="card-text">Cajas: 7</p>
-                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-20</small></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Agregar más lotes de prueba para visualizar el scroll -->
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto: GHI</h5>
-                                <p class="card-text">Cajas: 15</p>
-                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-10</small></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto: JKL</h5>
-                                <p class="card-text">Cajas: 12</p>
-                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-18</small></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="card shadow-sm">
-                            <div class="card-body">
-                                <h5 class="card-title">Producto: MNO</h5>
-                                <p class="card-text">Cajas: 8</p>
-                                <p class="card-text"><small class="text-muted">Fecha: 2024-02-22</small></p>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
-            </div> 
-        </div> 
-    </div> 
-</div> 
+                
+
+                <div class="d-flex justify-content-end mb-3">
+                    <label class="me-2">Ordenar por:</label>
+                    <select class="form-select w-auto" [(ngModel)]="ordenamiento" (change)="ordenarLotes()">
+                        <option value="asc">Fecha de caducidad (Ascendente)</option>
+                        <option value="desc">Fecha de caducidad (Descendente)</option>
+                    </select>
+                </div>
+
+                <div class="scrollable-container">
+                    <div class="row">
+                        <div class="col-md-4" *ngFor="let lote of lotes">
+                            <div class="card shadow-sm" (click)="seleccionarLote(lote)" style="cursor: pointer;">
+                                <div class="card-body">
+                                    <h5 class="card-title">Producto: {{ lote.producto }}</h5>
+                                    <p class="card-text"><small class="text-muted">Código de lote: {{ lote.codigoLote }}</small></p>
+                                    <h6 class="card-title">Código de Barras: {{ lote.codigoBarras }}</h6>
+                                    <p class="card-text">Cajas: {{ lote.cantidadComprada }}</p>
+                                    <p class="card-text"><small class="text-muted">Fecha de caducidad: {{ lote.fechaCaducidad | date:'yyyy-MM-dd' }}</small></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>

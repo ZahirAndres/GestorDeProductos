@@ -1,0 +1,24 @@
+<h4 class="mb-3">Registro de Lotes</h4>
+<form>
+    <div class="mb-3">
+        <label for="codigo" class="form-label">Código de lote</label>
+        <input type="text" class="form-control" id="codigo" [(ngModel)]="lote.codigoLote" name="codigoLote" placeholder="Ingrese código de lote">
+    </div>
+    <div class="mb-3">
+        <label for="codigoBarras" class="form-label">Código de barras del prodcuto</label>
+        <input type="text" class="form-control" id="codigo" [(ngModel)]="lote.codigoBarras" name="codigoBarras" placeholder="Ingrese código de barras">
+    </div>
+    <div class="mb-3">
+        <label for="nombreProducto" class="form-label">Nombre del producto</label>
+        <input type="text" class="form-control" id="nombreProducto" [(ngModel)]="lote.producto" name="producto" placeholder="Ingrese nombre">
+    </div>
+    <div class="mb-3">
+        <label for="cantidadCajas" class="form-label">Cantidad de cajas</label>
+        <input type="number" class="form-control" id="cantidadCajas" [(ngModel)]="lote.cantidadComprada" name="cantidadComprada" min="1" placeholder="Ingrese cantidad">
+    </div>
+    <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha de caducidad</label>
+        <input type="date" class="form-control" id="fecha" [(ngModel)]="lote.fechaCaducidad" name="fechaCaducidad">
+    </div>
+    <button type="button" class="btn btn-primary w-100" (click)="registrarLote()">Registrar Lote</button>
+</form>

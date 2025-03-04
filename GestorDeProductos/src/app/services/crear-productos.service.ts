@@ -29,4 +29,9 @@ export class ProductoService {
     return this.http.delete(`${this.apiUri}/borrar/${id}`, { responseType: 'text' });
   }
 
+  updateStock(id: string, nuevoStock: number): Observable<any> {
+    return this.http.put(`${this.apiUri}/actualizar-stock/${id}`, { stockExhibe: nuevoStock });
+  }
+  
+
 }

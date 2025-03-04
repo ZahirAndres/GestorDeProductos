@@ -13,6 +13,7 @@ import { LoginComponent } from './components/login/login.component';
 const routes: Routes = [
   {
     path: '',
+
     redirectTo: 'cliente/verProductos',
       // redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', 
     // redirectTo: '/almacenista/proveedores/ver',
@@ -63,7 +64,7 @@ const routes: Routes = [
     path: 'almacenista',
     children: [
       {
-        path: 'proveedores',
+        path: 'lotes',
         children: [
           { path: 'ver', component: VerLotesComponent }] // Ruta para ver proveedores
       },
@@ -82,7 +83,7 @@ const routes: Routes = [
 {
   path: 'cliente',
   children: [
-    { path: 'verProductos', component: VerProductosClienteComponent },           // Ruta para ver productos
+    { path: 'ver-productos', component: VerProductosClienteComponent },           // Ruta para ver productos
   ]
 }
 
