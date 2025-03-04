@@ -8,14 +8,23 @@ import { AbastecimientoComponent } from './components/ayudante-pasillo/abastecim
 import { VerLotesComponent } from './components/almacenista/ver-lotes/ver-lotes.component';
 import { VerProductosComponent } from './components/almacenista/ver-productos/ver-productos.component';
 import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
+import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
   {
     path: '',
-      redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', 
+    redirectTo: 'cliente/verProductos',
+      // redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', 
     // redirectTo: '/almacenista/proveedores/ver',
     pathMatch: 'full'
   },
+//Rutas para el login.
+  {
+    path: 'login', component: LoginComponent
+  },
+
+
+
   //Organizar las rutas de los productos
   // Rutas para Productos
   {

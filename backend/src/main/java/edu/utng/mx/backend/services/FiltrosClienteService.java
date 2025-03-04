@@ -26,5 +26,8 @@ public class FiltrosClienteService {
     public List<Producto> findByCategoriaYNombre(String categoria, String nombre) {
         return filtrosCliente.findByCategoriaYNombre(categoria, nombre);
     }
+    public List<Producto> productosClienteDefecto() {
+        return filtrosCliente.productosClienteDefecto();
+    }
 
 }
