@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: '',
 
-    redirectTo: 'cliente/verProductos',
+    redirectTo: 'cliente/ver-productos',
       // redirectTo: '/ayudante-pasillo/abastecimiento-estantes/ver', 
     // redirectTo: '/almacenista/proveedores/ver',
     pathMatch: 'full'
