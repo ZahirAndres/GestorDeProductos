@@ -20,18 +20,15 @@ export class ProductoService {
     return this.http.post<any[]>(`${this.apiUri}/crear`, producto);
   }
 
-
   updateProducto(producto: any): Observable<any> {
     return this.http.put<any[]>(`${this.apiUri}/actualizar`, producto);
   }
 
-  deteleteProducto(id: string): Observable<any> {
+  deleteProducto(id: string): Observable<any> {
     return this.http.delete(`${this.apiUri}/borrar/${id}`, { responseType: 'text' });
   }
 
   updateStock(id: string, nuevoStock: number): Observable<any> {
     return this.http.put(`${this.apiUri}/actualizar-stock/${id}`, { stockExhibe: nuevoStock });
   }
-  
-
 }

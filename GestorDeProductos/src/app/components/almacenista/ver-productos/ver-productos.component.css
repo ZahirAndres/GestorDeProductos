@@ -1,9 +1,33 @@
+.add-product-button {
+    position: absolute;
+    top: 80px; /* Ajusta el valor de top según la altura de la navbar */
+    right: 20px;
+    background-color: #6C48C5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 3000; /* Asegura que el botón esté sobre otros elementos */
+}
+
+
+.add-product-button:hover {
+    background-color: #C68FE6;
+}
+
+.container {
+    position: relative;
+}
+
 /* Contenedor de las cards de productos */
 .product-cards {
     width: 100%;
     max-width: 900px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Hacer las cards más pequeñas */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
     padding: 20px;
     margin-top: 20px;
@@ -20,8 +44,8 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px; /* Reducido el padding */
-    height: 350px; /* Ajustado para mantener la consistencia en el tamaño de las cards */
+    padding: 10px;
+    height: 350px;
 }
 
 /* Efecto hover para las cards */
@@ -32,7 +56,7 @@
 /* Imagen dentro de la card */
 .product-card img {
     max-width: 100%;
-    height: 150px; /* Reducir la altura de la imagen */
+    height: 150px;
     object-fit: cover;
     border-radius: 8px;
     margin-bottom: 10px;
@@ -40,14 +64,14 @@
 
 /* Título y detalles de la card */
 .product-card h3 {
-    font-size: 1rem; /* Reducir el tamaño de la fuente */
+    font-size: 1rem;
     font-weight: bold;
     margin: 10px 0;
     color: #333;
 }
 
 .product-card p {
-    font-size: 0.9rem; /* Reducir el tamaño de la fuente */
+    font-size: 0.9rem;
     color: #555;
 }
 
@@ -56,19 +80,19 @@
     background-color: #C68FE6;
     color: #fff;
     border: none;
-    padding: 6px 12px; /* Reducido el padding vertical para hacer los botones más cortos */
+    padding: 6px 12px;
     margin-top: 1px;
-    border-radius: 20px; /* Redondeado de los botones */
+    border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 0.8rem; /* Tamaño de fuente reducido */
+    font-size: 0.8rem;
 }
 
 /* Contenedor de los botones */
 .product-card .button-container {
-    display: flex; /* Alinea los botones horizontalmente */
-    justify-content: space-between; /* Espaciado entre los botones */
-    gap: 5px; /* Espacio entre los botones */
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
     margin-top: 5px;
 }
 
@@ -82,9 +106,8 @@
     width: 100%;
 }
 
-
-/* Estilo del cuadro de diálogo de edición */
-.edit-dialog {
+/* Estilo para todos los cuadros de diálogo */
+.edit-dialog, .existencias-dialog, .add-dialog {
     position: fixed;
     top: 0;
     left: 0;
@@ -94,9 +117,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 2000;
     animation: fadeIn 0.3s ease;
-    z-index: 2000; /* Asegurar que está sobre el navbar */
 }
 
 /* Contenedor del formulario */
@@ -104,7 +126,7 @@
     background-color: #fff;
     padding: 25px;
     border-radius: 10px;
-    max-width: 600px; /* Ajuste de ancho para mejor distribución */
+    max-width: 600px;
     width: 90%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
@@ -171,6 +193,12 @@
 
 /* Animación */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }

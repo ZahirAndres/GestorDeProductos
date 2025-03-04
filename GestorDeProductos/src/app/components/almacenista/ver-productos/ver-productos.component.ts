@@ -5,17 +5,26 @@ import { Producto } from '../../../models/producto.model';
 @Component({
   selector: 'app-ver-productos',
   templateUrl: './ver-productos.component.html',
-  styleUrl: './ver-productos.component.css'
+  styleUrls: ['./ver-productos.component.css']
 })
 export class VerProductosComponent implements OnInit {
   productos: any[] = [];
-  categories: string[] = ['Categoría 1', 'Categoría 2', 'Categoría 3']; // Reemplaza con las categorías que desees
+  productosFiltrados: Producto[] = [];
+  categories: string[] = ['Categoría 1', 'Categoría 2', 'Categoría 3']; 
   selectedCategory: string = '';
   isEditDialogOpen: boolean = false;
-  isExistenciasDialogOpen: boolean = false
-  currentProducto: Producto | any = {};
+  isExistenciasDialogOpen: boolean = false;
+  isAddDialogOpen: boolean = false;
+  currentProducto: Producto = this.initProducto();
+  newProducto: Producto = this.initProducto();
   cantidadSeleccionada: number = 0;
-  productoExistencias: any = {};
+  productoExistencias: any = {
+    codigoBarras: '',
+    nombreProducto: '',
+    stockNuevo: 0
+  };
+  
+  mensaje: string = '';
 
   constructor(private productoService: ProductoService) { }
 
@@ -23,43 +32,62 @@ export class VerProductosComponent implements OnInit {
     this.loadProductos();
   }
 
-  // Cargar los productos desde el backend
+  private initProducto(): Producto {
+    return {
+      _id: '',
+      codigoBarras: '',
+      nombreProducto: '',
+      tamano: '',
+      marca: '',
+      imagenUrl: '',
+      categoria: '',
+      precioPieza: 0,
+      precioCaja: 0,
+      cantidadPiezasPorCaja: 0,
+      proveedor: [],
+      stockExhibe: 0,
+      existenciaExhibida: 0,
+      stockAlamcen: 0,
+      cantidadAlamcen: 0
+    };
+  }
+
   loadProductos(): void {
     this.productoService.getProductos().subscribe(
       (data) => {
         this.productos = data;
+        this.productosFiltrados = [...this.productos];
+        console.log("Productos cargados:", this.productos); // <-- Agregar este log
       },
       (error) => {
-        console.error('Error cargando productos:', error);
+        console.error("Error cargando productos:", error);
       }
     );
   }
+  
 
-  // Filtrar productos por categoría
   filterByCategory(): void {
-    this.productos = this.productos.filter(producto =>
-      !this.selectedCategory || producto.categoria === this.selectedCategory
-    );
+    this.productosFiltrados = this.selectedCategory ?
+      this.productos.filter(producto => producto.categoria === this.selectedCategory) :
+      [...this.productos];
   }
 
-  // Abrir el cuadro de diálogo para editar el producto
-  openEditDialog(producto: any): void {
-    this.currentProducto = { ...producto }; // Copiar el producto para editarlo sin modificar el original
+  openEditDialog(producto: Producto): void {
+    this.currentProducto = { ...producto };
     this.isEditDialogOpen = true;
   }
 
-  // Cerrar el cuadro de diálogo de edición
   closeEditDialog(): void {
     this.isEditDialogOpen = false;
   }
 
-  // Actualizar el producto
   updateProducto(): void {
     this.productoService.updateProducto(this.currentProducto).subscribe(
       (updatedProduct) => {
         const index = this.productos.findIndex(prod => prod._id === updatedProduct._id);
         if (index !== -1) {
-          this.productos[index] = updatedProduct; // Actualizar la lista de productos
+          this.productos[index] = updatedProduct;
+          this.filterByCategory();
         }
         this.closeEditDialog();
       },
@@ -69,55 +97,86 @@ export class VerProductosComponent implements OnInit {
     );
   }
 
-  // Eliminar un producto
   deleteProducto(id: string): void {
-    this.productoService.deteleteProducto(id).subscribe(
+    if (!id) {
+      console.error('ID del producto no válido');
+      return;
+    }
+    this.productoService.deleteProducto(id).subscribe(
       () => {
-        this.productos = this.productos.filter(producto => producto._id !== id);
+        this.loadProductos();
       },
       (error) => {
-        console.error('Error eliminando producto:', error);
+        console.error('Error al borrar producto:', error);
       }
     );
-  }
+  }   
 
-  // Abrir diálogo de existencias
-  viewExistencias(id: string): void {
-    console.log('ID recibido:', id); // Verifica que el ID llega correctamente
-    const productoSeleccionado = this.productos.find(prod => prod._id === id);
+  openExistenciasDialog(producto: any) {
+    console.log('Producto seleccionado para actualizar existencias:', producto);
+    this.productoExistencias = { ...producto, stockNuevo: producto.stockTotal };
+    this.isExistenciasDialogOpen = true;
+  }
   
-    if (productoSeleccionado) {
-      console.log('Producto seleccionado:', productoSeleccionado); 
-      this.productoExistencias = { ...productoSeleccionado }; 
-      this.isExistenciasDialogOpen = true; 
-    } else {
-      console.error('No se encontró el producto con ID:', id);
-    }
-  }
 
-  // Cerrar diálogo de existencias
   closeExistenciasDialog(): void {
     this.isExistenciasDialogOpen = false;
   }
 
   actualizarStock(): void {
-    if (this.productoExistencias.cantidadSeleccionada > 0) {
-      this.productoExistencias.stockExhibe -= this.productoExistencias.cantidadSeleccionada;
-
-      this.productoService.updateProducto(this.productoExistencias).subscribe(
-        (updatedProduct) => {
-          const index = this.productos.findIndex(prod => prod._id === updatedProduct._id);
-          if (index !== -1) {
-            this.productos[index] = updatedProduct; // Actualizar la lista de productos
-          }
-          this.closeExistenciasDialog();
-        },
-        (error) => {
-          console.error('Error actualizando stock:', error);
-        }
-      );
-    } else {
+    if (this.cantidadSeleccionada <= 0) {
       alert('Ingresa una cantidad válida.');
+      return;
     }
+  
+    if (this.productoExistencias.stockExhibe < this.cantidadSeleccionada) {
+      alert('No puedes reducir más de lo que hay en stock.');
+      return;
+    }
+  
+    this.productoExistencias.stockExhibe -= this.cantidadSeleccionada;
+  
+    this.productoService.updateProducto(this.productoExistencias).subscribe(
+      (updatedProduct) => {
+        const index = this.productos.findIndex(prod => prod._id === updatedProduct._id);
+        if (index !== -1) {
+          this.productos[index] = updatedProduct;
+          this.filterByCategory();
+        }
+        this.closeExistenciasDialog();
+      },
+      (error) => {
+        console.error('Error actualizando stock:', error);
+      }
+    );
+  }  
+
+  openAddDialog(): void {
+    this.newProducto = this.initProducto();
+    this.isAddDialogOpen = true;
+  }
+
+  closeAddDialog(): void {
+    this.isAddDialogOpen = false;
+  }
+
+  addProducto(): void {
+    if (!this.newProducto.nombreProducto || !this.newProducto.categoria || this.newProducto.precioPieza <= 0) {
+      this.mensaje = 'Por favor, llena los campos obligatorios correctamente.';
+      return;
+    }
+
+    this.productoService.createProducto(this.newProducto).subscribe(
+      (createdProduct) => {
+        this.productos.push(createdProduct);
+        this.filterByCategory();
+        this.mensaje = 'Producto creado exitosamente.';
+        this.closeAddDialog();
+      },
+      (error) => {
+        console.error('Error agregando producto:', error);
+        this.mensaje = 'Hubo un error al crear el producto.';
+      }
+    );
   }
 }
