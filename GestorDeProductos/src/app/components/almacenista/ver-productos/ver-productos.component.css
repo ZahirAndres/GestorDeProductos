@@ -1,3 +1,4 @@
+/* Estilo para el botón de agregar producto */
 .add-product-button {
     position: absolute;
     top: 80px; /* Ajusta el valor de top según la altura de la navbar */
@@ -13,13 +14,8 @@
     z-index: 3000; /* Asegura que el botón esté sobre otros elementos */
 }
 
-
 .add-product-button:hover {
     background-color: #C68FE6;
-}
-
-.container {
-    position: relative;
 }
 
 /* Contenedor de las cards de productos */
@@ -85,25 +81,20 @@
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
 /* Contenedor de los botones */
 .product-card .button-container {
     display: flex;
     justify-content: space-between;
-    gap: 5px;
+    gap: 6px;
     margin-top: 5px;
 }
 
 /* Efecto hover en los botones */
 .product-card button:hover {
     background-color: #0056b3;
-}
-
-/* Si es necesario, se pueden añadir más ajustes para los botones */
-.product-card .edit-button {
-    width: 100%;
 }
 
 /* Estilo para todos los cuadros de diálogo */
@@ -131,20 +122,6 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* Formulario con dos columnas */
-.dialog-content form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-}
-
-/* Hacer que los campos ocupen toda la columna si es necesario */
-.dialog-content label {
-    display: block;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
 
 /* Inputs con mejor apariencia */
 .dialog-content input {
@@ -155,15 +132,7 @@
     font-size: 1rem;
 }
 
-/* Hacer que los botones ocupen toda la fila */
-.dialog-buttons {
-    grid-column: span 2;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-}
-
+/* Estilo para los botones dentro de los diálogos */
 .dialog-buttons button {
     padding: 12px 20px;
     font-size: 1rem;
@@ -178,17 +147,21 @@
     color: white;
 }
 
+.dialog-buttons .save-button {
+    background-color: #C5BAFF;
+}
+
 .dialog-buttons .save-button:hover {
-    background-color: #218838;
+    background-color: #6C48C5;
 }
 
 .dialog-buttons .cancel-button {
-    background-color: #dc3545;
+    background-color: #1230AE;
     color: white;
 }
 
 .dialog-buttons .cancel-button:hover {
-    background-color: #c82333;
+    background-color: #C5BAFF;
 }
 
 /* Animación */

@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.utng.mx.backend.repository.*;
 import edu.utng.mx.backend.documentos.*;
+import java.util.Optional;
+import java.util.Map;
+
 
 @RestController
 @RequestMapping("/api/productos")
@@ -49,10 +52,30 @@ public class ProductoController {
     }
 
     @DeleteMapping("/borrar/{id}")
-    public ResponseEntity<String> deleteProducto(@PathVariable String id) {
+    public ResponseEntity<?> deleteProducto(@PathVariable String id) {
+        if (!productoRepo.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Producto no encontrado"));
+        }
         try {
             productoRepo.deleteById(id);
-            return ResponseEntity.ok("Fue eliminado");
+            return ResponseEntity.ok(Map.of("message", "Producto eliminado correctamente"));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PutMapping("/actualizar-stock/{id}")
+    public ResponseEntity<?> updateStock(@PathVariable String id, @RequestBody Map<String, Integer> request) {
+        try {
+            Optional<Producto> optionalProducto = productoRepo.findById(id);
+            if (optionalProducto.isPresent()) {
+                Producto producto = optionalProducto.get();
+                producto.setStockExhibe(request.get("stockExhibe"));
+                productoRepo.save(producto);
+                return ResponseEntity.ok(producto);
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
         }
