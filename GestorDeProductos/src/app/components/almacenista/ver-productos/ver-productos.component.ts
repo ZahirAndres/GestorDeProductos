@@ -25,6 +25,7 @@ export class VerProductosComponent implements OnInit {
     stockNuevo: 0
   };
   proveedorInput: string = '';
+  proveedorInputEdit: string = '';
 
   mensaje: string = '';
   categorias: string[] = [];
@@ -96,13 +97,14 @@ export class VerProductosComponent implements OnInit {
           this.productos[index] = updatedProduct;
           this.filterByCategory();
         }
-        this.closeEditDialog();
+        this.isEditDialogOpen = false; // Cerrar el cuadro de diálogo después de actualizar
       },
       (error) => {
         console.error('Error actualizando producto:', error);
       }
     );
   }
+  
 
   deleteProducto(id: string): void {
     console.log("ID recibido para borrar:", id);
@@ -212,26 +214,30 @@ export class VerProductosComponent implements OnInit {
     this.catalogosService.getTamanios().subscribe(data => this.tamanios = data.map(t => t.nombreTamanio));
   }
 
+  eliminarProveedorEdit(index: number): void {
+    this.currentProducto.proveedor.splice(index, 1);
+  }
+  
 
   actualizarProveedoresEdit(event: Event): void {
-    const selectedOptions = (event.target as HTMLSelectElement).selectedOptions;
-    const valoresSeleccionados = Array.from(selectedOptions).map(option => option.value);
+    const selectElement = event.target as HTMLSelectElement;
+    this.currentProducto.proveedor = Array.from(selectElement.selectedOptions, option => option.value);
+  }
 
-    // Solo agregar nuevos proveedores si no están ya en la lista
-    valoresSeleccionados.forEach(proveedor => {
-        if (!this.currentProducto.proveedor.includes(proveedor)) {
-            this.currentProducto.proveedor.push(proveedor);
-        }
-    });
+  agregarProveedorEdit(): void {
+    if (this.proveedorInputEdit && this.proveedorInputEdit.trim()) {
+      if (!this.currentProducto.proveedor.includes(this.proveedorInputEdit)) {
+        this.currentProducto.proveedor.push(this.proveedorInputEdit.trim());
+      } else {
+        alert("El proveedor ya ha sido agregado.");
+      }
+      this.proveedorInputEdit = ''; // Limpiar selección después de agregar
+    }
+  }
 
-    // Quitar proveedores que fueron deseleccionados
-    this.currentProducto.proveedor = this.currentProducto.proveedor.filter(proveedor =>
-        valoresSeleccionados.includes(proveedor)
-    );
-}
-
-eliminarProveedorEdit(index: number): void {
-  this.currentProducto.proveedor.splice(index, 1);
-}
+  
+  
+  
+  
 
 }
