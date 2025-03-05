@@ -13,6 +13,7 @@ export class LoginComponent {
     correo: '',
     contrasena: ''
   };
+  private readonly ROL_KEY = 'rol'; 
 
   constructor(private loginService: LoginService, private router: Router) { }
 
@@ -20,20 +21,25 @@ export class LoginComponent {
     if (form.valid) {
       this.loginService.login(this.usuario).subscribe(
         res => {
-          console.log(res.message);
-          if(res.message == 'Almacenista'){
-            this.router.navigate(['/almacenista/productos/ver']);
-            console.log(res.message);
-          }else{
-            this.router.navigate(['/ayudante-pasillo/abastecimiento-estantes/ver']);
+          if (res && res.message) {  // Verificamos que 'res' y 'res.message' existen
+            localStorage.setItem(this.ROL_KEY, res.message);
+            
+            if (res.message === 'Almacenista') {
+              this.router.navigate(['/almacenista/productos/ver']);
+            } else {
+              this.router.navigate(['/ayudante-pasillo/abastecimiento-estantes/ver']);
+            }
+          } else {
+            console.error('Error: Respuesta del servidor no válida');
           }
         },
         err => {
-          console.error(err);
+          console.error('Error en el login:', err);
         }
       );
     }
   }
+  
 }
 
 

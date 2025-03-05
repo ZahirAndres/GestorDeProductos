@@ -1,16 +1,124 @@
-/* Cambiar el color de fondo de la navbar */
-.navbar {
-    background-color: #6C48C5 !important; 
+/* Animación al mostrar la navbar */
+.animated-navbar {
+  background-color: #6c48c5 !important;
+  transition: background-color 0.4s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Cambiar el color de los textos dentro de la navbar a blanco */
-.navbar-light .navbar-nav .nav-link {
-    color: white !important; /* Cambia el color de los enlaces a blanco */
+/* Animación cuando el usuario baja */
+.animated-navbar:hover {
+  background-color: #5a3cb5 !important;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
 }
 
-/* Si quieres cambiar el color de los elementos de la navbar (como el título) */
-.navbar-brand {
-    color: white !important;  /* Cambia el color del título a blanco */
+/* Animación del logo */
+.animated-logo {
+  width: 50px;
+  height: 50px;
+  opacity: 0;
+  transform: scale(0.5);
+  animation: fadeInScale 1s forwards;
+  border-radius: 100%;
+  margin-right: 10px;
+}
+/* Animación de los textos */
+.animated-text {
+  font-weight: bold;
+  color: white !important;
+  opacity: 0;
+  animation: fadeIn 1.5s forwards;
+}
+
+/* Efecto hover en los enlaces de la navbar */
+.animated-link {
+  color: white !important;
+  position: relative;
+  transition: color 0.3s ease-in-out;
+}
+
+/* Línea deslizante debajo del enlace */
+.animated-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: 0;
+  left: 50%;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(-50%);
+}
+
+.animated-link:hover {
+  color: #ffd700 !important;
+}
+
+.animated-link:hover::after {
+  width: 100%;
+}
+
+/* Animación para los elementos del navbar */
+.animated-nav-item {
+  opacity: 0;
+  transform: translateY(-10px);
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+/* Animación para los botones */
+.animated-button {
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+}
+
+.animated-button:hover {
+  transform: scale(1.1);
+  background-color: #ffd700 !important;
+  color: #6c48c5 !important;
+}
+
+/* Definición de animaciones */
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajustar tiempos de animación para que los elementos aparezcan en secuencia */
+.nav-item:nth-child(1) {
+  animation-delay: 0.2s;
+}
+.nav-item:nth-child(2) {
+  animation-delay: 0.4s;
+}
+.nav-item:nth-child(3) {
+  animation-delay: 0.6s;
+}
+.nav-item:nth-child(4) {
+  animation-delay: 0.8s;
 }
 
 /* Cambiar el fondo del botón a #FFF7F7 */
@@ -25,5 +133,3 @@
     background-color: #D9C1D9 !important;  /* Color de fondo cuando el cursor pasa sobre el botón */
     color: #6C48C5 !important;  /* Cambiar el color del texto al pasar el cursor */
 }
-
-
