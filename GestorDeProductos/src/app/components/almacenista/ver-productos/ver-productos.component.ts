@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../services/crear-productos.service';
 import { Producto } from '../../../models/producto.model';
+import { CatalogosService } from '../../../services/formularios/catalogos.service';
 
 @Component({
   selector: 'app-ver-productos',
@@ -10,7 +11,7 @@ import { Producto } from '../../../models/producto.model';
 export class VerProductosComponent implements OnInit {
   productos: any[] = [];
   productosFiltrados: Producto[] = [];
-  categories: string[] = ['Categoría 1', 'Categoría 2', 'Categoría 3']; 
+  categories: string[] = ['Categoría 1', 'Categoría 2', 'Categoría 3'];
   selectedCategory: string = '';
   isEditDialogOpen: boolean = false;
   isExistenciasDialogOpen: boolean = false;
@@ -24,13 +25,18 @@ export class VerProductosComponent implements OnInit {
     stockNuevo: 0
   };
   proveedorInput: string = '';
-  
-  mensaje: string = '';
 
-  constructor(private productoService: ProductoService) { }
+  mensaje: string = '';
+  categorias: string[] = [];
+  marcas: string[] = [];
+  proveedores: string[] = [];
+  tamanios: string[] = [];
+
+  constructor(private productoService: ProductoService, private catalogosService: CatalogosService) { }
 
   ngOnInit(): void {
     this.loadProductos();
+    this.loadCatalogos();
   }
 
   private initProducto(): Producto {
@@ -48,8 +54,8 @@ export class VerProductosComponent implements OnInit {
       proveedor: [],
       stockExhibe: 0,
       existenciaExhibida: 0,
-      stockAlamcen: 0,
-      cantidadAlamcen: 0
+      stockAlmacen: 0,
+      cantidadAlmacen: 0
     };
   }
 
@@ -65,7 +71,7 @@ export class VerProductosComponent implements OnInit {
       }
     );
   }
-  
+
 
   filterByCategory(): void {
     this.productosFiltrados = this.selectedCategory ?
@@ -104,25 +110,25 @@ export class VerProductosComponent implements OnInit {
       console.error('ID del producto no válido');
       return;
     }
-  
+
     this.productoService.deleteProducto(id).subscribe(
       (response) => {
         console.log('Respuesta del servidor:', response);
-        alert('Producto borrado con éxito'); 
-        window.location.reload(); 
+        alert('Producto borrado con éxito');
+        window.location.reload();
       },
       (error) => {
         console.error('Error al borrar producto:', error);
       }
     );
   }
-  
+
   openExistenciasDialog(producto: any) {
     console.log('Producto seleccionado para actualizar existencias:', producto);
     this.productoExistencias = { ...producto, stockNuevo: producto.stockTotal };
     this.isExistenciasDialogOpen = true;
   }
-  
+
 
   closeExistenciasDialog(): void {
     this.isExistenciasDialogOpen = false;
@@ -133,14 +139,14 @@ export class VerProductosComponent implements OnInit {
       alert('Ingresa una cantidad válida.');
       return;
     }
-  
+
     if (this.productoExistencias.stockExhibe < this.cantidadSeleccionada) {
       alert('No puedes reducir más de lo que hay en stock.');
       return;
     }
-  
+
     this.productoExistencias.stockExhibe -= this.cantidadSeleccionada;
-  
+
     this.productoService.updateProducto(this.productoExistencias).subscribe(
       (updatedProduct) => {
         const index = this.productos.findIndex(prod => prod._id === updatedProduct._id);
@@ -154,7 +160,7 @@ export class VerProductosComponent implements OnInit {
         console.error('Error actualizando stock:', error);
       }
     );
-  }  
+  }
 
   openAddDialog(): void {
     this.newProducto = this.initProducto();
@@ -186,16 +192,46 @@ export class VerProductosComponent implements OnInit {
     );
   }
 
-    // Agregar un proveedor al nuevo producto
-    agregarProveedor(): void {
-      if (this.proveedorInput.trim()) {
-        this.newProducto.proveedor.push(this.proveedorInput.trim());
-        this.proveedorInput = '';  // Limpiar el campo de proveedor
-      }
+  agregarProveedor(): void {
+    if (this.proveedorInput && this.proveedorInput.trim()) {
+      this.newProducto.proveedor.push(this.proveedorInput.trim());
+      this.proveedorInput = '';  // Limpiar el campo después de agregar
     }
-  
-    // Eliminar un proveedor del nuevo producto
-    eliminarProveedor(index: number): void {
-      this.newProducto.proveedor.splice(index, 1);
-    }
+  }
+
+
+  // Eliminar un proveedor del nuevo producto
+  eliminarProveedor(index: number): void {
+    this.newProducto.proveedor.splice(index, 1);
+  }
+
+  loadCatalogos(): void {
+    this.catalogosService.getCategorias().subscribe(data => this.categorias = data.map(c => c.nombreCategoria));
+    this.catalogosService.getMarcas().subscribe(data => this.marcas = data.map(m => m.nombreMarca));
+    this.catalogosService.getProveedores().subscribe(data => this.proveedores = data.map(p => p.nombreProveedor));
+    this.catalogosService.getTamanios().subscribe(data => this.tamanios = data.map(t => t.nombreTamanio));
+  }
+
+
+  actualizarProveedoresEdit(event: Event): void {
+    const selectedOptions = (event.target as HTMLSelectElement).selectedOptions;
+    const valoresSeleccionados = Array.from(selectedOptions).map(option => option.value);
+
+    // Solo agregar nuevos proveedores si no están ya en la lista
+    valoresSeleccionados.forEach(proveedor => {
+        if (!this.currentProducto.proveedor.includes(proveedor)) {
+            this.currentProducto.proveedor.push(proveedor);
+        }
+    });
+
+    // Quitar proveedores que fueron deseleccionados
+    this.currentProducto.proveedor = this.currentProducto.proveedor.filter(proveedor =>
+        valoresSeleccionados.includes(proveedor)
+    );
+}
+
+eliminarProveedorEdit(index: number): void {
+  this.currentProducto.proveedor.splice(index, 1);
+}
+
 }

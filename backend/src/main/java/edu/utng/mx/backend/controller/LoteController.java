@@ -40,8 +40,10 @@ public class LoteController {
 
             Producto producto = productoObtenido.get();
 
-            producto.setCantidadAlmacen(producto.getCantidadAlmacen() + lote.getCantidadComprada()); //Aqui suma la cantidad de alamcen con la nueva de lote
-            
+            producto.setStockAlmacen(producto.getStockAlmacen() + lote.getCantidadComprada()); // Aqui suma la cantidad
+                                                                                               // de alamcen con la
+                                                                                               // nueva de lote
+
             productoRepo.save(producto);
             return new ResponseEntity<>(loteGuardado, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -128,15 +130,19 @@ public class LoteController {
         }
     }
 
-
-/*     @GetMapping("/filtrar/codigoBarras")
-    public ResponseEntity<?> filtrarLotesPorCodigoBarras(@RequestParam String codigoBarras) {
+    @GetMapping("/productos/buscarPorCodigoBarras/{codigoBarras}")
+    public ResponseEntity<?> buscarProductoPorCodigoBarras(@PathVariable String codigoBarras) {
         try {
-            List<Lote> lotesFiltro = almacenistaServices.filtrarLotesPorCodigoBarras(codigoBarras);
-            return ResponseEntity.ok(lotesFiltro);
+            Optional<Producto> producto = productoRepo.encontrarPorCodigoBarras(codigoBarras);
+            if (producto.isPresent()) {
+                return ResponseEntity.ok(producto.get());
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
+            }
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error en el servidor: " + e.getMessage());
         }
-    } */
+    }
+
 }
