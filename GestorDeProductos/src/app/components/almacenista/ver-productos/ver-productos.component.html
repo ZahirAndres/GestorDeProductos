@@ -39,19 +39,21 @@
                 <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
             </select>
 
-            <label for="proveedor">Proveedores</label>
-            <select id="proveedor" multiple (change)="actualizarProveedoresEdit($event)" name="proveedor">
-                <option *ngFor="let proveedor of proveedores" [value]="proveedor"
-                    [selected]="currentProducto.proveedor.includes(proveedor)">
-                    {{ proveedor }}
-                </option>
+            <<label for="proveedorSelect">Seleccionar Proveedor</label>
+            <select id="proveedorSelect" [(ngModel)]="proveedorInputEdit" name="proveedorSelect">
+                <option *ngFor="let proveedor of proveedores" [value]="proveedor">{{ proveedor }}</option>
             </select>
-
+            <button type="button" (click)="agregarProveedorEdit()">Agregar Proveedor</button>
+            
+            <!-- Lista de proveedores seleccionados para el producto -->
             <ul>
                 <li *ngFor="let proveedor of currentProducto.proveedor; let i = index">
-                    {{ proveedor }} <button type="button" (click)="eliminarProveedorEdit(i)">Eliminar</button>
+                    {{ proveedor }} 
+                    <button type="button" (click)="eliminarProveedorEdit(i)">Eliminar</button>
                 </li>
             </ul>
+            
+            
 
 
             <label for="imagenUrl">Imagen URL</label>
