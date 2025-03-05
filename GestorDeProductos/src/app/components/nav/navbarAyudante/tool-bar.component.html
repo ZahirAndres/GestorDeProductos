@@ -1,27 +1,43 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top animated-navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <!-- Logo con animación -->
+        <img src="assets/img/logoApp.jpg" class="logo animated-logo" alt="Logo">
+        
+        <a class="navbar-brand animated-text" href="#">Zagumir</a>
+        
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#">Home <span class="visually-hidden">(current)</span></a>
+                <!-- Opciones solo visibles para Ayudante-Pasillo -->
+                <li class="nav-item animated-nav-item" *ngIf="rol === 'Ayudante-Pasillo'">
+                    <a class="nav-link active animated-link" routerLink="/ayudante-pasillo/abastecimiento-estantes/ver">Reabastecimiento Productos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/cliente/verProductos">Ver todos los productos</a>
+                <li class="nav-item animated-nav-item" *ngIf="rol === 'Ayudante-Pasillo'">
+                    <a class="nav-link animated-link" routerLink="/cliente/ver-productos">Productos</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+
+                <!-- Opciones solo visibles para Almacenista -->
+                <li class="nav-item animated-nav-item" *ngIf="rol === 'Almacenista'">
+                    <a class="nav-link animated-link" routerLink="/almacenista/lotes/ver">Lotes</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                <li class="nav-item animated-nav-item" *ngIf="rol === 'Almacenista'">
+                    <a class="nav-link animated-link" routerLink="/almacenista/productos/ver">Productos</a>
                 </li>
             </ul>
-            <!-- Aquí está el botón que usa routerLink para navegar a /login -->
-            <a class="btn btn-outline-primary btn-custom" routerLink="/login" role="button">Login</a>
+
+            <!-- Botón de Login (solo si no hay rol) -->
+            <a class="btn btn-outline-primary btn-custom animated-button" routerLink="/login" role="button" *ngIf="!rol">
+                Login
+            </a>
+
+            <!-- Botón de Cerrar Sesión (solo si hay rol) -->
+            <a class="btn btn-outline-danger btn-custom animated-button" role="button" (click)="cerrarSesion()" *ngIf="rol">
+                Cerrar sesión
+            </a>
         </div>
     </div>
 </nav>

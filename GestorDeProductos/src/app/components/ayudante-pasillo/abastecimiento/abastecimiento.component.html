@@ -2,7 +2,7 @@
   <div class="container">
     <!-- Filtros -->
     <div
-      class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow"
+      class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3"
     >
       <h4 class="mb-3 mb-md-0">Productos Agotados en Estantes</h4>
       <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
@@ -36,13 +36,24 @@
             [(ngModel)]="nombreProducto"
             (input)="filtroProductoNombre(nombreProducto)"
           />
-          <button
-            class="btn btn-outline-success"
-            type="button"
-            (click)="filtroProductoNombre(nombreProducto)"
-          >
-            Buscar
-          </button>
+                <!-- Ícono de búsqueda -->
+      <div
+      class="btn-icon"
+      (click)="filtroProductoNombre(nombreProducto)"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-search"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+        />
+      </svg>
+    </div>
         </div>
         <div class="input-group">
           <input
@@ -53,13 +64,24 @@
             [(ngModel)]="codigoBarras"
             (input)="filtroProductoCodigo(codigoBarras)"
           />
-          <button
-            class="btn btn-outline-success"
-            type="button"
-            (click)="filtroProductoCodigo(codigoBarras)"
+
+          <div
+          class="btn-icon"
+          (click)="filtroProductoCodigo(codigoBarras)"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-search"
+            viewBox="0 0 16 16"
           >
-            Buscar
-          </button>
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+            />
+          </svg>
+        </div>
         </div>
       </div>
     </div>

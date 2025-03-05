@@ -9,20 +9,36 @@ import edu.utng.mx.backend.repository.FiltrosAyudanteRepository;
 
 @Service
 public class FiltrosAyudanteServices {
- private final FiltrosAyudanteRepository filtroRepository;
+    private final FiltrosAyudanteRepository filtroRepository;
 
     public FiltrosAyudanteServices(FiltrosAyudanteRepository filtroRepository) {
         this.filtroRepository = filtroRepository;
     }
 
+    /**
+     * Obtiene el codigo de barras
+     * 
+     * @param codigoBarras
+     */
+
     public List<Producto> buscarPorCodigoBarras(String codigoBarras) {
         return filtroRepository.findByCodigoBarras(codigoBarras);
     }
 
+    /**
+     * Obtiene el nombre del Porducto
+     * 
+     * @param nombre
+     */
     public List<Producto> buscarPorNombre(String nombre) {
         return filtroRepository.findByNombreProducto(nombre);
     }
 
+    /**
+     * Obtiene la categoria del producto
+     * 
+     * @param categoria
+     */
     public List<Producto> buscarPorCategoria(String categoria) {
         return filtroRepository.findByCategoria(categoria);
     }
@@ -31,7 +47,11 @@ public class FiltrosAyudanteServices {
         return filtroRepository.findByNombreYCategoria(texto);
     }
 
-    public List<Producto> productosDefectoPasillo(){
+    /**
+     * No tiene parametros
+     * 
+     */
+    public List<Producto> productosDefectoPasillo() {
         return filtroRepository.findByExistenciaExhibida();
     }
 }
