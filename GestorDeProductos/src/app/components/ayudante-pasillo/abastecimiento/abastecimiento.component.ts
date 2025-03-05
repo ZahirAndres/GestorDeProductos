@@ -19,7 +19,8 @@ export class AbastecimientoComponent implements OnInit {
   nombreProducto : string = '';
   codigoBarras: string = '';
 
-  constructor(private productoService: ProductoService,
+  constructor(
+    private productoService: ProductoService,
     private router: Router,
     private categoriaService: CategoriasService,
     private filtrosAyudanteService: FiltrosService) { }

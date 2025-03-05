@@ -1,4 +1,43 @@
-<button class="add-product-button" (click)="openAddDialog()">Agregar Producto</button>
+<!-- Filtros -->
+<div class="filtros-container d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 bg-light rounded shadow">
+    <div class="d-flex flex-column flex-sm-row align-items-center gap-2 w-100">
+        
+        <!-- Select Ordenar -->
+        <div class="input-group">
+            <select [(ngModel)]="filtro" id="filtro" name="filtro" (change)="filtrarPorCategoria(filtro)" class="form-select">
+                <option value="" disabled selected>Ordenar por categoría</option>
+                <option value="">Todos</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria.nombreCategoria">
+                    {{ categoria.nombreCategoria }}
+                </option>
+            </select>
+        </div>
+
+        <!-- Input de búsqueda por nombre -->
+        <div class="input-group">
+            <input class="form-control" type="search" placeholder="Nombre del producto" aria-label="Search"
+                [(ngModel)]="nombreProducto" (input)="filtrarPorNombre(nombreProducto)" />
+            <button class="btn btn-outline-success" type="button" (click)="filtrarPorNombre(nombreProducto)">
+                Buscar
+            </button>
+        </div>
+
+        <!-- Input de búsqueda por código de barras con botón al lado -->
+        <div class="d-flex align-items-center gap-2">
+            <div class="input-group">
+                <input class="form-control" type="search" placeholder="Código del producto" aria-label="Search"
+                    [(ngModel)]="codigoBarras" (input)="filtrarPorCodigoBarras(codigoBarras)" />
+                <button class="btn btn-outline-success" type="button" (click)="filtrarPorCodigoBarras(codigoBarras)">
+                    Buscar
+                </button>
+            </div>
+            <!-- Botón de agregar producto -->
+            <button class="btn btn-primary" type="button" (click)="openAddDialog()">Agregar Producto</button>
+        </div>
+    </div>
+</div>
+
+
 
 <!-- Cards de productos -->
 <div class="product-cards">
@@ -47,7 +86,8 @@
             <input type="number" id="precioCaja" [(ngModel)]="currentProducto.precioCaja" name="precioCaja">
 
             <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
-            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="currentProducto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja">
+            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="currentProducto.cantidadPiezasPorCaja"
+                name="cantidadPiezasPorCaja">
 
             <div class="dialog-buttons">
                 <button type="submit" class="save-button">Guardar cambios</button>
@@ -63,10 +103,12 @@
         <h2>Actualizar Existencias</h2>
         <form (ngSubmit)="actualizarStock()">
             <label for="codigoBarras">Código de Barras</label>
-            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras" readonly>
+            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
+                readonly>
 
             <label for="nombreProducto">Nombre del Producto</label>
-            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto" name="nombreProducto" readonly>
+            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
+                name="nombreProducto" readonly>
 
             <label for="stockNuevo">Nuevo Stock</label>
             <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
@@ -85,7 +127,8 @@
         <h2>Agregar Nuevo Producto</h2>
         <form (ngSubmit)="addProducto()">
             <label for="nombreProducto">Nombre</label>
-            <input type="text" id="nombreProducto" [(ngModel)]="newProducto.nombreProducto" name="nombreProducto" required>
+            <input type="text" id="nombreProducto" [(ngModel)]="newProducto.nombreProducto" name="nombreProducto"
+                required>
 
             <label for="codigoBarras">Código de barras</label>
             <input type="text" id="codigoBarras" [(ngModel)]="newProducto.codigoBarras" name="codigoBarras" required>
@@ -103,8 +146,11 @@
             <input type="text" id="categoria" [(ngModel)]="newProducto.categoria" name="categoria">
 
             <label for="proveedorInput">Proveedor</label>
-            <input type="text" id="proveedorInput" [(ngModel)]="proveedorInput" name="proveedorInput" />
-            <button type="button" (click)="agregarProveedor()">Agregar Proveedor</button>
+            <div class="proveedor-input-container">
+                <input type="text" id="proveedorInput" [(ngModel)]="proveedorInput" name="proveedorInput" />
+                <button type="button" class="add-proveedor-button" (click)="agregarProveedor()">+</button>
+            </div>
+
 
             <ul>
                 <li *ngFor="let proveedor of newProducto.proveedor; let i = index">
@@ -119,7 +165,8 @@
             <input type="number" id="precioCaja" [(ngModel)]="newProducto.precioCaja" name="precioCaja">
 
             <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
-            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="newProducto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja">
+            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="newProducto.cantidadPiezasPorCaja"
+                name="cantidadPiezasPorCaja">
 
             <div class="dialog-buttons">
                 <button type="submit" class="save-button">Agregar Producto</button>

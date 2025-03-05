@@ -98,5 +98,54 @@ export class AlmacenistasService {
   return this.http.get<any[]>(`${this.apiUri}/lotes/filtrar/codigoBarras`, { params });
 } */
 
+  /** ==============================
+   * FILTROS PARA PRODUCTOS (ALMACENISTA)
+   * ============================== */
+
+  /**
+   * Filtrar productos por categoría
+   * @param categoria Categoría del producto
+   * @returns Lista de productos filtrados
+   */
+  filtrarPorCategoria(categoria: string) {
+    return this.http.get<any[]>(`${this.apiUri}/filtros/categoria/${categoria}`);
+  }
+
+  /**
+   * Filtrar productos por nombre de producto
+   * @param nombre Nombre del producto
+   * @returns Lista de productos filtrados
+   */
+  filtrarPorNombre(nombre: string) {
+    return this.http.get<any[]>(`${this.apiUri}/filtros/nombreProducto/${nombre}`);
+  }
+
+  /**
+   * Filtrar producto por código de barras
+   * @param codigoBarras Código de barras del producto
+   * @returns Producto encontrado
+   */
+  filtrarPorCodigoBarras(codigoBarras: string) {
+    return this.http.get<any[]>(`${this.apiUri}/filtros/codigoBarras/${codigoBarras}`);
+  }
+
+  /**
+   * Filtrar productos por categoría y nombre
+   * @param categoria Categoría del producto
+   * @param nombre Nombre del producto
+   * @returns Lista de productos filtrados
+   */
+  // filtrarPorCategoriaYNombre(categoria: string, nombre: string): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.apiUri}/filtros/categoriaYNomb/${categoria}/${nombre}`);
+  // }
+
+  /**
+   * Filtrar productos con existencias mínimas 
+   * @returns Lista de productos con stock bajo
+   */
+  // filtrarPorExistenciasMinimas(): Observable<any[]> {
+  //   return this.http.get<any[]>(`${this.apiUri}/filtros/existenciasMinimas`);
+  // }
+
 
 }

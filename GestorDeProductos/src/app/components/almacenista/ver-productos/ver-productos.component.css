@@ -117,11 +117,26 @@
     background-color: #fff;
     padding: 25px;
     border-radius: 10px;
-    max-width: 600px;
+    max-width: 700px;
     width: 90%;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Estilo de las etiquetas */
+.dialog-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+
+/* Diseño en dos columnas para los formularios */
+.dialog-content form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    flex-direction: column;
+    gap: 15px;
+}
 
 /* Inputs con mejor apariencia */
 .dialog-content input {
@@ -130,6 +145,18 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.dialog-content input:focus {
+    border-color: #6C48C5;
+    outline: none;
+}
+
+/* Reducir el ancho de los campos */
+.dialog-content input[type="text"],
+.dialog-content input[type="number"] {
+    max-width: 100%;
 }
 
 /* Estilo para los botones dentro de los diálogos */
@@ -164,6 +191,39 @@
     background-color: #C5BAFF;
 }
 
+
+/* Contenedor del campo de texto y botón */
+.proveedor-input-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para el botón con el símbolo + */
+.add-proveedor-button {
+    background: none;
+    border: none;
+    color: #6C48C5; /* Color morado */
+    font-size: 1.5rem; /* Tamaño del símbolo + */
+    cursor: pointer;
+    margin-left: 8px; /* Espaciado entre el campo de texto y el botón */
+    transition: color 0.3s ease;
+}
+
+/* Efecto hover en el símbolo + */
+.add-proveedor-button:hover {
+    color: #C68FE6; /* Color morado más claro */
+}
+
+/* Estilo para el campo de texto */
+.proveedor-input-container input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+
 /* Animación */
 @keyframes fadeIn {
     from {
@@ -174,4 +234,41 @@
         opacity: 1;
         transform: scale(1);
     }
+}
+
+
+/* Contenedor de los filtros */
+.filtros-container {
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Ajuste general de los elementos */
+.filtros-container .input-group,
+.filtros-container .d-flex {
+    gap: 8px; /* Espaciado entre los elementos */
+}
+
+/* Ajustar tamaño de los campos de entrada y selects */
+.filtros-container .form-control,
+.filtros-container .form-select {
+    height: 34px;
+    font-size: 14px;
+    padding: 5px 10px;
+    max-width: 180px; /* Limita el ancho de los campos */
+}
+
+/* Ajustar tamaño de los botones */
+.filtros-container .btn {
+    height: 34px;
+    font-size: 14px;
+    padding: 5px 12px;
+    white-space: nowrap;
+}
+
+/* Alineación específica para la última fila */
+.filtros-container .d-flex.align-items-center {
+    flex-wrap: nowrap;
 }
