@@ -83,7 +83,7 @@ const routes: Routes = [
 {
   path: 'cliente',
   children: [
-    { path: 'ver-productos', component: VerProductosClienteComponent },           // Ruta para ver productos
+    { path: 'ver-productos', component: VerProductosClienteComponent },           // Ruta para ver productos (no se ven los productos)
   ]
 }
 

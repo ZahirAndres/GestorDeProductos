@@ -12,8 +12,8 @@ export interface Producto {
   proveedor: string[];
   stockExhibe: number;
   existenciaExhibida: number;
-  stockAlamcen: number;
-  cantidadAlamcen: number;
+  stockAlmacen: number;
+  cantidadAlmacen: number;
 
   // 🔹 Nueva propiedad opcional para el formulario
   cantidadAgregada?: number;

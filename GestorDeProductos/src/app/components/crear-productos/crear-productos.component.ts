@@ -17,7 +17,7 @@ export class CrearProductosComponent {
     nombreProducto: '',
     tamano: '',
     marca: '',
-    imagenUrl: '',
+    imagenUrl: '', 
     categoria: '',
     precioPieza: 0,
     precioCaja: 0,
@@ -25,8 +25,8 @@ export class CrearProductosComponent {
     proveedor: [],
     stockExhibe: 0,
     existenciaExhibida: 0,
-    stockAlamcen: 0,
-    cantidadAlamcen: 0
+    stockAlmacen: 0,
+    cantidadAlmacen: 0
   };
 
   mensaje: string = '';
@@ -76,8 +76,8 @@ export class CrearProductosComponent {
       proveedor: [],
       stockExhibe: 0,
       existenciaExhibida: 0,
-      stockAlamcen: 0,
-      cantidadAlamcen: 0
+      stockAlmacen: 0,
+      cantidadAlmacen: 0
     };
     form.resetForm();
   }

@@ -13,7 +13,7 @@ import edu.utng.mx.backend.repository.CategoriasRepository;
 import edu.utng.mx.backend.documentos.Categoria;
 
 @RestController
-@RequestMapping("/api/categorias")
+@RequestMapping("api/formularios/categorias")
 public class CategoriaController {
     @Autowired
     private CategoriasRepository categoriasRepository; 
