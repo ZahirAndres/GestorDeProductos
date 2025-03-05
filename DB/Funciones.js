@@ -110,3 +110,49 @@ db.Proveedores.insertMany([
     "direccion": "Blvd. López Mateos #321, León, GTO"
   }
 ]);
+
+
+// Insertar datos en la colección Categorias
+db.Categorias.insertMany([
+  {
+    "nombreProveedor": "Distribuidora El Águila",
+    "telefono": ["4421234567", "4427654321"],
+    "correo": "contacto@elaguila.com",
+    "direccion": "Calle Principal #123, Querétaro, QRO"
+  },
+  {
+    "nombreProveedor": "Comercializadora del Centro",
+    "telefono": ["5556789012"],
+    "correo": "ventas@comdelcentro.com",
+    "direccion": "Av. Insurgentes Sur #456, CDMX"
+  },
+  {
+    "nombreProveedor": "Abarrotes Express",
+    "telefono": ["8112345678"],
+    "correo": "info@abarrotesexpress.com",
+    "direccion": "Calle Hidalgo #78, Monterrey, NL"
+  },
+  {
+    "nombreProveedor": "Suministros del Bajío",
+    "telefono": ["4778901234", "4775678901"],
+    "correo": "atencion@sumbajio.com",
+    "direccion": "Blvd. López Mateos #321, León, GTO"
+  }
+]);
+
+
+db.Categorias.insertMany([
+  { "nombreCategoria": "Lácteos y Derivados" },
+  { "nombreCategoria": "Carnes Frías y Embutidos" },
+  { "nombreCategoria": "Bebidas" },
+  { "nombreCategoria": "Dulces y Golosinas" },
+  { "nombreCategoria": "Botanas" },
+  { "nombreCategoria": "Cereales y Galletas" },
+  { "nombreCategoria": "Enlatados y Conservas" },
+  { "nombreCategoria": "Harinas y Panadería" },
+  { "nombreCategoria": "Aceites y Condimentos" },
+  { "nombreCategoria": "Abarrotes Básicos (Arroz, Frijol, Azúcar, etc.)" },
+  { "nombreCategoria": "Productos de Limpieza" },
+  { "nombreCategoria": "Higiene Personal" },
+  { "nombreCategoria": "Papel y Desechables" }
+]);

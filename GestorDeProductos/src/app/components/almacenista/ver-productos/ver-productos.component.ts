@@ -39,7 +39,6 @@ export class VerProductosComponent implements OnInit {
   proveedorInputEdit: string = '';
 
   mensaje: string = '';
-  categorias: string[] = [];
   marcas: string[] = [];
   proveedores: string[] = [];
   tamanios: string[] = [];
@@ -48,8 +47,8 @@ export class VerProductosComponent implements OnInit {
     private almacenistaService: AlmacenistasService,
     private productoService: ProductoService,
     private categoriaService: CategoriasService,
+    private catalogosService: CatalogosService
   ) { }
-  constructor(private productoService: ProductoService, private catalogosService: CatalogosService) { }
 
   ngOnInit(): void {
     this.loadProductos();
@@ -146,22 +145,7 @@ export class VerProductosComponent implements OnInit {
     }
   }
 
-  // filtrarPorCategoriaYNombre(categoria: string, nombre: string): void {
-  //   if (categoria === '' || nombre.trim() === '') {
-  //     this.loadProductos();
-  //   } else {
-  //     this.almacenistaService.filtrarPorCategoriaYNombre(categoria, nombre).subscribe(
-  //       (response: Producto[]) => {
-  //         this.productosFiltrados = response;
-  //       },
-  //       (error) => {
-  //         console.error('Error al filtrar productos por categoría y nombre:', error);
-  //       }
-  //     );
-  //   }
-  // }
-
-  }
+  
 
 
   filterByCategory(): void {
@@ -261,7 +245,7 @@ export class VerProductosComponent implements OnInit {
       }
     );
   }
-  }
+  
 
   openAddDialog(): void {
     this.newProducto = this.initProducto();
@@ -293,18 +277,7 @@ export class VerProductosComponent implements OnInit {
     );
   }
 
-  // Agregar un proveedor al nuevo producto
-  agregarProveedor(): void {
-    if (this.proveedorInput.trim()) {
-      this.newProducto.proveedor.push(this.proveedorInput.trim());
-      this.proveedorInput = '';  // Limpiar el campo de proveedor
-    }
-  }
 
-  // Eliminar un proveedor del nuevo producto
-  eliminarProveedor(index: number): void {
-    this.newProducto.proveedor.splice(index, 1);
-  }
   agregarProveedor(): void {
     if (this.proveedorInput && this.proveedorInput.trim()) {
       this.newProducto.proveedor.push(this.proveedorInput.trim());
