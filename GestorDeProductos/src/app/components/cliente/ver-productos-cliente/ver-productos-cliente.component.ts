@@ -4,6 +4,7 @@ import { Categoria } from '../../../models/categoria.model';
 import { ProductoService } from '../../../services/crear-productos.service';
 import { CategoriasService } from '../../../services/categorias.service';
 import { ClienteService } from '../../../services/cliente/cliente.service';
+import { CatalogosService } from '../../../services/formularios/catalogos.service';
 
 @Component({
   selector: 'app-ver-productos-cliente',
@@ -18,8 +19,7 @@ export class VerProductosClienteComponent implements OnInit {
   codigoBarras: string = '';
 
   constructor(
-    private productoService: ProductoService,
-    private categoriaService: CategoriasService,
+    private catalogoService: CatalogosService,
     private clienteService: ClienteService
   ) {}
 
@@ -40,7 +40,7 @@ export class VerProductosClienteComponent implements OnInit {
   }
 
   cargarCategorias(): void {
-    this.categoriaService.getCategorias().subscribe(
+    this.catalogoService.getCategorias().subscribe(
       (response: Categoria[]) => {
         this.categorias = response;
       },

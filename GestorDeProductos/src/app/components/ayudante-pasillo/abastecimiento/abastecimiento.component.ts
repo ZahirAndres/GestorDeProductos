@@ -3,9 +3,9 @@ import { ProductoService } from '../../../services/crear-productos.service';
 import { Router } from '@angular/router';
 import { Producto } from '../../../models/producto.model';
 import { NgForm } from '@angular/forms';
-import { CategoriasService } from '../../../services/categorias.service';
 import { Categoria } from '../../../models/categoria.model';
 import { FiltrosService } from '../../../services/ayudantePasillo/filtros.service';
+import { CatalogosService } from '../../../services/formularios/catalogos.service';
 
 @Component({
   selector: 'app-abastecimiento',
@@ -21,7 +21,7 @@ export class AbastecimientoComponent implements OnInit {
 
   constructor(private productoService: ProductoService,
     private router: Router,
-    private categoriaService: CategoriasService,
+    private catalogoService: CatalogosService,
     private filtrosAyudanteService: FiltrosService) { }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class AbastecimientoComponent implements OnInit {
   }
 
   cargarCategorias(): void {
-    this.categoriaService.getCategorias().subscribe(
+    this.catalogoService.getCategorias().subscribe(
       (response: Categoria[]) => {
         this.categorias = response;
       },
