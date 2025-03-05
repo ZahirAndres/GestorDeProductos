@@ -28,6 +28,8 @@ public class AlmacenistaServices {
         this.filtrosAlmacenista = filtrosAlmacenista;
     }
 
+
+
     /**
      * DESUSO
      * @param codigoLote

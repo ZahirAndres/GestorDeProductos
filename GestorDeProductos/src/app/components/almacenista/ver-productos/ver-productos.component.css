@@ -1,7 +1,7 @@
 /* Estilo para el botón de agregar producto */
 .add-product-button {
     position: absolute;
-    top: 80px; /* Ajusta el valor de top según la altura de la navbar */
+    top: 80px;
     right: 20px;
     background-color: #6C48C5;
     color: white;
@@ -11,7 +11,7 @@
     border-radius: 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    z-index: 3000; /* Asegura que el botón esté sobre otros elementos */
+    z-index: 3000;
 }
 
 .add-product-button:hover {
@@ -41,7 +41,8 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 10px;
-    height: 350px;
+    min-height: 350px;
+    height: auto;
 }
 
 /* Efecto hover para las cards */
@@ -59,11 +60,13 @@
 }
 
 /* Título y detalles de la card */
-.product-card h3 {
+.product-card h3,
+.product-card p {
     font-size: 1rem;
     font-weight: bold;
     margin: 10px 0;
     color: #333;
+    text-align: left;
 }
 
 .product-card p {
@@ -170,12 +173,8 @@
 }
 
 .dialog-buttons .save-button {
-    background-color: #28a745;
-    color: white;
-}
-
-.dialog-buttons .save-button {
     background-color: #C5BAFF;
+    color: white;
 }
 
 .dialog-buttons .save-button:hover {

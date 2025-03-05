@@ -44,6 +44,7 @@
     <div *ngFor="let producto of productos" class="product-card">
         <img [src]="producto.imagenUrl" alt="{{ producto.nombreProducto }}">
         <h3>{{ producto.nombreProducto }}</h3>
+        <h3>{{ producto.codigoBarras }}</h3>
         <p>Categoría: {{ producto.categoria }}</p>
         <p>Stock: {{ producto.stockAlmacen }}</p>
 
@@ -68,16 +69,34 @@
             <input type="text" id="codigoBarras" [(ngModel)]="currentProducto.codigoBarras" name="codigoBarras">
 
             <label for="tamano">Tamaño</label>
-            <input type="text" id="tamano" [(ngModel)]="currentProducto.tamano" name="tamano">
+            <select id="tamano" [(ngModel)]="currentProducto.tamano" name="tamano">
+                <option *ngFor="let tamano of tamanios" [value]="tamano">{{ tamano }}</option>
+            </select>
 
-            <label for="marca">Marca</label>
-            <input type="text" id="marca" [(ngModel)]="currentProducto.marca" name="marca">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" [(ngModel)]="currentProducto.categoria" name="categoria">
+                <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+            </select>
+
+            <<label for="proveedorSelect">Seleccionar Proveedor</label>
+            <select id="proveedorSelect" [(ngModel)]="proveedorInputEdit" name="proveedorSelect">
+                <option *ngFor="let proveedor of proveedores" [value]="proveedor">{{ proveedor }}</option>
+            </select>
+            <button type="button" (click)="agregarProveedorEdit()">Agregar Proveedor</button>
+            
+            <!-- Lista de proveedores seleccionados para el producto -->
+            <ul>
+                <li *ngFor="let proveedor of currentProducto.proveedor; let i = index">
+                    {{ proveedor }} 
+                    <button type="button" (click)="eliminarProveedorEdit(i)">Eliminar</button>
+                </li>
+            </ul>
+            
+            
+
 
             <label for="imagenUrl">Imagen URL</label>
             <input type="text" id="imagenUrl" [(ngModel)]="currentProducto.imagenUrl" name="imagenUrl">
-
-            <label for="categoria">Categoría</label>
-            <input type="text" id="categoria" [(ngModel)]="currentProducto.categoria" name="categoria">
 
             <label for="precioPieza">Precio por pieza</label>
             <input type="number" id="precioPieza" [(ngModel)]="currentProducto.precioPieza" name="precioPieza">
@@ -105,8 +124,12 @@
             <label for="codigoBarras">Código de Barras</label>
             <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
                 readonly>
+            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
+                readonly>
 
             <label for="nombreProducto">Nombre del Producto</label>
+            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
+                name="nombreProducto" readonly>
             <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
                 name="nombreProducto" readonly>
 
@@ -129,21 +152,33 @@
             <label for="nombreProducto">Nombre</label>
             <input type="text" id="nombreProducto" [(ngModel)]="newProducto.nombreProducto" name="nombreProducto"
                 required>
+            <input type="text" id="nombreProducto" [(ngModel)]="newProducto.nombreProducto" name="nombreProducto"
+                required>
 
             <label for="codigoBarras">Código de barras</label>
             <input type="text" id="codigoBarras" [(ngModel)]="newProducto.codigoBarras" name="codigoBarras" required>
 
+
             <label for="tamano">Tamaño</label>
-            <input type="text" id="tamano" [(ngModel)]="newProducto.tamano" name="tamano">
+            <select id="tamano" [(ngModel)]="newProducto.tamano" name="tamano">
+                <option *ngFor="let tamano of tamanios" [value]="tamano">{{ tamano }}</option>
+            </select>
 
             <label for="marca">Marca</label>
-            <input type="text" id="marca" [(ngModel)]="newProducto.marca" name="marca">
+            <select id="marca" [(ngModel)]="newProducto.marca" name="marca">
+                <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+            </select>
+
+            <label for="categoria">Categoría</label>
+            <select id="categoria" [(ngModel)]="newProducto.categoria" name="categoria">
+                <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+            </select>
+
+
 
             <label for="imagenUrl">Imagen URL</label>
             <input type="text" id="imagenUrl" [(ngModel)]="newProducto.imagenUrl" name="imagenUrl">
 
-            <label for="categoria">Categoría</label>
-            <input type="text" id="categoria" [(ngModel)]="newProducto.categoria" name="categoria">
 
             <label for="proveedorInput">Proveedor</label>
             <div class="proveedor-input-container">
@@ -158,13 +193,23 @@
                 </li>
             </ul>
 
+
             <label for="precioPieza">Precio por pieza</label>
             <input type="number" id="precioPieza" [(ngModel)]="newProducto.precioPieza" name="precioPieza" required>
 
             <label for="precioCaja">Precio por caja</label>
             <input type="number" id="precioCaja" [(ngModel)]="newProducto.precioCaja" name="precioCaja">
 
+            <label for="existenciaExhibida">Mínimo en existencias</label>
+            <input type="number" id="existenciaExhibida" [(ngModel)]="newProducto.existenciaExhibida"
+                name="existenciaExhibida">
+
+            <label for="cantidadAlmacen">Mínimo en almacen</label>
+            <input type="number" id="cantidadAlmacen" [(ngModel)]="newProducto.cantidadAlmacen" name="cantidadAlmacen">
+
             <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
+            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="newProducto.cantidadPiezasPorCaja"
+                name="cantidadPiezasPorCaja">
             <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="newProducto.cantidadPiezasPorCaja"
                 name="cantidadPiezasPorCaja">
 

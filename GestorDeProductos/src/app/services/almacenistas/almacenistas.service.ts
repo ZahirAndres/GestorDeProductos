@@ -84,19 +84,15 @@ export class AlmacenistasService {
     return this.http.get<any[]>(`${this.apiUri}/lotes/filtrar/nombre`, { params });
   }
 
-   /**
-* Filtrar lotes solo por nombre de lote
-* @param codigoBarras Nombre del lote a buscar
-* @returns Lista de lotes que coincidan con el nombre de lote
-*/
-/* filtrarLotesPorCodigoBarras(codigoBarras: string): Observable<any[]> {
-  let params = new HttpParams();
-  if (codigoBarras) {
-    params = params.set('producto', codigoBarras);
+  /**
+   * Filtrar lotes solo por código de barras
+   * @param codigoBarras - codigo de barras del producto a buscar
+   * @returns - lista de lotes que coincidan con el código de barras
+   */
+  buscarProductoPorCodigoBarras(codigoBarras: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUri}/lotes/productos/buscarPorCodigoBarras/${codigoBarras}`);
   }
 
-  return this.http.get<any[]>(`${this.apiUri}/lotes/filtrar/codigoBarras`, { params });
-} */
 
   /** ==============================
    * FILTROS PARA PRODUCTOS (ALMACENISTA)
