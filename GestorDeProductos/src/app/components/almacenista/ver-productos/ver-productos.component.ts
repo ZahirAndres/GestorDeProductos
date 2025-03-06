@@ -181,26 +181,23 @@ export class VerProductosComponent implements OnInit {
   
 
   deleteProducto(id: string): void {
-    console.log("ID recibido para borrar:", id);
     if (!id) {
       console.error('ID del producto no válido');
       return;
     }
-
-
+  
     this.productoService.deleteProducto(id).subscribe(
-      (response) => {
-        console.log('Respuesta del servidor:', response);
+      () => {
+        this.loadProductos();
+        this.productos = this.productos.filter(prod => prod._id !== id);
         alert('Producto borrado con éxito');
-        window.location.reload();
-        alert('Producto borrado con éxito');
-        window.location.reload();
       },
       (error) => {
         console.error('Error al borrar producto:', error);
       }
     );
   }
+  
 
 
   openExistenciasDialog(producto: any) {

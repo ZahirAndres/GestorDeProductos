@@ -20,6 +20,7 @@ import { VerProductosComponent } from './components/almacenista/ver-productos/ve
 import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrarLoteComponent } from './components/almacenista/registrar-lote/registrar-lote.component';
+import { EditarProductosComponent } from './components/almacenista/editar-productos/editar-productos.component';
 
 
 
@@ -37,7 +38,8 @@ import { RegistrarLoteComponent } from './components/almacenista/registrar-lote/
     VerProductosComponent,
     VerProductosClienteComponent,
     LoginComponent,
-    RegistrarLoteComponent
+    RegistrarLoteComponent,
+    EditarProductosComponent
   ],
   imports: [
     BrowserModule,
