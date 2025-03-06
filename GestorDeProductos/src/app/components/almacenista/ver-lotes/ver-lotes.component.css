@@ -1,4 +1,73 @@
+/* Estilos generales */
+.section-title {
+    color: #1230AE;
+    font-weight: bold;
+}
 
-.divider {
-    border-right: 2px solid #ddd;
+/* Tarjetas */
+.custom-card {
+    border: 2px solid #C68FE6;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    height: 100%;
+}
+
+.custom-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-card .card-title{
+    color: #1230AE;
+}
+
+/* Campos de búsqueda */
+.form-select{
+    background-color: #6C48C5;
+    color: white;
+}
+
+.search-filter .form-select {
+    border: 2px solid #6C48C5;
+    border-radius: 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.search-bar {
+    width: 50%;
+}
+
+.search-bar input:focus {
+    border-color: #C68FE6 !important;
+    box-shadow: 0 0 5px #C68FE6 !important;
+}
+
+/* Botones */
+.btn-primary {
+    background-color: #1230AE;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #6C48C5 !important;
+}
+
+.btn-danger {
+    background-color: #C68FE6;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-danger:hover {
+    background-color: #6C48C5 !important;
+}
+
+/* Scroll */
+.scrollable-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 10px;
 }

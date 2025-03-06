@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductoService } from '../../../services/crear-productos.service';
 import { AlmacenistasService } from '../../../services/almacenistas/almacenistas.service';
 import { Producto } from '../../../models/producto.model';
-import { CategoriasService } from '../../../services/categorias.service';
 import { Categoria } from '../../../models/categoria.model';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
 
@@ -12,8 +11,8 @@ import { CatalogosService } from '../../../services/formularios/catalogos.servic
   styleUrls: ['./ver-productos.component.css']
 })
 export class VerProductosComponent implements OnInit {
-  productos: any[] = [];
   //Para las filtraciones
+  productos: any[] = [];
   nombreProducto: string = '';
   categorias: Categoria[] = [];
   filtro: string = '';
@@ -21,11 +20,12 @@ export class VerProductosComponent implements OnInit {
 
   //para los formularios
   productosFiltrados: Producto[] = [];
-  categories: string[] = ['Categoría 1', 'Categoría 2', 'Categoría 3'];
   selectedCategory: string = '';
+  //Formularios
   isEditDialogOpen: boolean = false;
   isExistenciasDialogOpen: boolean = false;
   isAddDialogOpen: boolean = false;
+
   currentProducto: Producto = this.initProducto();
   newProducto: Producto = this.initProducto();
   cantidadSeleccionada: number = 0;
@@ -46,14 +46,13 @@ export class VerProductosComponent implements OnInit {
   constructor(
     private almacenistaService: AlmacenistasService,
     private productoService: ProductoService,
-    private categoriaService: CategoriasService,
     private catalogosService: CatalogosService
   ) { }
 
   ngOnInit(): void {
     this.loadProductos();
-    this.cargarCategorias();
     this.loadCatalogos();
+    this.cargarCategorias()
   }
 
   private initProducto(): Producto {
@@ -76,6 +75,17 @@ export class VerProductosComponent implements OnInit {
     };
   }
 
+  cargarCategorias(): void {
+    this.catalogosService.getCategorias().subscribe(
+      (response: Categoria[]) => {
+        this.categorias = response;
+      },
+      error => {
+        console.error("Error al cargar categorías:", error);
+      }
+    );
+  }
+
   loadProductos(): void {
     this.productoService.getProductos().subscribe(
       (data) => {
@@ -89,31 +99,27 @@ export class VerProductosComponent implements OnInit {
     );
   }  
 
-  cargarCategorias(): void {
-    this.categoriaService.getCategorias().subscribe(
-      (response: Categoria[]) => {
-        this.categorias = response;
-      },
-      error => {
-        console.error("Error al cargar categorías:", error);
-      }
-    );
-  }
 
   filtrarPorCategoria(categoria: string) {
-    if (categoria == "") {
+    if (categoria === "") {
       this.loadProductos();
     } else {
       this.almacenistaService.filtrarPorCategoria(categoria).subscribe(
         (response: Producto[]) => {
-          this.productos = response.map(producto => ({ ...producto, mostrarFormulario: false, cantidadAgregada: 0,
-            faltanteEnEstante: producto.stockExhibe - producto.existenciaExhibida }));        },
+          this.productos = response.map(producto => ({
+            ...producto,
+            mostrarFormulario: false,
+            cantidadAgregada: 0,
+            faltanteEnEstante: producto.stockExhibe - producto.existenciaExhibida
+          }));
+        },
         (error) => {
-          console.error('Error al cargar productos:', error);
+          console.error('Error al cargar productos por categoría:', error);
         }
       );
     }
   }
+  
 
   filtrarPorNombre(nombre: string) {
     if (nombre == "") {
@@ -206,8 +212,6 @@ export class VerProductosComponent implements OnInit {
     this.isExistenciasDialogOpen = true;
   }
 
-
-
   closeExistenciasDialog(): void {
     this.isExistenciasDialogOpen = false;
   }
@@ -251,41 +255,7 @@ export class VerProductosComponent implements OnInit {
 
   closeAddDialog(): void {
     this.isAddDialogOpen = false;
-  }
-
-  addProducto(): void {
-    console.log(this.newProducto);
-    if (!this.newProducto.nombreProducto || !this.newProducto.categoria || this.newProducto.precioPieza <= 0) {
-      this.mensaje = 'Por favor, llena los campos obligatorios correctamente.';
-      return;
-    }
-
-    this.productoService.createProducto(this.newProducto).subscribe(
-      (createdProduct) => {
-        this.productos.push(createdProduct);
-        this.loadProductos();
-        this.mensaje = 'Producto creado exitosamente.';
-        this.closeAddDialog();
-      },
-      (error) => {
-        console.error('Error agregando producto:', error);
-        this.mensaje = 'Hubo un error al crear el producto.';
-      }
-    );
-  }
-
-
-  agregarProveedor(): void {
-    if (this.proveedorInput && this.proveedorInput.trim()) {
-      this.newProducto.proveedor.push(this.proveedorInput.trim());
-      this.proveedorInput = '';  // Limpiar el campo después de agregar
-    }
-  }
-
-
-  // Eliminar un proveedor del nuevo producto
-  eliminarProveedor(index: number): void {
-    this.newProducto.proveedor.splice(index, 1);
+    this.loadProductos();
   }
 
   loadCatalogos(): void {

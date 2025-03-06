@@ -162,33 +162,6 @@
     max-width: 100%;
 }
 
-/* Estilo para los botones dentro de los diálogos */
-.dialog-buttons button {
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    border: none;
-}
-
-.dialog-buttons .save-button {
-    background-color: #C5BAFF;
-    color: white;
-}
-
-.dialog-buttons .save-button:hover {
-    background-color: #6C48C5;
-}
-
-.dialog-buttons .cancel-button {
-    background-color: #1230AE;
-    color: white;
-}
-
-.dialog-buttons .cancel-button:hover {
-    background-color: #C5BAFF;
-}
 
 
 /* Contenedor del campo de texto y botón */
@@ -235,39 +208,78 @@
     }
 }
 
+/* =========== BARRA DE FILTROS ================ */
 
-/* Contenedor de los filtros */
-.filtros-container {
-    padding: 10px;
-    background-color: #f8f9fa;
+/* Barra de filtros flotante */
+.barraFiltros {
+    position: fixed;
+    width: 100%;
+    z-index: 1050; /* Mayor que el de la navbar */
+    margin-top: -2%;
+  }
+  
+  /* Ajuste del contenedor para evitar superposición con la barra */
+  .contenedorProductos {
+    margin-top: 100px;
+  }
+  
+  .input-group {
+    color: white;
+  }
+  
+  .input-group select {
+    background-color: #6335d8;
+    color: white;
+  }
+  
+  .btn-icon {
+    width: 50px;
+    height: 43px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* Ajuste general de los elementos */
-.filtros-container .input-group,
-.filtros-container .d-flex {
-    gap: 8px; /* Espaciado entre los elementos */
-}
-
-/* Ajustar tamaño de los campos de entrada y selects */
-.filtros-container .form-control,
-.filtros-container .form-select {
-    height: 34px;
-    font-size: 14px;
-    padding: 5px 10px;
-    max-width: 180px; /* Limita el ancho de los campos */
-}
-
-/* Ajustar tamaño de los botones */
-.filtros-container .btn {
-    height: 34px;
-    font-size: 14px;
-    padding: 5px 12px;
-    white-space: nowrap;
-}
-
-/* Alineación específica para la última fila */
-.filtros-container .d-flex.align-items-center {
-    flex-wrap: nowrap;
-}
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    color: white;
+    background-color: #6335d8;
+  }
+  
+  .btn-icon:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    color: #C68FE6;
+  }
+  
+  .btn-icon svg {
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .btn-icon:hover svg {
+    transform: scale(1.2);
+  }
+  
+/* Acomodar el botón de agregar producto */
+.add-product-btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 5px; 
+  }
+  
+  .add-product-btn button {
+    margin-left: 7px;
+    background-color: #6335d8; /* Color morado */
+    color: white; /* Texto blanco */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease; /* Suaviza la transición del color */
+  }
+  
+  /* Cambio de color al pasar el cursor */
+  .add-product-btn button:hover {
+    background-color: #b88cfc; /* Color lila */
+    cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
+  }
+  
+  
