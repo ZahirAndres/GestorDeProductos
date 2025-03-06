@@ -27,7 +27,8 @@
                     <h4>Lotes</h4>
                 
                     <!-- ComboBox para elegir tipo de búsqueda -->
-                    <select class="form-select w-auto me-2" [(ngModel)]="tipoBusqueda" (change)="filtrarLotes()">
+                    <select class="form-select w-auto me-2" [(ngModel)]="tipoBusqueda" (change)="filtrarLotes()"
+                    >
                         <option value="todos" selected>Todos</option>
                         <option value="codigo">Código de Lote</option>
                         <option value="nombre">Nombre del Producto</option>
@@ -35,8 +36,11 @@
                 
                     <!-- Input de búsqueda habilitado solo si se selecciona un filtro específico -->
                     <div class="input-group w-50">
-                        <input type="text" class="form-control" [(ngModel)]="filtroTexto" 
-                               [disabled]="!tipoBusqueda || tipoBusqueda === 'todos'" placeholder="Ingrese valor">
+                        <input type="text" class="form-control" 
+                                [(ngModel)]="filtroTexto" 
+                               [disabled]="!tipoBusqueda || tipoBusqueda === 'todos'" 
+                               placeholder="Ingrese valor"
+                               (input)="filtrarLotes()">
                         <button class="btn btn-outline-primary" type="button" (click)="filtrarLotes()" 
                                 [disabled]="!tipoBusqueda || tipoBusqueda === 'todos' || !filtroTexto.trim()">🔍</button>
                     </div>
@@ -52,9 +56,9 @@
                 </div>
 
                 <div class="scrollable-container">
-                    <div class="row">
-                        <div class="col-md-4" *ngFor="let lote of lotes">
-                            <div class="card shadow-sm" (click)="seleccionarLote(lote)" style="cursor: pointer;">
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                        <div class="col" *ngFor="let lote of lotes">
+                            <div class="card custom-card" (click)="seleccionarLote(lote)">
                                 <div class="card-body">
                                     <h5 class="card-title">Producto: {{ lote.producto }}</h5>
                                     <p class="card-text"><small class="text-muted">Código de lote: {{ lote.codigoLote }}</small></p>
@@ -66,7 +70,11 @@
                         </div>
                     </div>
                 </div>
+                
             </ng-template>
         </div>
     </div>
 </div>
+
+
+
