@@ -17,7 +17,7 @@ export class ProductoService {
   }
 
   createProducto(producto: any): Observable<any> {
-    return this.http.post<any[]>(`${this.apiUri}/crear`, producto);
+    return this.http.post<any>(`${this.apiUri}/crear`, producto);
   }
 
   updateProducto(producto: any): Observable<any> {

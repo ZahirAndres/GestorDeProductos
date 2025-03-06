@@ -1,0 +1,89 @@
+<div class="dialog-content">
+    <h2>Agregar Nuevo Producto</h2>
+    <form (ngSubmit)="addProducto()" class="product-form">
+        <div class="form-container">
+            <div class="form-group">
+                <label for="nombreProducto">Nombre</label>
+                <input type="text" id="nombreProducto" [(ngModel)]="newProducto.nombreProducto" name="nombreProducto" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigoBarras">Código de barras</label>
+                <input type="text" id="codigoBarras" [(ngModel)]="newProducto.codigoBarras" name="codigoBarras" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tamano">Tamaño</label>
+                <select id="tamano" [(ngModel)]="newProducto.tamano" name="tamano">
+                    <option *ngFor="let tamano of tamanios" [value]="tamano">{{ tamano }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="marca">Marca</label>
+                <select id="marca" [(ngModel)]="newProducto.marca" name="marca">
+                    <option *ngFor="let marca of marcas" [value]="marca">{{ marca }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría</label>
+                <select id="categoria" [(ngModel)]="newProducto.categoria" name="categoria">
+                    <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="imagenUrl">Imagen URL</label>
+                <input type="text" id="imagenUrl" [(ngModel)]="newProducto.imagenUrl" name="imagenUrl">
+            </div>
+
+            <div class="form-group">
+                <label for="proveedorInput">Proveedor</label>
+                <div class="proveedor-input-container">
+                    <input type="text" id="proveedorInput" [(ngModel)]="proveedorInput" name="proveedorInput" />
+                    <button type="button" class="add-proveedor-button" (click)="agregarProveedor()">+</button>
+                </div>
+            </div>
+
+            <div class="full-width">
+                <ul class="proveedor-list">
+                    <li *ngFor="let proveedor of newProducto.proveedor; let i = index">
+                        {{ proveedor }} 
+                        <button type="button" (click)="eliminarProveedor(i)">Eliminar</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label for="precioPieza">Precio por pieza</label>
+                <input type="number" id="precioPieza" [(ngModel)]="newProducto.precioPieza" name="precioPieza" required>
+            </div>
+
+            <div class="form-group">
+                <label for="precioCaja">Precio por caja</label>
+                <input type="number" id="precioCaja" [(ngModel)]="newProducto.precioCaja" name="precioCaja">
+            </div>
+
+            <div class="form-group">
+                <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
+                <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="newProducto.cantidadPiezasPorCaja" name="cantidadPiezasPorCaja">
+            </div>
+
+            <div class="form-group">
+                <label for="existenciaExhibida">Mínimo en existencias</label>
+                <input type="number" id="existenciaExhibida" [(ngModel)]="newProducto.existenciaExhibida" name="existenciaExhibida">
+            </div>
+
+            <div class="form-group">
+                <label for="cantidadAlmacen">Mínimo en almacén</label>
+                <input type="number" id="cantidadAlmacen" [(ngModel)]="newProducto.cantidadAlmacen" name="cantidadAlmacen">
+            </div>
+        </div>
+
+        <div class="dialog-buttons full-width">
+            <button type="submit" class="save-button"(click)="cerrarFormulario()">Agregar Producto</button>
+            <button type="button" class="close-button" (click)="cerrarFormulario()">Cancelar</button>
+        </div>
+    </form>
+</div>
