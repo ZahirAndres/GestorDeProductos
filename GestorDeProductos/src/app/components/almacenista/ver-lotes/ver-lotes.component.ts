@@ -48,13 +48,11 @@ export class VerLotesComponent implements OnInit {
       this.almacenistasService.filtrarLotesPorCodigoLote(this.filtroTexto).subscribe((data) => {
         this.lotes = data;
         this.ordenarLotes();
-        this.filtroTexto = ''; // Resetear input después de la búsqueda
       });
     } else if (this.tipoBusqueda === 'nombre') {
       this.almacenistasService.filtrarLotesPorNombre(this.filtroTexto).subscribe((data) => {
         this.lotes = data;
         this.ordenarLotes();
-        this.filtroTexto = ''; // Resetear input después de la búsqueda
       });
     }
   }

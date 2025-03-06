@@ -1,0 +1,36 @@
+.custom-form {
+    background-color: #F8F9FA;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-label {
+    color: #1230AE;
+    font-weight: bold;
+}
+
+.form-control {
+    border: 2px solid #6C48C5;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #C68FE6 !important;
+    box-shadow: 0 0 5px #C68FE6 !important;
+}
+
+.readonly-input {
+    background-color: #EDE7F6;
+    border-color: #C68FE6;
+}
+
+.btn-primary {
+    background-color: #1230AE;
+    border: none;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #6C48C5 !important;
+}
