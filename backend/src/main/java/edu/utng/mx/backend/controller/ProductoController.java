@@ -65,20 +65,33 @@ public class ProductoController {
     }
 
     @PutMapping("/actualizar-stock/{id}")
-    public ResponseEntity<?> updateStock(@PathVariable String id, @RequestBody Map<String, Integer> request) {
-        try {
-            Optional<Producto> optionalProducto = productoRepo.findById(id);
-            if (optionalProducto.isPresent()) {
-                Producto producto = optionalProducto.get();
-                producto.setStockExhibe(request.get("stockExhibe"));
-                productoRepo.save(producto);
-                return ResponseEntity.ok(producto);
-            } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
+public ResponseEntity<?> updateStock(@PathVariable String id, @RequestBody Map<String, Integer> request) {
+    try {
+        Optional<Producto> optionalProducto = productoRepo.encontrarPorCodigoBarras(id);
+        if (optionalProducto.isPresent()) {
+            Producto producto = optionalProducto.get();
+            int stockExhibe = request.get("stockExhibe");
+            
+            System.out.println("stockExhibe: " + stockExhibe);
+            int nuevaCantidadAlmacen = producto.getCantidadAlmacen() - stockExhibe;
+            
+            // Validar que la cantidad no sea negativa
+            if (nuevaCantidadAlmacen < 0) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay suficiente stock en el almacén");
             }
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
+            
+            producto.setCantidadAlmacen(nuevaCantidadAlmacen);
+            productoRepo.save(producto);
+            
+            System.out.println("Producto actualizado: " + producto);
+            return ResponseEntity.ok(producto);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
         }
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: " + e.getMessage());
     }
+}
+
 
 }

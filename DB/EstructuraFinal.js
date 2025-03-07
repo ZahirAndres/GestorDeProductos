@@ -92,8 +92,7 @@
     "producto": "",
     "precioAnterior": 0,
     "precioNuevo": 0,
-    "fechaInicio": Date,//fecha registro
-    "fechaFin": Date
+    "fechaRegistro": Date,//fecha registro
   }
 ]
 
