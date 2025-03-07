@@ -1,0 +1,168 @@
+/* Contenedor principal del formulario */
+.dialog-content {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 750px; /* Ancho máximo */
+    margin: auto;
+    animation: fadeIn 0.5s ease-in-out;
+    max-height: 80vh; /* Max height para el contenedor */
+    overflow-y: auto; /* Habilita el scroll vertical */
+}
+
+/* Animación de desvanecimiento */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+h2 {
+    text-align: center;
+    color: #4A4A4A;
+    font-size: 26px; /* Tamaño de fuente ajustado */
+    margin-bottom: 15px; /* Espacio reducido */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilo del formulario y disposición */
+.product-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas */
+    gap: 15px; /* Reducido para que los campos estén más cerca */
+    margin-top: 15px; /* Espacio reducido */
+}
+
+/* Cada grupo de formulario */
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Etiquetas de los campos */
+label {
+    font-weight: 600;
+    margin-bottom: 5px; /* Espacio reducido */
+    color: #333;
+    font-size: 14px;
+}
+
+/* Inputs y selects */
+input, select {
+    padding: 10px; /* Reducción del padding */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: 100%;
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de enfoque en los inputs */
+input:focus, select:focus {
+    border-color: #7360DF;
+    box-shadow: 0 0 10px rgba(115, 96, 223, 0.3);
+    outline: none;
+}
+
+/* Estilo para los botones de agregar proveedor */
+.add-proveedor-button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 15px; /* Reducido */
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.add-proveedor-button:hover {
+    background: #45a049;
+}
+
+/* Lista de proveedores */
+.proveedor-list {
+    list-style: none;
+    padding: 0;
+}
+
+.proveedor-list li {
+    display: flex;
+    justify-content: space-between;
+    background: #f2f2f2;
+    padding: 6px 12px; /* Reducido */
+    border-radius: 8px;
+    margin-top: 5px;
+    transition: background 0.3s ease;
+}
+
+.proveedor-list li:hover {
+    background: #e0e0e0;
+}
+
+/* Estilo para los botones de acción */
+.dialog-buttons {
+    display: flex;  /* Usamos flex para alinearlos en una fila */
+    justify-content: space-between;  /* Separar los botones */
+    margin-top: 20px;
+}
+
+/* Estilos para los botones */
+.save-button, .cancel-button {
+    background: #7360DF;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    width: 48%;  /* Los botones ocupan el 48% del ancho */
+    transition: background 0.3s ease;
+}
+
+.save-button:hover, .cancel-button:hover {
+    background: #AA60C8;
+}
+
+/* Botón de cancelar con estilo rojo */
+.cancel-button {
+    background: #f44336;
+}
+
+.cancel-button:hover {
+    background: #e53935;
+}
+
+/* Estilo para los botones de acción */
+button[type="button"] {
+    cursor: pointer;
+    border-radius: 8px;
+    padding: 6px 12px; /* Ajuste de tamaño */
+    background: #FF5733;
+    color: white;
+    border: none;
+    transition: background 0.3s ease;
+}
+
+button[type="button"]:hover {
+    background: #e04e2d;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    /* En pantallas más pequeñas, el formulario se acomoda en una sola columna */
+    .product-form {
+        grid-template-columns: 1fr; /* Una columna */
+    }
+
+    /* Ajustes en los botones */
+    .dialog-buttons {
+        flex-direction: column;
+    }
+
+    .save-button, .cancel-button {
+        width: 100%; /* Los botones ocupan todo el ancho en pantallas pequeñas */
+        margin-bottom: 10px; /* Espacio entre los botones */
+    }
+}

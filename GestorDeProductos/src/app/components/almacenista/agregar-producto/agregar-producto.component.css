@@ -7,6 +7,8 @@
     max-width: 750px;
     margin: auto;
     animation: fadeIn 0.5s ease-in-out;
+    max-height: 80vh; /* Establece la altura máxima del contenedor */
+    overflow-y: auto; /* Habilita el scroll vertical cuando el contenido excede la altura */
 }
 
 /* Animación de desvanecimiento */

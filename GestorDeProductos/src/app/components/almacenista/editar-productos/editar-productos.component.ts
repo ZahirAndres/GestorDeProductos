@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ProductoService } from '../../../services/crear-productos.service';
 import { Producto } from '../../../models/producto.model';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
+import { VerProductosComponent } from '../ver-productos/ver-productos.component';
 
 @Component({
   selector: 'app-editar-productos',
@@ -9,8 +10,8 @@ import { CatalogosService } from '../../../services/formularios/catalogos.servic
   styleUrls: ['./editar-productos.component.css']
 })
 export class EditarProductosComponent {
-  currentProducto: Producto = this.initProducto();
-  productos: Producto[] = [];
+  @Input() currentProducto: Producto = this.initProducto(); // Ahora se recibe el producto desde el componente padre
+  productos: Producto[] = []; 
   isEditDialogOpen: boolean = false;
   proveedorInputEdit: string = '';
   marcas: string[] = [];
@@ -20,7 +21,9 @@ export class EditarProductosComponent {
 
   constructor(
     private productoService: ProductoService,
-    private catalogosService: CatalogosService
+    private catalogosService: CatalogosService,
+        private verProdcutos : VerProductosComponent
+    
   ) {
     this.loadCatalogos();
   }
@@ -32,7 +35,8 @@ export class EditarProductosComponent {
         if (index !== -1) {
           this.productos[index] = updatedProduct;
         }
-        this.isEditDialogOpen = false; // Cerrar el cuadro de diálogo después de actualizar
+        this.verProdcutos.loadProductos();
+        this.verProdcutos.isEditDialogOpen = false;
       },
       (error) => {
         console.error('Error actualizando producto:', error);
@@ -74,8 +78,8 @@ export class EditarProductosComponent {
   }
 
   closeEditDialog(): void {
-    this.isEditDialogOpen = false;
-  }
+    this.verProdcutos.isEditDialogOpen = false; 
+}
 
   loadCatalogos(): void {
     this.catalogosService.getCategorias().subscribe(data => this.categorias = data.map(c => c.nombreCategoria));

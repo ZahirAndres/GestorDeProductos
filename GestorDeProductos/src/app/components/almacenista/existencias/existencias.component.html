@@ -1,0 +1,16 @@
+<h2>Actualizar Existencias</h2>
+<form (ngSubmit)="actualizarStock()">
+  <label for="codigoBarras">Código de Barras</label>
+  <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras" readonly>
+
+  <label for="nombreProducto">Nombre del Producto</label>
+  <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto" name="nombreProducto" readonly>
+
+  <label for="stockNuevo">Nuevo Stock</label>
+  <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
+
+  <div class="dialog-buttons">
+    <button type="submit" class="save-button">Actualizar Stock</button>
+    <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
+  </div>
+</form>

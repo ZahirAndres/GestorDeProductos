@@ -78,43 +78,24 @@
             <button (click)="deleteProducto(producto.id)">Eliminar</button>
             <button (click)="openExistenciasDialog(producto)">Existencias</button>
         </div>
-    </div>
+    </div> 
 </div>
 
-<!-- Cuadro de diálogo para Editar Producto -->
 <div *ngIf="isEditDialogOpen" class="edit-dialog">
-    <div class="dialog-content">
-        <app-editar-productos></app-editar-productos>
-    </div>
+  <div class="dialog-content">
+    <app-editar-productos [currentProducto]="currentProducto"></app-editar-productos> <!-- Pasamos el producto -->
+  </div>
 </div>
+
 
 <!-- Cuadro de diálogo para Actualizar Existencias -->
 <div *ngIf="isExistenciasDialogOpen" class="existencias-dialog">
-    <div class="dialog-content">
-        <h2>Actualizar Existencias</h2>
-        <form (ngSubmit)="actualizarStock()">
-            <label for="codigoBarras">Código de Barras</label>
-            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
-                readonly>
-            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
-                readonly>
-
-            <label for="nombreProducto">Nombre del Producto</label>
-            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
-                name="nombreProducto" readonly>
-            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
-                name="nombreProducto" readonly>
-
-            <label for="stockNuevo">Nuevo Stock</label>
-            <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
-
-            <div class="dialog-buttons">
-                <button type="submit" class="save-button">Actualizar Stock</button>
-                <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
-            </div>
-        </form>
-    </div>
+  <div class="dialog-content">
+    <!-- Componente hijo donde pasas el producto -->
+    <app-existencias [currentProducto]="currentProducto"></app-existencias>
+  </div>
 </div>
+
 
 <!-- Formulario para agregar producto -->
 <div *ngIf="isAddDialogOpen" class="add-dialog">
