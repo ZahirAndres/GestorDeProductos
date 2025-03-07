@@ -81,7 +81,7 @@ export class VerProductosComponent implements OnInit {
         this.categorias = response;
       },
       error => {
-        console.error("Error al cargar categorías:", error);
+        console.error("Error al cargar categorías:", error); 
       }
     );
   }
@@ -161,9 +161,10 @@ export class VerProductosComponent implements OnInit {
   }
 
   openEditDialog(producto: Producto): void {
-    this.currentProducto = { ...producto };
-    this.isEditDialogOpen = true;
+    this.currentProducto = { ...producto }; // Copia los datos del producto
+    this.isEditDialogOpen = true; // Abre el cuadro de diálogo
   }
+  
 
   closeEditDialog(): void {
     this.isEditDialogOpen = false;
@@ -187,33 +188,30 @@ export class VerProductosComponent implements OnInit {
   
 
   deleteProducto(id: string): void {
-    console.log("ID recibido para borrar:", id);
     if (!id) {
       console.error('ID del producto no válido');
       return;
     }
-
-
+  
     this.productoService.deleteProducto(id).subscribe(
-      (response) => {
-        console.log('Respuesta del servidor:', response);
+      () => {
+        this.loadProductos();
+        this.productos = this.productos.filter(prod => prod._id !== id);
         alert('Producto borrado con éxito');
-        window.location.reload();
-        alert('Producto borrado con éxito');
-        window.location.reload();
       },
       (error) => {
         console.error('Error al borrar producto:', error);
       }
     );
   }
+  
 
 
-  openExistenciasDialog(producto: any) {
-    console.log('Producto seleccionado para actualizar existencias:', producto);
-    this.productoExistencias = { ...producto, stockNuevo: producto.stockTotal };
-    this.isExistenciasDialogOpen = true;
+  openExistenciasDialog(producto: Producto) {
+    this.currentProducto = { ...producto };  // Copia el producto seleccionado
+    this.isExistenciasDialogOpen = true;  // Abre el diálogo
   }
+  
 
   closeExistenciasDialog(): void {
     this.isExistenciasDialogOpen = false;

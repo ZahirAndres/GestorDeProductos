@@ -78,95 +78,24 @@
             <button (click)="deleteProducto(producto.id)">Eliminar</button>
             <button (click)="openExistenciasDialog(producto)">Existencias</button>
         </div>
-    </div>
+    </div> 
 </div>
 
-<!-- Cuadro de diálogo para Editar Producto -->
 <div *ngIf="isEditDialogOpen" class="edit-dialog">
-    <div class="dialog-content">
-        <h2>Editar Producto</h2>
-        <form (ngSubmit)="updateProducto()">
-            <label for="nombreProducto">Nombre</label>
-            <input type="text" id="nombreProducto" [(ngModel)]="currentProducto.nombreProducto" name="nombreProducto">
-
-            <label for="codigoBarras">Código de barras</label>
-            <input type="text" id="codigoBarras" [(ngModel)]="currentProducto.codigoBarras" name="codigoBarras">
-
-            <label for="tamano">Tamaño</label>
-            <select id="tamano" [(ngModel)]="currentProducto.tamano" name="tamano">
-                <option *ngFor="let tamano of tamanios" [value]="tamano">{{ tamano }}</option>
-            </select>
-
-            <label for="categoria">Categoría</label>
-            <select id="categoria" [(ngModel)]="currentProducto.categoria" name="categoria">
-                <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
-            </select>
-
-            <label for="proveedorSelect">Seleccionar Proveedor</label>
-            <select id="proveedorSelect" [(ngModel)]="proveedorInputEdit" name="proveedorSelect">
-                <option *ngFor="let proveedor of proveedores" [value]="proveedor">{{ proveedor }}</option>
-            </select>
-            <button type="button" (click)="agregarProveedorEdit()">Agregar Proveedor</button>
-            
-            <!-- Lista de proveedores seleccionados para el producto -->
-            <ul>
-                <li *ngFor="let proveedor of currentProducto.proveedor; let i = index">
-                    {{ proveedor }} 
-                    <button type="button" (click)="eliminarProveedorEdit(i)">Eliminar</button>
-                </li>
-            </ul>
-            
-            
-
-
-            <label for="imagenUrl">Imagen URL</label>
-            <input type="text" id="imagenUrl" [(ngModel)]="currentProducto.imagenUrl" name="imagenUrl">
-
-            <label for="precioPieza">Precio por pieza</label>
-            <input type="number" id="precioPieza" [(ngModel)]="currentProducto.precioPieza" name="precioPieza">
-
-            <label for="precioCaja">Precio por caja</label>
-            <input type="number" id="precioCaja" [(ngModel)]="currentProducto.precioCaja" name="precioCaja">
-
-            <label for="cantidadPiezasPorCaja">Cantidad por caja</label>
-            <input type="number" id="cantidadPiezasPorCaja" [(ngModel)]="currentProducto.cantidadPiezasPorCaja"
-                name="cantidadPiezasPorCaja">
-
-            <div class="dialog-buttons">
-                <button type="submit" class="save-button">Guardar cambios</button>
-                <button type="button" class="cancel-button" (click)="closeEditDialog()">Cancelar</button>
-            </div>
-        </form>
-    </div>
+  <div class="dialog-content">
+    <app-editar-productos [currentProducto]="currentProducto"></app-editar-productos> <!-- Pasamos el producto -->
+  </div>
 </div>
+
 
 <!-- Cuadro de diálogo para Actualizar Existencias -->
 <div *ngIf="isExistenciasDialogOpen" class="existencias-dialog">
-    <div class="dialog-content">
-        <h2>Actualizar Existencias</h2>
-        <form (ngSubmit)="actualizarStock()">
-            <label for="codigoBarras">Código de Barras</label>
-            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
-                readonly>
-            <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras"
-                readonly>
-
-            <label for="nombreProducto">Nombre del Producto</label>
-            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
-                name="nombreProducto" readonly>
-            <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto"
-                name="nombreProducto" readonly>
-
-            <label for="stockNuevo">Nuevo Stock</label>
-            <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
-
-            <div class="dialog-buttons">
-                <button type="submit" class="save-button">Actualizar Stock</button>
-                <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
-            </div>
-        </form>
-    </div>
+  <div class="dialog-content">
+    <!-- Componente hijo donde pasas el producto -->
+    <app-existencias [currentProducto]="currentProducto"></app-existencias>
+  </div>
 </div>
+
 
 <!-- Formulario para agregar producto -->
 <div *ngIf="isAddDialogOpen" class="add-dialog">

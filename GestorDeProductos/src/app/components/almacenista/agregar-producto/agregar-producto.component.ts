@@ -3,6 +3,7 @@ import { ProductoService } from '../../../services/crear-productos.service';
 import { Producto } from '../../../models/producto.model';
 import { Categoria } from '../../../models/categoria.model';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
+import { VerProductosComponent } from '../ver-productos/ver-productos.component';
 
 @Component({
   selector: 'app-agregar-producto',
@@ -22,7 +23,8 @@ export class AgregarProductoComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private catalogosService: CatalogosService
+    private catalogosService: CatalogosService,
+    private verProdcutos : VerProductosComponent
   ) { }
 
   ngOnInit(): void {
@@ -60,6 +62,7 @@ export class AgregarProductoComponent implements OnInit {
 
     this.productoService.createProducto(this.newProducto).subscribe(
       (createdProduct) => {
+        this.verProdcutos.loadProductos();
         this.mensaje = 'Producto creado exitosamente.';
         this.newProducto = this.initProducto(); // Limpiar formulario después de la creación
         setTimeout(() => this.mensaje = '', 3000); // Limpiar mensaje después de 3 segundos
@@ -73,10 +76,18 @@ export class AgregarProductoComponent implements OnInit {
 
   agregarProveedor(): void {
     if (this.proveedorInput && this.proveedorInput.trim()) {
-      this.newProducto.proveedor.push(this.proveedorInput.trim());
-      this.proveedorInput = '';  // Limpiar el campo después de agregar
+      // Verifica si el proveedor ya existe en el array
+      if (!this.newProducto.proveedor.includes(this.proveedorInput.trim())) {
+        this.newProducto.proveedor.push(this.proveedorInput.trim());
+        this.proveedorInput = ''; // Limpia el campo de entrada después de agregar
+      } else {
+        alert("El proveedor ya ha sido agregado.");
+      }
+    } else {
+      alert("Por favor, ingresa un proveedor válido.");
     }
   }
+  
 
   eliminarProveedor(index: number): void {
     this.newProducto.proveedor.splice(index, 1);

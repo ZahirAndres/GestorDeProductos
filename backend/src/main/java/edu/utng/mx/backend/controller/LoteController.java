@@ -40,7 +40,7 @@ public class LoteController {
 
             Producto producto = productoObtenido.get();
 
-            producto.setStockAlmacen(producto.getStockAlmacen() + lote.getCantidadComprada()); // Aqui suma la cantidad
+            producto.setCantidadAlmacen(producto.getCantidadAlmacen() + lote.getCantidadComprada()); // Aqui suma la cantidad
                                                                                                // de alamcen con la
                                                                                                // nueva de lote
 

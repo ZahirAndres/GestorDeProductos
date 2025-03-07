@@ -20,7 +20,9 @@ import { VerProductosComponent } from './components/almacenista/ver-productos/ve
 import { VerProductosClienteComponent } from './components/cliente/ver-productos-cliente/ver-productos-cliente.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrarLoteComponent } from './components/almacenista/registrar-lote/registrar-lote.component';
+import { EditarProductosComponent } from './components/almacenista/editar-productos/editar-productos.component';
 import { AgregarProductoComponent } from './components/almacenista/agregar-producto/agregar-producto.component';
+import { ExistenciasComponent } from './components/almacenista/existencias/existencias.component';
 
 
 
@@ -39,7 +41,9 @@ import { AgregarProductoComponent } from './components/almacenista/agregar-produ
     VerProductosClienteComponent,
     LoginComponent,
     RegistrarLoteComponent,
-    AgregarProductoComponent
+    EditarProductosComponent,
+    AgregarProductoComponent,
+    ExistenciasComponent
   ],
   imports: [
     BrowserModule,
