@@ -100,7 +100,7 @@ export class AlmacenistasService {
 
   /**
    * Filtrar productos por categoría
-   * @param categoria Categoría del producto
+   * @param categoria Categoría del producto 
    * @returns Lista de productos filtrados
    */
   filtrarPorCategoria(categoria: string) {

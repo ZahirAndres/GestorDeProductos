@@ -14,6 +14,7 @@ export class ExistenciasComponent implements OnChanges {
   isExistenciasDialogOpen: boolean = false;
   cantidadSeleccionada: number = 0;
   productoExistencias: any = {
+    _id: '',
     codigoBarras: '',
     nombreProducto: '',
     stockNuevo: 0
@@ -22,14 +23,18 @@ export class ExistenciasComponent implements OnChanges {
   productos: any[] = [];
 
 
-  constructor(private productoService: ProductoService,private verProducto: VerProductosComponent) { }
+  constructor(private productoService: ProductoService, private verProducto: VerProductosComponent) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Verifica si el currentProducto ha cambiado y actualiza productoExistencias
     if (changes['currentProducto'] && this.currentProducto) {
-      this.productoExistencias = { ...this.currentProducto }; // Copia los valores del producto
+      console.log('Producto recibido:', this.currentProducto);
+      this.productoExistencias._id = this.currentProducto._id; 
+      this.productoExistencias.codigoBarras = this.currentProducto.codigoBarras;
+      this.productoExistencias.nombreProducto = this.currentProducto.nombreProducto;
     }
   }
+  
+
 
   private initProducto(): Producto {
     return {
@@ -50,34 +55,40 @@ export class ExistenciasComponent implements OnChanges {
       cantidadAlmacen: 0
     };
   }
-//esta recibienod ceras revisar
+
+
   actualizarStock(): void {
-    if (this.cantidadSeleccionada <= 0) {
-      alert('Ingresa una cantidad válida.');
-      return;
-    }
-
-    if (this.productoExistencias.stockExhibe < this.cantidadSeleccionada) {
-      alert('No puedes reducir más de lo que hay en stock.');
-      return;
-    }
-
-    this.productoExistencias.stockExhibe -= this.cantidadSeleccionada;
-
-    this.productoService.updateProducto(this.productoExistencias).subscribe(
-      (updatedProduct) => {
-        const index = this.productos.findIndex(prod => prod._id === updatedProduct._id);
-        if (index !== -1) {
-          this.productos[index] = updatedProduct;
-          this.verProducto.loadProductos();
-        }
-        this.closeExistenciasDialog();
-      },
-      (error) => {
-        console.error('Error actualizando stock:', error);
+    try {
+      if (this.currentProducto.cantidadAlmacen <= 0) {
+        alert('La cantidad de almacen no puede ser menor o igual a 0');
       }
-    );
+
+      // Imprime los valores para verificar que _id está presente
+      this.productoExistencias._id = this.currentProducto.codigoBarras;
+      console.log('ID del producto:', this.productoExistencias._id);
+      console.log('Código de barras:', this.productoExistencias.codigoBarras);
+
+      if (!this.productoExistencias._id) {
+        alert('ID del producto es necesario');
+        return; // Detén la ejecución si no hay ID
+      }
+
+      this.productoService.updateStock(this.productoExistencias._id, this.productoExistencias.stockNuevo).subscribe(
+        (response) => {
+          console.log('Stock actualizado:', response);
+          this.verProducto.isExistenciasDialogOpen = false;
+        },
+        (error) => {
+          console.error('Error al actualizar stock:', error);
+          this.verProducto.isExistenciasDialogOpen = false;
+        }
+      );
+    } catch (error) {
+      console.error('Error en actualizarStock:', error);
+      this.verProducto.isExistenciasDialogOpen = false;
+    }
   }
+
 
   closeExistenciasDialog(): void {
     this.verProducto.isExistenciasDialogOpen = false;

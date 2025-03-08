@@ -19,7 +19,7 @@ export class ProductoService {
   createProducto(producto: any): Observable<any> {
     return this.http.post<any>(`${this.apiUri}/crear`, producto);
   }
-
+ 
   updateProducto(producto: any): Observable<any> {
     return this.http.put<any[]>(`${this.apiUri}/actualizar`, producto);
   }
@@ -28,7 +28,11 @@ export class ProductoService {
     return this.http.delete(`${this.apiUri}/borrar/${id}`, { responseType: 'text' });
   }
 
-  updateStock(id: string, nuevoStock: number): Observable<any> {
+  updateStock(id: string | undefined, nuevoStock: number): Observable<any> {
+    if (!id) {
+      throw new Error('El id no puede ser undefined');
+    }
     return this.http.put(`${this.apiUri}/actualizar-stock/${id}`, { stockExhibe: nuevoStock });
   }
+  
 }
