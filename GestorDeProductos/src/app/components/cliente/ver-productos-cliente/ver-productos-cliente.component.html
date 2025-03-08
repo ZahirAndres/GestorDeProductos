@@ -58,11 +58,11 @@
     </div>
   </div>
 
-  <div class="container mt-5">
+  <div class="container mt-5" >
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <!-- Tarjetas de productos -->
       <div class="col" *ngFor="let producto of productos">
-        <div class="card shadow producto-card h-100">
+        <div class="card shadow producto-card h-100" (click)="openProductoDialog(producto)">
           <!-- Imagen del producto -->
           <div class="producto-img-container">
             <img
@@ -103,9 +103,24 @@
             <p [ngClass]="producto.colorMensaje">
               <strong>{{ producto.mensajeExistencia }}</strong>
             </p>
+
+            <p [ngClass]="producto.colorMensajeAlmacen">
+              <strong>{{ producto.mensajeExistenciaAlmacen }}</strong>
+            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+  
+  <div *ngIf="isProducto" class="edit-dialog">
+    <div class="dialog-content">
+      <button class="btn btn-danger btn-sm float-end" (click)="isProducto = false">Cerrar</button>
+      <app-ver-producto [currentProducto]="currentProducto"></app-ver-producto>
+    </div>
+  </div>
+  
+
 </body>
