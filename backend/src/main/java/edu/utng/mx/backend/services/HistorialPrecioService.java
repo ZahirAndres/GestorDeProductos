@@ -27,7 +27,10 @@ public class HistorialPrecioService {
 
     // Buscar todos los historiales de precios de un producto dado un código de barras
     public List<HistorialPrecio> encontrarTodosPorCodigoBarras(String codigoBarras) {
-        return historialPrecioRepository.encontrarTodosPorCodigoBarras(codigoBarras);
+        System.out.println("Buscando historial para: " + codigoBarras);
+        List<HistorialPrecio> historial = historialPrecioRepository.encontrarTodosPorCodigoBarras(codigoBarras);
+        System.out.println("Resultado encontrado: " + historial);
+        return historial;
     }
 
     // Eliminar historial de precios por código de barras
