@@ -2,16 +2,20 @@
 /* Asegura que la tabla esté justo debajo del bloque de detalles del producto */
 .col-md-8 {
     padding-bottom: 20px; /* Espacio inferior entre el contenido de los detalles y la tabla */
+    display: flex; /* Asegura que los elementos dentro del contenedor sigan el flujo correcto */
+    flex-direction: column; /* Organiza los elementos de arriba hacia abajo */
   }
   
   table {
-    width: 100%;
-    margin-top: 20px; /* Espacio encima de la tabla */
+    width: 60%; /* Reducir el ancho de la tabla */
+    margin-left: auto; /* Alineación a la derecha */
+    margin-right: 0; /* Asegura que la tabla se mantenga a la derecha */
     border-collapse: collapse; /* Para mejorar la visualización de bordes */
+    margin-top: 10px; /* Espacio entre el contenido y la tabla */
   }
   
   table th, table td {
-    padding: 12px; /* Espaciado dentro de las celdas de la tabla */
+    padding: 8px 12px; /* Espaciado dentro de las celdas de la tabla */
     text-align: left;
     border-bottom: 1px solid #ddd; /* Añade una línea de separación entre filas */
   }
@@ -23,6 +27,15 @@
   
   table tbody tr:hover {
     background-color: #f1f1f1; /* Resaltar fila cuando el usuario pase el mouse por encima */
+  }
+  
+  /* Ajustar las columnas */
+  table th:nth-child(1), table td:nth-child(1) {
+    width: 20%; /* Ancho para la columna "Fechas de cambios" */
+  }
+  
+  table th:nth-child(2), table td:nth-child(2) {
+    width: 20%; /* Ancho para la columna "Precios anteriores" */
   }
   
   table tfoot {

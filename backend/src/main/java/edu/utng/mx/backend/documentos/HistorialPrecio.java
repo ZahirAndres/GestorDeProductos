@@ -5,7 +5,7 @@ import org.springframework.data.annotation.Id;
 import java.util.List;
 import java.util.Date;
 
-@Document(collection = "HistorialPrecios")
+@Document(collection = "historialPrecios")
 public class HistorialPrecio {
 
     @Id

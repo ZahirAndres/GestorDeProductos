@@ -21,13 +21,14 @@ export class HistorialPreciosComponent {
   cargarHistorialPrecios(codigoBarras: string): void {
     this.historialPrecioService.getHistorialPorCodigoBarras(codigoBarras).subscribe(
       (response) => {
+        console.log("Datos recibidos en historialPrecios:", response); // 👈 Agrega esto
         this.historialPrecios = response;
       },
       (error) => {
         console.error("Error al cargar historial de precios:", error);
       }
     );
-  }  
+  }   
 
   recibirProductoSeleccionado(producto: Producto): void {
     this.productoSeleccionado = producto;
