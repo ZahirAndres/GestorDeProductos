@@ -51,6 +51,7 @@ import { ExistenciasComponent } from './components/almacenista/existencias/exist
     EditarProductosComponent,
     ExistenciasComponent
 
+
   ],
   imports: [
     BrowserModule,
