@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Producto } from '../../../models/producto.model';
+import { HistorialPrecioService } from '../../../services/historialPrecios/historialPrecios.service';
+
 
 @Component({
   selector: 'app-historial-precios',
@@ -6,5 +9,29 @@ import { Component } from '@angular/core';
   styleUrl: './historial-precios.component.css'
 })
 export class HistorialPreciosComponent {
+
+  historialPrecios: any[] = [];
+
+  productoSeleccionado: Producto | null = null;
+
+  constructor(
+    private historialPrecioService: HistorialPrecioService
+  ){}
+
+  cargarHistorialPrecios(codigoBarras: string): void {
+    this.historialPrecioService.getHistorialPorCodigoBarras(codigoBarras).subscribe(
+      (response) => {
+        this.historialPrecios = response;
+      },
+      (error) => {
+        console.error("Error al cargar historial de precios:", error);
+      }
+    );
+  }  
+
+  recibirProductoSeleccionado(producto: Producto): void {
+    this.productoSeleccionado = producto;
+    this.cargarHistorialPrecios(producto.codigoBarras);
+  }
 
 }
