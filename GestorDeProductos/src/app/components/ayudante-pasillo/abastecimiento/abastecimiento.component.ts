@@ -57,14 +57,15 @@ export class AbastecimientoComponent implements OnInit {
   actualizarCantidad(form: NgForm, producto: Producto): void {
     if (form.valid) {
       if (producto.cantidadAgregada) {
-        producto.existenciaExhibida += producto.cantidadAgregada;
-        this.productoService.updateProducto(producto).subscribe(
+        var codigoBarras = producto.codigoBarras;
+        this.filtrosAyudanteService.actualizarCantidadExistente( producto.cantidadAgregada, codigoBarras).subscribe(
           (response) => {
             console.log('Producto actualizado:', response);
             producto.cantidadAgregada = 0;
             form.resetForm();
             producto.mostrarFormulario = false;
-          },
+            this.cargarProductos();
+                    },
           (error) => {
             console.error('Error al actualizar producto:', error);
           }

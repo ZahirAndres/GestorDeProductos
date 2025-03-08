@@ -43,7 +43,6 @@ public class LoteController {
             producto.setCantidadAlmacen(producto.getCantidadAlmacen() + lote.getCantidadComprada()); // Aqui suma la cantidad
                                                                                                // de alamcen con la
                                                                                                // nueva de lote
-
             productoRepo.save(producto);
             return new ResponseEntity<>(loteGuardado, HttpStatus.CREATED);
         } catch (Exception e) {

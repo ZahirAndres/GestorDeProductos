@@ -3,6 +3,7 @@ package edu.utng.mx.backend.repository;
 import edu.utng.mx.backend.documentos.Producto;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
+
 import java.util.List;
 
 public interface FiltrosAyudanteRepository extends MongoRepository<Producto, String> {
@@ -40,7 +41,7 @@ public interface FiltrosAyudanteRepository extends MongoRepository<Producto, Str
         List<Producto> findByNombreProducto(String nombreProducto);
 
         /**
-         * Me manda todos los productos por debajo de su stockExibhe, 
+         * Me manda todos los productos por debajo de su stockExibhe,
          * Busca los productos por su categoria y los odena por el numero de
          * existencias faltantes del
          * mayor al menor
@@ -56,7 +57,8 @@ public interface FiltrosAyudanteRepository extends MongoRepository<Producto, Str
         List<Producto> findByCategoria(String categoria);
 
         /**
-         * Me manda todos los productos por debajo de su stockExibhe y los ordena por el numero de
+         * Me manda todos los productos por debajo de su stockExibhe y los ordena por el
+         * numero de
          * existencias faltantes del
          * mayor al menor
          * 
@@ -64,7 +66,7 @@ public interface FiltrosAyudanteRepository extends MongoRepository<Producto, Str
          */
         @Aggregation(pipeline = {
                         "{ $addFields: { faltanteEnEstante: { $subtract: [ '$stockExhibe', '$existenciaExhibida' ] } } }",
-                        "{ $match: { $expr: { $lte: [ '$existenciaExhibida', '$stockExhibe' ] } } }",
+                        "{ $match: { $expr: { $lt: [ '$existenciaExhibida', '$stockExhibe' ] } } }",
                         "{ $sort: { faltanteEnEstante: -1 } }"
         })
         List<Producto> findByExistenciaExhibida();
@@ -80,4 +82,5 @@ public interface FiltrosAyudanteRepository extends MongoRepository<Producto, Str
                         "{ $sort: { faltanteEnEstante: -1 } }"
         })
         List<Producto> findByNombreYCategoria(String filtro);
+
 }

@@ -1,10 +1,6 @@
 package edu.utng.mx.backend.services;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.TimeZone;
-import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +18,6 @@ public class AlmacenistaServices {
     @Autowired
     private FiltrosAlmacenistaRepository filtrosAlmacenista;
 
-    @Autowired
     public AlmacenistaServices(LotesRepository lotesRepository, FiltrosAlmacenistaRepository filtrosAlmacenista) {
         this.lotesRepository = lotesRepository;
         this.filtrosAlmacenista = filtrosAlmacenista;

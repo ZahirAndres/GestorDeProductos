@@ -21,4 +21,6 @@ export interface Producto {
   faltanteEnEstante?: number;
   mensajeExistencia?: string;
   colorMensaje?: string;
+  mensajeExistenciaAlmacen?: string;
+  colorMensajeAlmacen?:string;
 }

@@ -117,11 +117,17 @@
                   <strong>Categoría: </strong> {{ producto.categoria }}<br />
                   <strong>Precio: </strong> ${{ producto.precioPieza }} por
                   pieza <br />
-                  <strong>Existencia: </strong>
+
+                  <strong>Existencias: </strong>
                   <span class="text-primary">{{
                     producto.existenciaExhibida
                   }}</span
                   ><br />
+                  <strong>Minimo en estantes: </strong>
+                  <span class="text-primary">{{
+                    producto.stockExhibe
+                  }}</span
+                  ><br/>
                   <strong>Cantidad faltante en estante: </strong
                   >{{ producto.faltanteEnEstante }}
                 </p>

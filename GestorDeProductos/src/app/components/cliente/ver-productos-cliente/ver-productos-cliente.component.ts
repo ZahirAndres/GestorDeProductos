@@ -17,6 +17,8 @@ export class VerProductosClienteComponent implements OnInit {
   filtro: string = '';
   nombreProducto: string = '';
   codigoBarras: string = '';
+  isProducto: boolean = false;
+  currentProducto: Producto = this.initProducto();
 
   constructor(
     private catalogoService: CatalogosService,
@@ -28,6 +30,29 @@ export class VerProductosClienteComponent implements OnInit {
     this.cargarCategorias();
   }
 
+    private initProducto(): Producto {
+      return {
+        _id: '',
+        codigoBarras: '',
+        nombreProducto: '',
+        tamano: '',
+        marca: '',
+        imagenUrl: '',
+        categoria: '',
+        precioPieza: 0,
+        precioCaja: 0,
+        cantidadPiezasPorCaja: 0,
+        proveedor: [],
+        stockExhibe: 0,
+        existenciaExhibida: 0,
+        stockAlmacen: 0,
+        cantidadAlmacen: 0,
+        mensajeExistencia:'',
+        colorMensaje:'',
+        mensajeExistenciaAlmacen:'',
+        colorMensajeAlmacen:''
+      };
+    }
   cargarProductos(): void {
     this.clienteService.getProductosDefecto().subscribe(
       (response: Producto[]) => {
@@ -61,20 +86,43 @@ export class VerProductosClienteComponent implements OnInit {
         mensajeExistencia = '';
         colorMensaje = '';
       } else if (faltante < 30) {
-        mensajeExistencia = 'El producto está a punto de agotarse';
+        mensajeExistencia = '¡Atención! El producto está a punto de agotarse en la estantería.';
         colorMensaje = 'text-verde';
       } else if (faltante < 60) {
-        mensajeExistencia = 'El producto está casi agotado';
+        mensajeExistencia = 'El producto está casi agotado en la estantería, ¡últimas unidades!';
         colorMensaje = 'text-orange';
       } else if (faltante < 100) {
-        mensajeExistencia = 'Existencia al limite de agotarse';
+        mensajeExistencia = '¡Casi agotado! La existencia en estantería está al límite.';
         colorMensaje = 'text-danger';
       } else if (faltante == 100) {
-        mensajeExistencia = 'El producto está agotado';
+        mensajeExistencia = 'Producto agotado en la estantería, ¡sin unidades disponibles!';
         colorMensaje = 'text-danger';
       }
+      
+      const faltanteAlmacen = ((producto.stockAlmacen - producto.cantidadAlmacen) / producto.stockAlmacen) * 100;
+      let mensajeExistenciaAlmacen = '';
+      let colorMensajeAlmacen = '';
+      
+      if (faltanteAlmacen < 0) {
+        mensajeExistenciaAlmacen = '';
+        colorMensajeAlmacen = '';
+      } else if (faltanteAlmacen < 30) {
+        mensajeExistenciaAlmacen = '¡Alerta! Las cajas están a punto de agotarse en el almacén.';
+        colorMensajeAlmacen = 'text-verde';
+      } else if (faltanteAlmacen < 60) {
+        mensajeExistenciaAlmacen = 'Las cajas están casi agotadas, ¡aprovecha mientras hay disponibilidad!';
+        colorMensajeAlmacen = 'text-orange';
+      } else if (faltanteAlmacen < 100) {
+        mensajeExistenciaAlmacen = '¡Pocas cajas disponibles! No pierdas la oportunidad.';
+        colorMensajeAlmacen = 'text-danger';
+      } else if (faltanteAlmacen == 100) { 
+        mensajeExistenciaAlmacen = 'Cajas no disponibles en el almacén, ¡agotado!';
+        colorMensajeAlmacen = 'text-danger';
+      }
+      
 
-      return { ...producto, mensajeExistencia, colorMensaje };
+
+      return { ...producto, mensajeExistencia, colorMensaje, mensajeExistenciaAlmacen, colorMensajeAlmacen };
     });
   }
 
@@ -122,4 +170,14 @@ export class VerProductosClienteComponent implements OnInit {
       );
     }
   }
+
+
+  
+  openProductoDialog(producto: Producto): void {
+    this.currentProducto = { ...producto};
+    console.log(this.currentProducto);  // 🔍 Verifica que tenga datos antes de abrir el diálogo
+    this.isProducto = true;
+  }
+  
+  
 }
