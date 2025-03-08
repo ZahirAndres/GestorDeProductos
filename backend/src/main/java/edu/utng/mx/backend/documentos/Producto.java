@@ -14,7 +14,7 @@ public class Producto {
     private String nombreProducto;
     private String tamano;
     private String marca;
-    private String imagenUrl;
+    private List<String> imagenUrl;
     private String categoria;
     private double precioPieza;
     private double precioCaja;
@@ -33,7 +33,7 @@ public class Producto {
 
     // Constructor con parámetros
     public Producto(String _id, String codigoBarras, String nombreProducto, String tamano, String marca,
-                    String imagenUrl, String categoria, double precioPieza, double precioCaja,
+    List<String> imagenUrl, String categoria, double precioPieza, double precioCaja,
                     int cantidadPiezasPorCaja, List<String> proveedor, int stockExhibe, int existenciaExhibida,
                     int stockAlmacen, int cantidadAlmacen) {
         this._id = _id;
@@ -94,11 +94,11 @@ public class Producto {
         this.marca = marca;
     }
 
-    public String getImagenUrl() {
+    public List<String> getImagenUrl() {
         return imagenUrl;
     }
 
-    public void setImagenUrl(String imagenUrl) {
+    public void setImagenUrl(List<String> imagenUrl) {
         this.imagenUrl = imagenUrl;
     }
 
