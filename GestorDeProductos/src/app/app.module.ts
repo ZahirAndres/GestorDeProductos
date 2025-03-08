@@ -22,6 +22,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegistrarLoteComponent } from './components/almacenista/registrar-lote/registrar-lote.component';
 import { ListaHistorialComponent } from './components/almacenista/lista-historial/lista-historial.component';
 import { HistorialPreciosComponent } from './components/almacenista/historial-precios/historial-precios.component';
+import { VerProductoComponent } from './components/cliente/ver-producto/ver-producto.component';
+import { AgregarProductoComponent } from './components/almacenista/agregar-producto/agregar-producto.component';
+import { EditarProductosComponent } from './components/almacenista/editar-productos/editar-productos.component';
+import { ExistenciasComponent } from './components/almacenista/existencias/existencias.component';
 
 
 
@@ -41,7 +45,12 @@ import { HistorialPreciosComponent } from './components/almacenista/historial-pr
     LoginComponent,
     RegistrarLoteComponent,
     ListaHistorialComponent,
-    HistorialPreciosComponent
+    HistorialPreciosComponent,
+    VerProductoComponent,
+    AgregarProductoComponent,
+    EditarProductosComponent,
+    ExistenciasComponent
+
   ],
   imports: [
     BrowserModule,
