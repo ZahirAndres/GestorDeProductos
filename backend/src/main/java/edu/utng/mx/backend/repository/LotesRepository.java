@@ -1,14 +1,12 @@
 package edu.utng.mx.backend.repository;
 
 import edu.utng.mx.backend.documentos.Lote;
-import edu.utng.mx.backend.documentos.Producto;
 
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Date;
 
 @Repository
 public interface LotesRepository extends MongoRepository<Lote, String> {

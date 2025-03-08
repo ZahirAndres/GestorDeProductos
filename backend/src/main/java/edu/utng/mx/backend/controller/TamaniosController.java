@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import edu.utng.mx.backend.repository.TamanioRepository;
 import edu.utng.mx.backend.documentos.Tamanio;
-
 @RestController
 @RequestMapping("/api/formularios/tamanios")
 public class TamaniosController {

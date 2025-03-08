@@ -4,7 +4,6 @@ import edu.utng.mx.backend.documentos.Producto;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
-import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 @Repository
 public interface ProductoRepository extends MongoRepository<Producto, String> {

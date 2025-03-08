@@ -27,4 +27,7 @@ export class FiltrosService {
     return this.http.get<any[]>(`${this.apiUrl}/ProductosDefectoPasillo`);
   }
 
+  actualizarCantidadExistente(cantidadAgregada: number, codigoBarras: String){
+    return this.http.put<any>(`${this.apiUrl}/actualizarExistenciaPasillo/${codigoBarras}`, cantidadAgregada );
+  }
 }

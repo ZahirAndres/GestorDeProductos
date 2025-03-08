@@ -3,3 +3,11 @@ body{
     margin-bottom: 5%;
     background-color: #FFF7F7;
  }
+
+ .text-orange {
+    color: orange;
+  }
+  
+  .text-verde {
+    color: rgb(157, 255, 0);
+  }
