@@ -4,8 +4,10 @@ import edu.utng.mx.backend.documentos.Producto;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
+import java.util.Optional;
 
 public interface FiltrosAlmacenistaRepository extends MongoRepository<Producto, String> {
+
 
     // Buscar productos por nombre (sin distinción de mayúsculas/minúsculas)
     @Aggregation(pipeline = {
@@ -15,7 +17,7 @@ public interface FiltrosAlmacenistaRepository extends MongoRepository<Producto, 
     List<Producto> findByNombreProducto(String nombreProducto);
 
     // Buscar productos por categoría
-    @Aggregation(pipeline = {
+    @Aggregation(pipeline = { 
             "{ $match: { 'categoria': { $regex: ?0, $options: 'i' } } }",
             "{ $sort: { 'nombreProducto': 1 } }"
     })

@@ -61,8 +61,9 @@
     </div>
   </div>
   
+  
 
-
+ 
 <!-- Cards de productos -->
 <div class="product-cards">
     <div *ngFor="let producto of productos" class="product-card">
@@ -71,10 +72,13 @@
       class="producto-img"
       alt="{{ producto.nombreProducto }}"
     />
-        <h3>{{ producto.nombreProducto }}</h3>
-        <h3>{{ producto.codigoBarras }}</h3>
-        <p>Categoría: {{ producto.categoria }}</p>
-        <p>Stock: {{ producto.stockAlmacen }}</p>
+        <h3>Producto : {{ producto.nombreProducto }}</h3>
+        <h3>Codigo de barras : {{ producto.codigoBarras }}</h3>
+        <p>Categoría : {{ producto.categoria }}</p>
+        <p>Stock mínimo de almacén : {{ producto.stockAlmacen }}</p>
+        <p [ngClass]="getAlmacenClass(producto)" class="cantidad-almacen">
+          Cantidad en almacén : {{ producto.cantidadAlmacen }}
+        </p>
 
         <!-- Contenedor de botones -->
         <div class="button-container">
@@ -93,7 +97,7 @@
 
 
 <!-- Cuadro de diálogo para Actualizar Existencias -->
-<div *ngIf="isExistenciasDialogOpen" class="existencias-dialog">
+<div *ngIf="isExistenciasDialogOpen" class="existencias-dialog"> 
   <div class="dialog-content">
     <!-- Componente hijo donde pasas el producto -->
     <app-existencias [currentProducto]="currentProducto"></app-existencias>

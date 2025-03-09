@@ -21,12 +21,14 @@ export class AgregarProductoComponent implements OnInit {
   proveedores: string[] = [];
   tamanios: string[] = [];
   categorias: Categoria[] = [];
-
+  
+  // Variable para marcar error en el input de código de barras
+  codigoBarrasError: boolean = false;
 
   constructor(
     private productoService: ProductoService,
     private catalogosService: CatalogosService,
-    private verProdcutos : VerProductosComponent
+    private verProdcutos: VerProductosComponent
   ) { }
 
   ngOnInit(): void {
@@ -35,9 +37,6 @@ export class AgregarProductoComponent implements OnInit {
       this.newProducto.imagenUrl = []; 
     }
   }
-
-
-
 
   private initProducto(): Producto {
     return {
@@ -59,10 +58,8 @@ export class AgregarProductoComponent implements OnInit {
     };
   }
 
-
   addProducto(): void {
     this.mensaje = ''; // Limpiar mensaje previo
-    console.log(this.newProducto);
 
     if (!this.validarProducto()) {
       this.mensaje = 'Por favor, llena los campos obligatorios correctamente.';
@@ -73,12 +70,18 @@ export class AgregarProductoComponent implements OnInit {
       (createdProduct) => {
         this.verProdcutos.loadProductos();
         this.mensaje = 'Producto creado exitosamente.';
-        this.newProducto = this.initProducto(); // Limpiar formulario después de la creación
-        setTimeout(() => this.mensaje = '', 3000); // Limpiar mensaje después de 3 segundos
+        this.newProducto = this.initProducto(); // Limpiar formulario
+        // Opcional: limpiar mensaje después de unos segundos
+        setTimeout(() => this.mensaje = '', 3000);
       },
       (error) => {
         console.error('Error agregando producto:', error);
-        this.mensaje = 'Hubo un error al crear el producto.';
+        if (error.status === 409) { // Conflicto: producto ya existe
+          window.alert('El producto con ese código de barras ya existe.');
+          this.codigoBarrasError = true;
+        } else {
+          window.alert('Hubo un error al crear el producto.');
+        }
       }
     );
   }
@@ -88,17 +91,13 @@ export class AgregarProductoComponent implements OnInit {
       alert("Por favor, ingresa un proveedor válido.");
       return;
     }
-  
     if (this.newProducto.proveedor.includes(this.proveedorInput.trim())) {
       alert("El proveedor ya ha sido agregado.");
       return;
     }
-  
     this.newProducto.proveedor.push(this.proveedorInput.trim());
     this.proveedorInput = ''; 
   }
-  
-  
 
   eliminarProveedor(index: number): void {
     this.newProducto.proveedor.splice(index, 1);
@@ -108,9 +107,11 @@ export class AgregarProductoComponent implements OnInit {
     this.catalogosService.getMarcas().subscribe(data => this.marcas = data?.map(m => m.nombreMarca) || []);
     this.catalogosService.getProveedores().subscribe(data => this.proveedores = data?.map(p => p.nombreProveedor) || []);
     this.catalogosService.getTamanios().subscribe(data => this.tamanios = data?.map(t => t.nombreTamanio) || []);
-    this.catalogosService.getCategorias().subscribe(data => { console.log("Categorías recibidas:", data); this.categorias = data?.map(c => c.nombreCategoria) || [];});
+    this.catalogosService.getCategorias().subscribe(data => {
+      console.log("Categorías recibidas:", data);
+      this.categorias = data?.map(c => c.nombreCategoria) || [];
+    });
   }
-
 
   validarProducto(): boolean {
     return this.newProducto.nombreProducto.trim() !== '' &&
@@ -131,12 +132,10 @@ export class AgregarProductoComponent implements OnInit {
       alert("Por favor, ingresa una URL de imagen válida.");
       return;
     }
-  
     if (this.newProducto.imagenUrl?.includes(this.imagenUrlInput.trim())) {
       alert("La imagen ya existe en la lista.");
       return;
     }
-  
     this.newProducto.imagenUrl?.push(this.imagenUrlInput.trim());
     this.imagenUrlInput = ''; 
   }
@@ -147,5 +146,5 @@ export class AgregarProductoComponent implements OnInit {
       this.currentImageIndex = Math.max(0, (this.newProducto.imagenUrl?.length || 0) - 1);
     }
   }
-
 }
+

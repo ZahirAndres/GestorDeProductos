@@ -207,10 +207,28 @@ export class VerProductosComponent implements OnInit {
 
   /**
    * - Cierra el cuadro de diálogo de agregar
-   */
+   */ 
   closeAddDialog(): void {
     this.isAddDialogOpen = false;
     this.loadProductos();
   }
+
+  /**
+   * Colores de almacén
+   * @param producto - prodcuto que se esta mostrando
+   * @returns 
+   */
+  getAlmacenClass(producto: Producto): string {
+    if (producto.cantidadAlmacen < producto.stockAlmacen) {
+      return 'almacen-rojo';
+    
+    } else if (producto.cantidadAlmacen === producto.stockAlmacen) {
+      return 'almacen-naranja';
+    
+    } else {
+      return 'almacen-verde';
+    }
+  }
+  
 
 }

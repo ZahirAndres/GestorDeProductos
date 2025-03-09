@@ -25,6 +25,7 @@ public class AlmacenistaController {
         return almacenistaService.buscarPorNombre(nombre);
     }
 
+
     @GetMapping("filtros/codigoBarras/{codigoBarras}")
     public List<Producto> findByCodigoBarras(@PathVariable String codigoBarras) {
         return almacenistaService.buscarPorCodigoBarras(codigoBarras);
@@ -35,8 +36,5 @@ public class AlmacenistaController {
         return almacenistaService.buscarPorNombreYCategoria(filtro);
     }
 
-    // @GetMapping("filtros/existenciasMinimas/")
-    // public List<Producto> findByExistenciasMinimas() {
-    //     return almacenistaService.findByExistenciasMinimas();
-    // }
+    
 }

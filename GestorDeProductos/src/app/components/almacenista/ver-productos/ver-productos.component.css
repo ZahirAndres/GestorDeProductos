@@ -21,7 +21,6 @@
 /* Contenedor de las cards de productos */
 .product-cards {
     width: 100%;
-    max-width: 900px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 20px;
@@ -211,7 +210,7 @@
 /* =========== BARRA DE FILTROS ================ */
 
 /* Barra de filtros flotante */
-.barraFiltros {
+.barraFiltros { 
     position: fixed;
     width: 100%;
     z-index: 1050; /* Mayor que el de la navbar */
@@ -282,4 +281,25 @@
     cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
   }
   
+  /* =========== Cantidad de almacén ================ */
+
+  .almacen-rojo {
+    font-weight: bold;
+    background-color: rgba(255, 0, 0, 0.226);
+  }
   
+  .almacen-naranja {
+    background-color: rgba(255, 128, 0, 0.459);
+    font-weight: bold;
+  }
+  
+  .almacen-verde {
+    background-color: rgba(0, 255, 68, 0.429);
+    font-weight: bold;
+  }
+  
+  .cantidad-almacen{
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+  }

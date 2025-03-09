@@ -14,10 +14,10 @@
 
                 <div class="form-group">
                     <label for="codigoBarras">Código de barras</label>
-                    <input type="text" id="codigoBarras" [(ngModel)]="newProducto.codigoBarras" name="codigoBarras"
-                        required>
-                </div>
-
+                    <input type="text" id="codigoBarras" [(ngModel)]="newProducto.codigoBarras" name="codigoBarras" required
+                           [ngClass]="{'input-error': codigoBarrasError}"
+                           (input)="codigoBarrasError = false">
+                  </div>
                 <div class="form-group">
                     <label for="tamano">Tamaño</label>
                     <select id="tamano" [(ngModel)]="newProducto.tamano" name="tamano">
@@ -84,6 +84,7 @@
                     <label for="stockAlmacen">Mínimo en almacén</label>
                     <input type="number" id="stockAlmacen" [(ngModel)]="newProducto.stockAlmacen" name="stockAlmacen">
                 </div>
+                
                 <div class="dialog-buttons full-width">
                     <button type="submit" class="save-button" (click)="cerrarFormulario()">Agregar Producto</button>
                     <button type="button" class="close-button" (click)="cerrarFormulario()">Cancelar</button>
@@ -106,7 +107,7 @@
                             <div *ngFor="let img of newProducto.imagenUrl; let i = index" class="carousel-item"
                                 [ngClass]="{'active': i === 0}">
                                 <img [src]="img" alt="Imagen del producto" class="producto-img">
-                            </div>
+                            </div> 
                         </div>
 
                         <!-- Botón Anterior -->
