@@ -3,6 +3,7 @@ import { ProductoService } from '../../../services/crear-productos.service';
 import { AlmacenistasService } from '../../../services/almacenistas/almacenistas.service';
 import { Producto } from '../../../models/producto.model';
 import { Categoria } from '../../../models/categoria.model';
+import { CatalogosService } from '../../../services/formularios/catalogos.service';
 
 @Component({
   selector: 'app-ver-productos',
@@ -27,7 +28,8 @@ export class VerProductosComponent implements OnInit {
 
   constructor(
     private almacenistaService: AlmacenistasService,
-    private productoService: ProductoService
+    private productoService: ProductoService,
+    private catalogoService: CatalogosService
   ) { }
 
   ngOnInit(): void {
@@ -61,6 +63,14 @@ export class VerProductosComponent implements OnInit {
   loadProductos(): void {
     this.productoService.getProductos().subscribe(
       (data) => {
+        this.catalogoService.getCategorias().subscribe(
+          (response: Categoria[]) => {
+            this.categorias = response;
+          },
+          (error) => {
+            console.error('Error al cargar categorías:', error);
+          }
+        );
         this.productos = data;
         this.productos = [...this.productos];
         console.log("Productos cargados:", this.productos);

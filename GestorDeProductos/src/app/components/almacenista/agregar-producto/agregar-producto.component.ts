@@ -22,6 +22,7 @@ export class AgregarProductoComponent implements OnInit {
   tamanios: string[] = [];
   categorias: Categoria[] = [];
 
+
   constructor(
     private productoService: ProductoService,
     private catalogosService: CatalogosService,
@@ -34,6 +35,9 @@ export class AgregarProductoComponent implements OnInit {
       this.newProducto.imagenUrl = []; 
     }
   }
+
+
+
 
   private initProducto(): Producto {
     return {
@@ -54,6 +58,7 @@ export class AgregarProductoComponent implements OnInit {
       cantidadAlmacen: 0
     };
   }
+
 
   addProducto(): void {
     this.mensaje = ''; // Limpiar mensaje previo
@@ -143,17 +148,4 @@ export class AgregarProductoComponent implements OnInit {
     }
   }
 
-  prevImage(event: Event): void {
-    event.preventDefault(); 
-    if (this.newProducto.imagenUrl?.length) {
-        this.currentImageIndex = (this.currentImageIndex - 1 + this.newProducto.imagenUrl.length) % this.newProducto.imagenUrl.length;
-    }
-}
-
-nextImage(event: Event): void {
-  event.preventDefault(); 
-  if (this.newProducto.imagenUrl?.length) {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.newProducto.imagenUrl.length;
-  }
-}
 }
