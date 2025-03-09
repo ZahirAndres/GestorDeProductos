@@ -43,7 +43,7 @@ export class ExistenciasComponent implements OnChanges {
       nombreProducto: '',
       tamano: '',
       marca: '',
-      imagenUrl: '',
+      imagenUrl: [],
       categoria: '',
       precioPieza: 0,
       precioCaja: 0,

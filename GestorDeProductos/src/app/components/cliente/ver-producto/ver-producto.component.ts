@@ -27,7 +27,7 @@ export class VerProductoComponent {
       nombreProducto: '',
       tamano: '',
       marca: '',
-      imagenUrl: '',
+      imagenUrl: [],
       categoria: '',
       precioPieza: 0,
       precioCaja: 0,

@@ -4,7 +4,7 @@ export interface Producto {
   nombreProducto: string;
   tamano: string;
   marca: string;
-  imagenUrl?: string;
+  imagenUrl?: string[];
   categoria: string;
   precioPieza: number;
   precioCaja: number;
