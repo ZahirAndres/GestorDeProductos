@@ -1,17 +1,17 @@
 /* Contenedor principal del formulario */
 .dialog-content {
     background: #ffffff;
-    padding: 20px;
+    padding: 25px;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    max-width: 750px; /* Ancho máximo */
+    max-width: 850px; /* Ancho más amplio */
     margin: auto;
     animation: fadeIn 0.5s ease-in-out;
-    max-height: 80vh; /* Max height para el contenedor */
-    overflow-y: auto; /* Habilita el scroll vertical */
+    max-height: 85vh; /* Altura máxima */
+    overflow-y: auto; /* Scroll vertical */
 }
 
-/* Animación de desvanecimiento */
+/* Animación de entrada */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -21,58 +21,163 @@
     }
 }
 
+button{
+    margin-top: 10px;
+}
+
+/* Título */
 h2 {
     text-align: center;
     color: #4A4A4A;
-    font-size: 26px; /* Tamaño de fuente ajustado */
-    margin-bottom: 15px; /* Espacio reducido */
+    font-size: 24px;
+    margin-bottom: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Estilo del formulario y disposición */
-.product-form {
+/* Layout del formulario */
+.form-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas */
-    gap: 15px; /* Reducido para que los campos estén más cerca */
-    margin-top: 15px; /* Espacio reducido */
+    grid-template-columns: 1fr 350px; /* Inputs a la izquierda y la imagen a la derecha */
+    gap: 25px; /* Espaciado entre columnas */
 }
 
-/* Cada grupo de formulario */
+/* Estilos generales de los campos */
 .form-group {
     display: flex;
     flex-direction: column;
+    margin-bottom: 15px;
 }
 
-/* Etiquetas de los campos */
+/* Etiquetas de los inputs */
 label {
     font-weight: 600;
-    margin-bottom: 5px; /* Espacio reducido */
+    margin-bottom: 6px;
     color: #333;
     font-size: 14px;
 }
 
 /* Inputs y selects */
 input, select {
-    padding: 10px; /* Reducción del padding */
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 100%;
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efecto de enfoque en los inputs */
+/* Efecto en el foco */
 input:focus, select:focus {
     border-color: #7360DF;
     box-shadow: 0 0 10px rgba(115, 96, 223, 0.3);
     outline: none;
 }
 
-/* Estilo para los botones de agregar proveedor */
+/* Contenedor de imagen y botones */
+.form-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Carrusel de imágenes */
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Botones del carrusel */
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+/* Lista de imágenes */
+.image-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.image-list li {
+    display: flex;
+    justify-content: space-between;
+    background: #f2f2f2;
+    padding: 6px 12px;
+    border-radius: 8px;
+    margin-top: 5px;
+    transition: background 0.3s ease;
+}
+
+.image-list li:hover {
+    background: #e0e0e0;
+}
+
+/* Botón para agregar imagen */
+.add-image-button {
+    background: #FF5733;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.add-image-button:hover {
+    background: #e04e2d;
+}
+
+/* Botón para eliminar imagen */
+.image-list button {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.image-list button:hover {
+    background: #c9302c;
+}
+
+/* Botón para agregar proveedor */
 .add-proveedor-button {
     background: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 15px; /* Reducido */
+    padding: 8px 12px;
     cursor: pointer;
     border-radius: 8px;
     transition: background 0.3s ease;
@@ -92,7 +197,7 @@ input:focus, select:focus {
     display: flex;
     justify-content: space-between;
     background: #f2f2f2;
-    padding: 6px 12px; /* Reducido */
+    padding: 6px 12px;
     border-radius: 8px;
     margin-top: 5px;
     transition: background 0.3s ease;
@@ -102,14 +207,32 @@ input:focus, select:focus {
     background: #e0e0e0;
 }
 
-/* Estilo para los botones de acción */
-.dialog-buttons {
-    display: flex;  /* Usamos flex para alinearlos en una fila */
-    justify-content: space-between;  /* Separar los botones */
-    margin-top: 20px;
+/* Botón para eliminar proveedor */
+.proveedor-list button {
+    background: #d9534f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 
-/* Estilos para los botones */
+.proveedor-list button:hover {
+    background: #c9302c;
+}
+
+/* Botones de acción */
+.dialog-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding-top: 20px;
+}
+
+/* Botones de guardar y cancelar */
 .save-button, .cancel-button {
     background: #7360DF;
     color: white;
@@ -117,15 +240,16 @@ input:focus, select:focus {
     padding: 12px 20px;
     cursor: pointer;
     border-radius: 8px;
-    width: 48%;  /* Los botones ocupan el 48% del ancho */
+    width: 48%;
+    max-width: 400px;
     transition: background 0.3s ease;
+    text-align: center;
 }
 
-.save-button:hover, .cancel-button:hover {
-    background: #AA60C8;
+.save-button:hover {
+    background: #5a4bcf;
 }
 
-/* Botón de cancelar con estilo rojo */
 .cancel-button {
     background: #f44336;
 }
@@ -134,11 +258,28 @@ input:focus, select:focus {
     background: #e53935;
 }
 
-/* Estilo para los botones de acción */
+/* Responsividad */
+@media (max-width: 768px) {
+    .form-layout {
+        grid-template-columns: 1fr; /* Cambia a una sola columna */
+    }
+
+    .dialog-buttons {
+        flex-direction: column;
+    }
+
+    .save-button, .cancel-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Botón eliminar */
 button[type="button"] {
     cursor: pointer;
     border-radius: 8px;
-    padding: 6px 12px; /* Ajuste de tamaño */
+    padding: 8px;
     background: #FF5733;
     color: white;
     border: none;
@@ -147,22 +288,4 @@ button[type="button"] {
 
 button[type="button"]:hover {
     background: #e04e2d;
-}
-
-/* Responsividad */
-@media (max-width: 768px) {
-    /* En pantallas más pequeñas, el formulario se acomoda en una sola columna */
-    .product-form {
-        grid-template-columns: 1fr; /* Una columna */
-    }
-
-    /* Ajustes en los botones */
-    .dialog-buttons {
-        flex-direction: column;
-    }
-
-    .save-button, .cancel-button {
-        width: 100%; /* Los botones ocupan todo el ancho en pantallas pequeñas */
-        margin-bottom: 10px; /* Espacio entre los botones */
-    }
 }
