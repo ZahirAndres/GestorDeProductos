@@ -1,24 +1,35 @@
-/* Contenedor principal del formulario */
 .dialog-content {
     background: #ffffff;
     padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    max-width: 750px;
+    max-width: 900px;
+    max-height: 90vh;
     margin: auto;
-    animation: fadeIn 0.5s ease-in-out;
-    max-height: 80vh; /* Establece la altura máxima del contenedor */
-    overflow-y: auto; /* Habilita el scroll vertical cuando el contenido excede la altura */
+    overflow-y: auto;
 }
 
-/* Animación de desvanecimiento */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+/* Grid para distribuir los elementos */
+.form-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px; /* Inputs a la izquierda y la imagen a la derecha */
+    gap: 30px;
+    align-items: start;
+}
+
+/* Sección de inputs */
+.form-left {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Sección de imagen */
+.form-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
 h2 {
@@ -35,16 +46,10 @@ h2 {
     gap: 20px;
 }
 
-.form-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
 .form-group {
     display: flex;
     flex-direction: column;
+    width: 100%;
 }
 
 label {
@@ -62,14 +67,13 @@ input, select {
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efecto al enfocarse en los inputs */
 input:focus, select:focus {
     border-color: #7360DF;
     box-shadow: 0 0 10px rgba(115, 96, 223, 0.3);
     outline: none;
 }
 
-/* Estilo para el contenedor de proveedores */
+/* Estilos de los proveedores */
 .proveedor-input-container {
     display: flex;
     gap: 15px;
@@ -85,12 +89,10 @@ input:focus, select:focus {
     transition: background 0.3s ease;
 }
 
-/* Efecto hover del botón de agregar proveedor */
 .add-proveedor-button:hover {
     background: #45a049;
 }
 
-/* Lista de proveedores */
 .proveedor-list {
     list-style: none;
     padding: 0;
@@ -112,8 +114,11 @@ input:focus, select:focus {
 
 .dialog-buttons {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    justify-content: center; 
+    align-items: center;
+    gap: 20px; 
+    width: 100%; 
+    padding-top: 20px;
 }
 
 .save-button, .close-button {
@@ -123,12 +128,14 @@ input:focus, select:focus {
     padding: 12px 20px;
     cursor: pointer;
     border-radius: 8px;
-    width: 48%;
+    width: 48%; /* Misma proporción que los inputs */
+    max-width: 400px; /* Máximo ancho */
     transition: background 0.3s ease;
+    text-align: center;
 }
 
-.save-button:hover, .close-button:hover {
-    background: #AA60C8;
+.save-button:hover {
+    background: #5a4bcf;
 }
 
 .close-button {
@@ -139,7 +146,7 @@ input:focus, select:focus {
     background: #e53935;
 }
 
-/* Estilo para el botón de cerrar */
+/* Botón eliminar */
 button[type="button"] {
     cursor: pointer;
     border-radius: 8px;
@@ -150,7 +157,80 @@ button[type="button"] {
     transition: background 0.3s ease;
 }
 
-/* Efecto hover del botón de cerrar */
 button[type="button"]:hover {
     background: #e04e2d;
+}
+
+/* Estilos del carrusel */
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev { left: 10px; }
+.next { right: 10px; }
+
+.image-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.image-list li {
+    display: flex;
+    justify-content: space-between;
+    background: #f2f2f2;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 5px;
+    transition: background 0.3s ease;
+}
+
+.add-image-button {
+    background: #FF5733;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.3s ease;
+}
+
+.add-image-button:hover {
+    background: #e04e2d;
+}
+
+button{
+    margin-top: 10px;
 }

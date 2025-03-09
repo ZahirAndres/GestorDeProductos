@@ -12,7 +12,8 @@ import { VerProductosComponent } from '../ver-productos/ver-productos.component'
 })
 export class AgregarProductoComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
-
+  imagenUrlInput: string = '';
+  currentImageIndex: number = 0;
   newProducto: Producto = this.initProducto();
   mensaje: string = '';
   proveedorInput: string = '';
@@ -29,6 +30,9 @@ export class AgregarProductoComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadCatalogos();
+    if (!this.newProducto.imagenUrl) {
+      this.newProducto.imagenUrl = []; 
+    }
   }
 
   private initProducto(): Producto {
@@ -75,18 +79,20 @@ export class AgregarProductoComponent implements OnInit {
   }
 
   agregarProveedor(): void {
-    if (this.proveedorInput && this.proveedorInput.trim()) {
-      // Verifica si el proveedor ya existe en el array
-      if (!this.newProducto.proveedor.includes(this.proveedorInput.trim())) {
-        this.newProducto.proveedor.push(this.proveedorInput.trim());
-        this.proveedorInput = ''; // Limpia el campo de entrada después de agregar
-      } else {
-        alert("El proveedor ya ha sido agregado.");
-      }
-    } else {
+    if (!this.proveedorInput.trim()) {
       alert("Por favor, ingresa un proveedor válido.");
+      return;
     }
+  
+    if (this.newProducto.proveedor.includes(this.proveedorInput.trim())) {
+      alert("El proveedor ya ha sido agregado.");
+      return;
+    }
+  
+    this.newProducto.proveedor.push(this.proveedorInput.trim());
+    this.proveedorInput = ''; 
   }
+  
   
 
   eliminarProveedor(index: number): void {
@@ -114,4 +120,40 @@ export class AgregarProductoComponent implements OnInit {
   cerrarFormulario() {
     this.close.emit();
   }
+
+  agregarImagen(): void {
+    if (!this.imagenUrlInput.trim()) {
+      alert("Por favor, ingresa una URL de imagen válida.");
+      return;
+    }
+  
+    if (this.newProducto.imagenUrl?.includes(this.imagenUrlInput.trim())) {
+      alert("La imagen ya existe en la lista.");
+      return;
+    }
+  
+    this.newProducto.imagenUrl?.push(this.imagenUrlInput.trim());
+    this.imagenUrlInput = ''; 
+  }
+
+  eliminarImagen(index: number) {
+    this.newProducto.imagenUrl?.splice(index, 1);
+    if (this.currentImageIndex >= (this.newProducto.imagenUrl?.length || 0)) {
+      this.currentImageIndex = Math.max(0, (this.newProducto.imagenUrl?.length || 0) - 1);
+    }
+  }
+
+  prevImage(event: Event): void {
+    event.preventDefault(); 
+    if (this.newProducto.imagenUrl?.length) {
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.newProducto.imagenUrl.length) % this.newProducto.imagenUrl.length;
+    }
+}
+
+nextImage(event: Event): void {
+  event.preventDefault(); 
+  if (this.newProducto.imagenUrl?.length) {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.newProducto.imagenUrl.length;
+  }
+}
 }
