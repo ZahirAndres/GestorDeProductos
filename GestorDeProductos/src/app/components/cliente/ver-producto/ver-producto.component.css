@@ -20,8 +20,6 @@
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
-  max-width: 850px;
-  width: 95%;
   position: relative;
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -98,22 +96,6 @@
   color: #333;
 }
 
-/* Botón de compra */
-.buy-button {
-  background: #1230AE;
-  color: white;
-  font-size: 18px;
-  padding: 14px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  margin-top: 18px;
-  transition: background 0.3s ease-in-out;
-}
-
-.buy-button:hover {
-  background: #6C48C5;
-}
 
 /* Botón de cierre */
 .close-button {
@@ -129,6 +111,76 @@
   cursor: pointer;
   transition: background 0.3s ease-in-out;
 }
+
+
+.proveedores-container {
+  border-radius: 8px;
+  padding: 15px;
+  width: 320px; /* Ajuste del ancho */
+  max-height: 450px; /* Define un tamaño fijo */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Estilo del título */
+.proveedores-container h3 {
+  font-size: 26px;
+  font-weight: bold;
+  color: #1230AE;
+  margin-bottom: 15px;
+}
+
+/* Contenedor con SCROLL */
+.proveedores-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 350px; /* Altura máxima antes de activar el scroll */
+  overflow-y: auto;
+  padding-right: 5px; /* Evita que el scroll tape el contenido */
+}
+
+/* 🎨 Scroll Bonito */
+.proveedores-list::-webkit-scrollbar {
+  width: 6px; /* Ancho del scroll */
+}
+
+.proveedores-list::-webkit-scrollbar-track {
+  background: #ddd; /* Color de fondo del scroll */
+  border-radius: 10px;
+}
+
+.proveedores-list::-webkit-scrollbar-thumb {
+  background: #6C48C5; /* Color del "botón" del scroll */
+  border-radius: 10px;
+}
+
+.proveedores-list::-webkit-scrollbar-thumb:hover {
+  background: #6C48C5; /* Color cuando pasas el mouse */
+}
+
+/* Tarjeta de cada proveedor */
+.proveedor-card {
+  padding: 12px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #6C48C5;
+}
+
+/* Estilo del nombre del proveedor */
+.proveedor-card h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #6C48C5;
+}
+
+/* Estilo de los textos */
+.proveedor-card p {
+  margin: 5px 0;
+  font-size: 14px;
+}
+
 
 /* Animación de entrada */
 @keyframes fadeIn {
@@ -159,3 +211,4 @@
     width: 100%;
   }
 }
+
