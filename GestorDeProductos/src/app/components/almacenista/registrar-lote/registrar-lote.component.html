@@ -7,8 +7,12 @@
     </div>
     <div class="mb-3">
         <label for="codigoBarras" class="form-label text-primary">Código de barras del producto</label>
-        <input type="text" class="form-control" id="codigoBarras" [(ngModel)]="lote.codigoBarras" name="codigoBarras"
-            placeholder="Ingrese código de barras" (blur)="buscarProductoPorCodigo()">
+        <input type="text" class="form-control" id="codigoBarras" 
+           [(ngModel)]="lote.codigoBarras" name="codigoBarras"
+           placeholder="Ingrese código de barras" 
+           (blur)="buscarProductoPorCodigo()"
+           [ngClass]="{'input-error': codigoBarrasError}"
+           (input)="codigoBarrasError = false">
     </div>
     <div class="mb-3">
         <label for="nombreProducto" class="form-label text-primary">Nombre del producto</label>

@@ -10,6 +10,11 @@
     font-weight: bold;
 }
 
+.input-error {
+    border: 2px solid red;
+  }
+  
+
 .form-control {
     border: 2px solid #6C48C5;
     transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;

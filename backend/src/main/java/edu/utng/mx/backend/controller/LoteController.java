@@ -33,6 +33,12 @@ public class LoteController {
     @PostMapping("/crear")
     public ResponseEntity<?> saveLote(@RequestBody Lote lote) {
         try {
+
+            Optional<Lote> loteExistente = loteRepo.findByCodigoLote(lote.getCodigoLote());
+            if (loteExistente.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("El lote con el código " + lote.getCodigoLote() + " ya existe.");
+            }
             // Guardar el lote en la base de datos
             Lote loteGuardado = loteRepo.save(lote);
 

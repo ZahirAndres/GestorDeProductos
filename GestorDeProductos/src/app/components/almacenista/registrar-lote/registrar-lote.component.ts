@@ -17,10 +17,13 @@ export class RegistrarLoteComponent {
     fechaRegistro: new Date()
   };
 
-  constructor(private almacenistasService: AlmacenistasService,private verLotes : VerLotesComponent) {}
+  // Variable para indicar error en el input de código de barras
+  codigoBarrasError: boolean = false;
+
+  constructor(private almacenistasService: AlmacenistasService, private verLotes: VerLotesComponent) {}
 
   /**
-   * Busca el producto basado en el código de barras ingresado
+   * Busca el producto basado en el código de barras ingresado.
    */
   buscarProductoPorCodigo(): void {
     if (this.lote.codigoBarras) {
@@ -30,44 +33,46 @@ export class RegistrarLoteComponent {
             this.lote.producto = producto.nombreProducto;
           } else {
             this.lote.producto = '';
-            alert('Producto no encontrado.');
+            window.alert('Producto no encontrado.');
           }
         },
         (error) => {
           console.error(error);
-          alert('Error al buscar el producto.');
+          window.alert('Error al buscar el producto.');
         }
       );
     }
   }
 
-
-  
-
   /**
-   * Envía el lote al backend para su registro
+   * Envía el lote al backend para su registro.
    */
   registrarLote(): void {
     if (!this.lote.codigoLote || !this.lote.codigoBarras || !this.lote.producto || this.lote.cantidadComprada <= 0 || !this.lote.fechaCaducidad) {
-      alert('Por favor, complete todos los campos correctamente.');
+      window.alert('Por favor, complete todos los campos correctamente.');
       return;
     }
 
     this.almacenistasService.createLote(this.lote).subscribe(
-      () => {
-        alert('Lote registrado exitosamente.');
+      (response) => {
+        window.alert('Lote registrado exitosamente.');
         this.verLotes.ngOnInit();
         this.resetFormulario();
       },
       (error) => {
-        alert('Error al registrar el lote.');
         console.error(error);
+        if (error.status === 409) {  // Si ya existe el producto
+          window.alert('El producto con el código de barras ' + this.lote.codigoBarras + ' ya existe.');
+          this.codigoBarrasError = true;
+        } else {
+          window.alert('Error al registrar el lote.');
+        }
       }
     );
   }
 
   /**
-   * Reinicia el formulario después de registrar el lote
+   * Reinicia el formulario después de registrar el lote.
    */
   resetFormulario(): void {
     this.lote = {
@@ -78,5 +83,6 @@ export class RegistrarLoteComponent {
       fechaCaducidad: '',
       fechaRegistro: new Date()
     };
+    this.codigoBarrasError = false;
   }
 }
