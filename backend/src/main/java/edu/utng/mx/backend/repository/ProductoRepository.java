@@ -11,5 +11,6 @@ public interface ProductoRepository extends MongoRepository<Producto, String> {
     @Query(value = "{ 'codigoBarras' : ?0 }")
     Optional<Producto> encontrarPorCodigoBarras(String codigoBarras);
 
+    Optional<Producto> findByCodigoBarras(String codigoBarras);
     
 }

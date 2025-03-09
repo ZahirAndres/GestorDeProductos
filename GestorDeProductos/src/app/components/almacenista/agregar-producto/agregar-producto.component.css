@@ -250,3 +250,12 @@ button[type="button"]:hover {
     background-size: contain;
     filter: invert(1);
 }
+
+button{
+    margin-top: 10px;
+}
+
+.input-error {
+    border: 2px solid red;
+  }
+  

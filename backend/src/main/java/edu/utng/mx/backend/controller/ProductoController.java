@@ -21,9 +21,16 @@ public class ProductoController {
     @Autowired
     private ProductoRepository productoRepo;
 
+
+
     @PostMapping("/crear")
     public ResponseEntity<?> saveProducto(@RequestBody Producto producto) {
         try {
+            Optional<Producto> productoExistente = productoRepo.findByCodigoBarras(producto.getCodigoBarras());
+            if (productoExistente.isPresent()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT)
+                    .body("El producto con el código de barras " + producto.getCodigoBarras() + " ya existe.");
+            }
             Producto prosave = productoRepo.save(producto);
             return new ResponseEntity<>(prosave, HttpStatus.CREATED);
         } catch (Exception e) {
