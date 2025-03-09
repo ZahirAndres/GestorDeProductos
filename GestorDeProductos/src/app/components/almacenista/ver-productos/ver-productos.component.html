@@ -66,7 +66,11 @@
 <!-- Cards de productos -->
 <div class="product-cards">
     <div *ngFor="let producto of productos" class="product-card">
-        <img [src]="producto.imagenUrl" alt="{{ producto.nombreProducto }}">
+      <img
+      [src]="producto.imagenUrl && producto.imagenUrl.length > 0 ? producto.imagenUrl[0] : 'https://previews.123rf.com/images/georgepanfili/georgepanfili2003/georgepanfili200300742/148466965-404-error-logo-and-icon-vector-isolated-image.jpg'"
+      class="producto-img"
+      alt="{{ producto.nombreProducto }}"
+    />
         <h3>{{ producto.nombreProducto }}</h3>
         <h3>{{ producto.codigoBarras }}</h3>
         <p>Categoría: {{ producto.categoria }}</p>

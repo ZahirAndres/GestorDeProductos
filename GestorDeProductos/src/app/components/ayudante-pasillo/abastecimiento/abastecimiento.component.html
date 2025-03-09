@@ -98,13 +98,10 @@
             <!-- Imagen del producto -->
             <div class="producto-img-container">
               <img
-                [src]="
-                  producto.imagenUrl ||
-                  'https://previews.123rf.com/images/georgepanfili/georgepanfili2003/georgepanfili200300742/148466965-404-error-logo-and-icon-vector-isolated-image.jpg'
-                "
-                class="producto-img"
-                alt="{{ producto.nombreProducto }}"
-              />
+              [src]="producto.imagenUrl && producto.imagenUrl.length > 0 ? producto.imagenUrl[0] : 'https://previews.123rf.com/images/georgepanfili/georgepanfili2003/georgepanfili200300742/148466965-404-error-logo-and-icon-vector-isolated-image.jpg'"
+              class="producto-img"
+              alt="{{ producto.nombreProducto }}"
+            />
             </div>
 
             <!-- Información del producto -->

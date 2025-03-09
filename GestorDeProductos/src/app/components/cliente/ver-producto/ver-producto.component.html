@@ -1,42 +1,49 @@
 <div class="edit-dialog">
-    <div class="dialog-content">
-      <!-- Imagen del Producto -->
-      <div class="image-container">
-        <img  [src]="
-        currentProducto.imagenUrl ||
-        'https://previews.123rf.com/images/georgepanfili/georgepanfili2003/georgepanfili200300742/148466965-404-error-logo-and-icon-vector-isolated-image.jpg'
-      "
-             alt="Imagen del producto"
-             class="producto-img">
-      </div>
-  
-      <!-- Información del Producto -->
-      <div class="dialog-details">
-        <h2 class="product-title">{{ currentProducto.nombreProducto || 'Sin nombre' }}</h2>
-        
-        <div class="price-section">
-          <span class="price">${{ currentProducto.precioPieza || 0 }}</span>
-          <span class="price-desc">por pieza</span>
+  <div class="dialog-content">
+    <!-- Carrusel de Imágenes del Producto -->
+    <div id="carouselProducto" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div *ngFor="let img of currentProducto.imagenUrl; let i = index" 
+             class="carousel-item" 
+             [ngClass]="{'active': i === 0}">
+          <img [src]="img" alt="Imagen del producto" class="d-block w-100 producto-img">
         </div>
-  
-        <p class="product-info"><strong>Código de Barras:</strong> {{ currentProducto.codigoBarras || 'No disponible' }}</p>
-        <p class="product-info"><strong>Tamaño:</strong> {{ currentProducto.tamano || 'No disponible' }}</p>
-        <p class="product-info"><strong>Marca:</strong> {{ currentProducto.marca || 'No disponible' }}</p>
-        <p class="product-info"><strong>Categoría:</strong> {{ currentProducto.categoria || 'No disponible' }}</p>
-        <p class="product-info"><strong>Precio por Caja:</strong> ${{ currentProducto.precioCaja || 0 }}</p>
-        <p class="product-info"><strong>Piezas por Caja:</strong> {{ currentProducto.cantidadPiezasPorCaja || 0 }}</p>
-  
-        <p [ngClass]="currentProducto.colorMensaje">
-            <strong>{{ currentProducto.mensajeExistencia }}</strong>
-          </p>
-
-          <p [ngClass]="currentProducto.colorMensajeAlmacen">
-            <strong>{{ currentProducto.mensajeExistenciaAlmacen }}</strong>
-          </p>
       </div>
-  
-      <!-- Botón de Cerrar -->
-      <button class="close-button" (click)="closeEditDialog()">X</button>
+      <!-- Controles del Carrusel -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselProducto" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselProducto" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
     </div>
+
+    <!-- Información del Producto -->
+    <div class="dialog-details">
+      <h2 class="product-title">{{ currentProducto.nombreProducto || 'Sin nombre' }}</h2>
+      <div class="price-section">
+        <span class="price">${{ currentProducto.precioPieza || 0 }}</span>
+        <span class="price-desc">por pieza</span>
+      </div>
+      <p class="product-info"><strong>Código de Barras:</strong> {{ currentProducto.codigoBarras || 'No disponible' }}</p>
+      <p class="product-info"><strong>Tamaño:</strong> {{ currentProducto.tamano || 'No disponible' }}</p>
+      <p class="product-info"><strong>Marca:</strong> {{ currentProducto.marca || 'No disponible' }}</p>
+      <p class="product-info"><strong>Categoría:</strong> {{ currentProducto.categoria || 'No disponible' }}</p>
+      <p class="product-info"><strong>Precio por Caja:</strong> ${{ currentProducto.precioCaja || 0 }}</p>
+      <p class="product-info"><strong>Piezas por Caja:</strong> {{ currentProducto.cantidadPiezasPorCaja || 0 }}</p>
+
+      <p [ngClass]="currentProducto.colorMensaje">
+        <strong>{{ currentProducto.mensajeExistencia }}</strong>
+      </p>
+
+      <p [ngClass]="currentProducto.colorMensajeAlmacen">
+        <strong>{{ currentProducto.mensajeExistenciaAlmacen }}</strong>
+      </p>
+    </div>
+
+    <!-- Botón de Cerrar -->
+    <button class="close-button" (click)="closeEditDialog()">X</button>
   </div>
-  
+</div>

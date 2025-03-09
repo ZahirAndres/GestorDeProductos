@@ -37,7 +37,7 @@ export class VerProductosClienteComponent implements OnInit {
         nombreProducto: '',
         tamano: '',
         marca: '',
-        imagenUrl: '',
+        imagenUrl: [],
         categoria: '',
         precioPieza: 0,
         precioCaja: 0,

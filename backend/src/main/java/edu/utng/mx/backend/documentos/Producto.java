@@ -19,7 +19,7 @@ public class Producto {
     private double precioPieza;
     private double precioCaja;
     private int cantidadPiezasPorCaja;
-    private List<String> proveedor; // Ahora es una lista, ya que el JSON usa un array
+    private List<String> proveedor;
 
     // Nuevos atributos
     private int stockExhibe = 0; // Valor predeterminado

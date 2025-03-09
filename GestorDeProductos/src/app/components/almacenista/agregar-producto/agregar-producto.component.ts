@@ -38,7 +38,7 @@ export class AgregarProductoComponent implements OnInit {
       nombreProducto: '',
       tamano: '', 
       marca: '',
-      imagenUrl: '',
+      imagenUrl: [],
       categoria: '',
       precioPieza: 0,
       precioCaja: 0,
