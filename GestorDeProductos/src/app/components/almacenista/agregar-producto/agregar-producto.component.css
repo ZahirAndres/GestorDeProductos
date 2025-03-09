@@ -9,22 +9,19 @@
     overflow-y: auto;
 }
 
-/* Grid para distribuir los elementos */
 .form-layout {
     display: grid;
-    grid-template-columns: 1fr 350px; /* Inputs a la izquierda y la imagen a la derecha */
+    grid-template-columns: 1fr 350px;
     gap: 30px;
     align-items: start;
 }
 
-/* Sección de inputs */
 .form-left {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-/* Sección de imagen */
 .form-right {
     display: flex;
     flex-direction: column;
@@ -73,7 +70,6 @@ input:focus, select:focus {
     outline: none;
 }
 
-/* Estilos de los proveedores */
 .proveedor-input-container {
     display: flex;
     gap: 15px;
@@ -114,10 +110,10 @@ input:focus, select:focus {
 
 .dialog-buttons {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
     align-items: center;
-    gap: 20px; 
-    width: 100%; 
+    gap: 20px;
+    width: 100%;
     padding-top: 20px;
 }
 
@@ -128,8 +124,8 @@ input:focus, select:focus {
     padding: 12px 20px;
     cursor: pointer;
     border-radius: 8px;
-    width: 48%; /* Misma proporción que los inputs */
-    max-width: 400px; /* Máximo ancho */
+    width: 48%;
+    max-width: 400px;
     transition: background 0.3s ease;
     text-align: center;
 }
@@ -146,7 +142,6 @@ input:focus, select:focus {
     background: #e53935;
 }
 
-/* Botón eliminar */
 button[type="button"] {
     cursor: pointer;
     border-radius: 8px;
@@ -161,12 +156,12 @@ button[type="button"]:hover {
     background: #e04e2d;
 }
 
-/* Estilos del carrusel */
 .carousel-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    overflow: hidden;
 }
 
 .carousel {
@@ -180,57 +175,78 @@ button[type="button"]:hover {
     border-radius: 8px;
 }
 
-.carousel-image {
+.carousel-item {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.carousel-control-prev, .carousel-control-next {
+    width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 12px;
+}
+
+.producto-img {
     width: 100%;
-    height: 100%;
+    height: auto;
+    border-radius: 8px;
     object-fit: cover;
 }
 
-.prev, .next {
-    position: absolute;
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.dialog-content {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+/* Estilos mejorados para los botones de navegación */
+.custom-carousel-btn {
+    width: 55px;
+    height: 55px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute; 
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-.prev { left: 10px; }
-.next { right: 10px; }
-
-.image-list {
-    list-style: none;
-    padding: 0;
-    width: 100%;
+/* Aumentar visibilidad al pasar el mouse */
+.custom-carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
 }
 
-.image-list li {
-    display: flex;
-    justify-content: space-between;
-    background: #f2f2f2;
-    padding: 8px;
-    border-radius: 8px;
-    margin-top: 5px;
-    transition: background 0.3s ease;
-}
-
-.add-image-button {
-    background: #FF5733;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.3s ease;
-}
-
-.add-image-button:hover {
-    background: #e04e2d;
-}
-
-button{
-    margin-top: 10px;
+/* Iconos personalizados */
+.custom-icon {
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    filter: invert(1);
 }

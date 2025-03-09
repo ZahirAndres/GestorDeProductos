@@ -91,23 +91,36 @@
             </div>
 
             <!-- Sección de Imagen y Carrusel a la derecha -->
-            <div class="form-right">
+             <div class="form-right">
                 <div class="form-group">
                     <label for="imagenUrl">Imagen URL</label>
                     <input type="text" id="imagenUrl" [(ngModel)]="imagenUrlInput" name="imagenUrl">
                     <button type="button" class="add-image-button" (click)="agregarImagen()">Agregar Imagen</button>
                 </div>
 
-                <div class="carousel-container" *ngIf="newProducto.imagenUrl && newProducto.imagenUrl.length > 0">
-                    <div class="carousel">
-                        <button type="button" class="prev" (click)="prevImage($event)">&#10094;</button>
+                <!-- Carrusel de imágenes -->
+                <div class="image-container" *ngIf="newProducto.imagenUrl && newProducto.imagenUrl.length > 0">
+                    <div id="carouselProducto" class="carousel slide" data-bs-ride="carousel" data-bs-interval="3000">
+                        <!-- 🚀 Auto-slide cada 3 segundos -->
+                        <div class="carousel-inner">
+                            <div *ngFor="let img of newProducto.imagenUrl; let i = index" class="carousel-item"
+                                [ngClass]="{'active': i === 0}">
+                                <img [src]="img" alt="Imagen del producto" class="producto-img">
+                            </div>
+                        </div>
 
-                        <img [src]="newProducto.imagenUrl[currentImageIndex]" class="carousel-image"
-                            alt="Imagen del producto">
-                        <button type="button" class="next" (click)="nextImage($event)">&#10095;</button>
+                        <!-- Botón Anterior -->
+                        <button class="carousel-control-prev custom-carousel-btn" type="button"
+                            data-bs-target="#carouselProducto" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon custom-icon"></span>
+                        </button>
 
+                        <!-- Botón Siguiente -->
+                        <button class="carousel-control-next custom-carousel-btn" type="button"
+                            data-bs-target="#carouselProducto" data-bs-slide="next">
+                            <span class="carousel-control-next-icon custom-icon"></span>
+                        </button>
                     </div>
-
 
                     <ul class="image-list">
                         <li *ngFor="let img of newProducto.imagenUrl; let i = index">
@@ -117,13 +130,11 @@
                             <button type="button" (click)="eliminarImagen(i)">Eliminar</button>
                         </li>
                     </ul>
-
                 </div>
+
 
             </div>
 
         </div>
-
-
     </form>
 </div>

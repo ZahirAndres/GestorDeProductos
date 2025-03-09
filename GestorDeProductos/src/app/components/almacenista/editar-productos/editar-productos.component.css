@@ -1,31 +1,47 @@
 /* Contenedor principal del formulario */
 .dialog-content {
     background: #ffffff;
-    padding: 25px;
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    max-width: 850px; /* Ancho más amplio */
+    max-width: 900px;
+    max-height: 90vh;
     margin: auto;
-    animation: fadeIn 0.5s ease-in-out;
-    max-height: 85vh; /* Altura máxima */
-    overflow-y: auto; /* Scroll vertical */
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease-in-out; /* Animación de entrada */
 }
 
-/* Animación de entrada */
 @keyframes fadeIn {
-    0% {
+    from {
         opacity: 0;
+        transform: scale(0.9);
     }
-    100% {
+    to {
         opacity: 1;
+        transform: scale(1);
     }
 }
 
-button{
-    margin-top: 10px;
+.form-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+    align-items: start;
 }
 
-/* Título */
+.form-left {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
 h2 {
     text-align: center;
     color: #4A4A4A;
@@ -34,150 +50,50 @@ h2 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Layout del formulario */
-.form-layout {
-    display: grid;
-    grid-template-columns: 1fr 350px; /* Inputs a la izquierda y la imagen a la derecha */
-    gap: 25px; /* Espaciado entre columnas */
+.product-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-/* Estilos generales de los campos */
 .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    width: 100%;
 }
 
-/* Etiquetas de los inputs */
 label {
     font-weight: 600;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: #333;
     font-size: 14px;
 }
 
-/* Inputs y selects */
 input, select {
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
     width: 100%;
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Efecto en el foco */
 input:focus, select:focus {
     border-color: #7360DF;
     box-shadow: 0 0 10px rgba(115, 96, 223, 0.3);
     outline: none;
 }
 
-/* Contenedor de imagen y botones */
-.form-right {
+/* Botones de Proveedor */
+.proveedor-input-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 15px;
 }
 
-/* Carrusel de imágenes */
-.carousel-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.carousel {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: 300px;
-    height: 250px;
-    overflow: hidden;
-    border-radius: 8px;
-}
-
-.carousel-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* Botones del carrusel */
-.prev, .next {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(0, 0, 0, 0.5);
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-}
-
-.prev { left: 10px; }
-.next { right: 10px; }
-
-/* Lista de imágenes */
-.image-list {
-    list-style: none;
-    padding: 0;
-    width: 100%;
-}
-
-.image-list li {
-    display: flex;
-    justify-content: space-between;
-    background: #f2f2f2;
-    padding: 6px 12px;
-    border-radius: 8px;
-    margin-top: 5px;
-    transition: background 0.3s ease;
-}
-
-.image-list li:hover {
-    background: #e0e0e0;
-}
-
-/* Botón para agregar imagen */
-.add-image-button {
-    background: #FF5733;
-    color: white;
-    border: none;
-    padding: 8px 15px;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background 0.3s ease;
-}
-
-.add-image-button:hover {
-    background: #e04e2d;
-}
-
-/* Botón para eliminar imagen */
-.image-list button {
-    background: #d9534f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.image-list button:hover {
-    background: #c9302c;
-}
-
-/* Botón para agregar proveedor */
 .add-proveedor-button {
     background: #4CAF50;
     color: white;
     border: none;
-    padding: 8px 12px;
+    padding: 10px;
     cursor: pointer;
     border-radius: 8px;
     transition: background 0.3s ease;
@@ -187,7 +103,7 @@ input:focus, select:focus {
     background: #45a049;
 }
 
-/* Lista de proveedores */
+/* Lista de Proveedores */
 .proveedor-list {
     list-style: none;
     padding: 0;
@@ -197,7 +113,7 @@ input:focus, select:focus {
     display: flex;
     justify-content: space-between;
     background: #f2f2f2;
-    padding: 6px 12px;
+    padding: 8px;
     border-radius: 8px;
     margin-top: 5px;
     transition: background 0.3s ease;
@@ -207,22 +123,7 @@ input:focus, select:focus {
     background: #e0e0e0;
 }
 
-/* Botón para eliminar proveedor */
-.proveedor-list button {
-    background: #d9534f;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.proveedor-list button:hover {
-    background: #c9302c;
-}
-
-/* Botones de acción */
+/* Botones de acción (Guardar, Cancelar) */
 .dialog-buttons {
     display: flex;
     justify-content: center;
@@ -232,7 +133,6 @@ input:focus, select:focus {
     padding-top: 20px;
 }
 
-/* Botones de guardar y cancelar */
 .save-button, .cancel-button {
     background: #7360DF;
     color: white;
@@ -258,24 +158,7 @@ input:focus, select:focus {
     background: #e53935;
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-    .form-layout {
-        grid-template-columns: 1fr; /* Cambia a una sola columna */
-    }
-
-    .dialog-buttons {
-        flex-direction: column;
-    }
-
-    .save-button, .cancel-button {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-}
-
-
-/* Botón eliminar */
+/* Botón genérico para eliminar elementos */
 button[type="button"] {
     cursor: pointer;
     border-radius: 8px;
@@ -288,4 +171,129 @@ button[type="button"] {
 
 button[type="button"]:hover {
     background: #e04e2d;
+}
+
+/* Sección del Carrusel */
+.carousel-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 300px;
+    height: 250px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-inner {
+    width: 100%;
+    height: 100%;
+}
+
+/* Transición de cada imagen */
+.carousel-item {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Ajustes de la imagen */
+.producto-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Controles (prev, next) */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 10%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 12px;
+}
+
+/* Botones de navegación personalizados */
+.custom-carousel-btn {
+    width: 55px;
+    height: 55px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.custom-carousel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Ícono personalizado en los botones prev/next */
+.custom-icon {
+    width: 22px;
+    height: 22px;
+    background-size: contain;
+    filter: invert(1);
+}
+
+/* Lista de imágenes debajo del carrusel */
+.image-list {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.image-list li {
+    display: flex;
+    justify-content: space-between;
+    background: #f2f2f2;
+    padding: 8px;
+    border-radius: 8px;
+    margin-top: 5px;
+    transition: background 0.3s ease;
+}
+
+.image-list li:hover {
+    background: #e0e0e0;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .form-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .dialog-buttons {
+        flex-direction: column;
+    }
+
+    .save-button, .cancel-button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

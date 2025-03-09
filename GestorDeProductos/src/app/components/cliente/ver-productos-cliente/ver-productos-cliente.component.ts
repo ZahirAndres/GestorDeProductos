@@ -164,7 +164,7 @@ export class VerProductosClienteComponent implements OnInit {
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
         },
-        (error) => {
+        (error) => { 
           console.error('Error al cargar productos por categoría y nombre:', error);
         }
       );

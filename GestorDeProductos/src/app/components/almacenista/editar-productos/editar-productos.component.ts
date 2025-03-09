@@ -45,10 +45,10 @@ export class EditarProductosComponent {
   agregarProveedorEdit(): void {
     if (this.proveedorInputEdit.trim() && !this.currentProducto.proveedor.includes(this.proveedorInputEdit)) {
         this.currentProducto.proveedor.push(this.proveedorInputEdit.trim());
-        alert('Proveedor agregado correctamente ✅');
+        alert('Proveedor agregado correctamente ');
         this.proveedorInputEdit = ''; 
     } else {
-        alert('❌ El proveedor ya ha sido agregado o está vacío.');
+        alert('El proveedor ya ha sido agregado o está vacío.');
     }
 }
 
@@ -71,20 +71,16 @@ export class EditarProductosComponent {
     this.currentProducto.imagenUrl?.splice(index, 1);
   }
 
- // Método para la imagen anterior
-prevImage(): void {
-  if (this.currentProducto.imagenUrl) {
-      this.currentImageIndex = (this.currentImageIndex - 1 + this.currentProducto.imagenUrl.length) % this.currentProducto.imagenUrl.length;
-      this.cdr.detectChanges(); 
-  }
+  prevImage() {
+    if (this.currentProducto.imagenUrl?.length) {
+        this.currentImageIndex = (this.currentImageIndex - 1 + this.currentProducto.imagenUrl.length) % this.currentProducto.imagenUrl.length;
+    }
 }
 
-// Método para la siguiente imagen
-nextImage(): void {
-  if (this.currentProducto.imagenUrl) {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProducto.imagenUrl.length;
-      this.cdr.detectChanges(); 
-  }
+nextImage() {
+    if (this.currentProducto.imagenUrl?.length) {
+        this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProducto.imagenUrl.length;
+    }
 }
   closeEditDialog(): void {
     this.verProductos.isEditDialogOpen = false; 
