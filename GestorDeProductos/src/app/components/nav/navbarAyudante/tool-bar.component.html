@@ -16,7 +16,7 @@
                 <li class="nav-item animated-nav-item" *ngIf="rol === 'Ayudante-Pasillo'">
                     <a class="nav-link active animated-link" routerLink="/ayudante-pasillo/abastecimiento-estantes/ver">Reabastecimiento Productos</a>
                 </li>
-                <li class="nav-item animated-nav-item" *ngIf="rol === 'Ayudante-Pasillo'">
+                <li class="nav-item animated-nav-item" *ngIf="rol !== null">
                     <a class="nav-link animated-link" routerLink="/cliente/ver-productos">Productos</a>
                 </li>
 
@@ -25,7 +25,7 @@
                     <a class="nav-link animated-link" routerLink="/almacenista/lotes/ver">Lotes</a>
                 </li>
                 <li class="nav-item animated-nav-item" *ngIf="rol === 'Almacenista'">
-                    <a class="nav-link animated-link" routerLink="/almacenista/productos/ver">Productos</a>
+                    <a class="nav-link animated-link" routerLink="/almacenista/productos/ver">Administracion Productos</a>
                 </li>
                 <li class="nav-item animated-nav-item" *ngIf="rol === 'Almacenista'">
                     <a class="nav-link animated-link" routerLink="/almacenista/precios/ver">Precios</a>

@@ -66,8 +66,16 @@
     "_id": "",
     "nombreProveedor": "",
     "telefono": [],
+    "paginaWeb":"",
     "correo": "",
-    "direccion": ""
+    "direccion": {
+      "calle":"",
+      "numeroInterior":"",
+      "numeroExterior":"",
+      "colonia":"",
+      "codigoPostal": 0,
+      "ciudad":""
+    }
   }
 ]
 

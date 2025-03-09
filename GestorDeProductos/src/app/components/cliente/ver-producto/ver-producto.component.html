@@ -1,26 +1,26 @@
 <div class="edit-dialog">
   <div class="dialog-content">
-    <!-- Carrusel de Imágenes del Producto -->
-    <div id="carouselProducto" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div *ngFor="let img of currentProducto.imagenUrl; let i = index" 
-             class="carousel-item" 
-             [ngClass]="{'active': i === 0}">
-          <img [src]="img" alt="Imagen del producto" class="d-block w-100 producto-img">
+    
+    <!-- Contenedor Izquierdo: Imagen del Producto -->
+    <div class="image-container">
+      <div id="carouselProducto" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let img of currentProducto.imagenUrl; let i = index" 
+               class="carousel-item" 
+               [ngClass]="{'active': i === 0}">
+            <img [src]="img" alt="Imagen del producto" class="producto-img">
+          </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselProducto" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselProducto" data-bs-slide="next">
+          <span class="carousel-control-next-icon"></span>
+        </button>
       </div>
-      <!-- Controles del Carrusel -->
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselProducto" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselProducto" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Siguiente</span>
-      </button>
     </div>
 
-    <!-- Información del Producto -->
+    <!-- Contenedor Derecho: Detalles del Producto -->
     <div class="dialog-details">
       <h2 class="product-title">{{ currentProducto.nombreProducto || 'Sin nombre' }}</h2>
       <div class="price-section">
@@ -34,13 +34,34 @@
       <p class="product-info"><strong>Precio por Caja:</strong> ${{ currentProducto.precioCaja || 0 }}</p>
       <p class="product-info"><strong>Piezas por Caja:</strong> {{ currentProducto.cantidadPiezasPorCaja || 0 }}</p>
 
-      <p [ngClass]="currentProducto.colorMensaje">
+      <div class="stock-section" *ngIf="rol !== null">
+        <p class="product-info"><strong>Stock mínimo en estante:</strong> {{ currentProducto.stockExhibe || 'No disponible' }}</p>
+        <p class="product-info"><strong>Cantidad Productos disponibles:</strong> {{ currentProducto.existenciaExhibida || 'No disponible' }}</p>
+        <p class="product-info"><strong>Stock mínimo en almacén:</strong> {{ currentProducto.stockAlmacen || 'No disponible' }}</p>
+        <p class="product-info"><strong>Cantidad de cajas en almacén:</strong> {{ currentProducto.cantidadAlmacen || 'No disponible' }}</p>
+      </div>
+
+      <div *ngIf="rol === null">
+      <p class="alert-text" [ngClass]="currentProducto.colorMensaje">
         <strong>{{ currentProducto.mensajeExistencia }}</strong>
       </p>
-
-      <p [ngClass]="currentProducto.colorMensajeAlmacen">
+      <p class="alert-text" [ngClass]="currentProducto.colorMensajeAlmacen">
         <strong>{{ currentProducto.mensajeExistenciaAlmacen }}</strong>
       </p>
+      </div>
+    </div>
+
+    <!-- Contenedor de Proveedores con Scroll -->
+    <div class="proveedores-container" *ngIf="rol !== null">
+      <h3>Proveedores</h3>
+      <div class="proveedores-list">
+        <div *ngFor="let proveedor of proveedores" class="proveedor-card">
+          <h4>{{ proveedor.nombreProveedor }}</h4>
+          <p><strong>Teléfonos:</strong> {{ proveedor.telefono.join(', ') }}</p>
+          <p><strong>Correo:</strong> {{ proveedor.correo }}</p>
+          <p><strong>Dirección:</strong> {{ proveedor.direccion }}</p>
+        </div>
+      </div>
     </div>
 
     <!-- Botón de Cerrar -->
