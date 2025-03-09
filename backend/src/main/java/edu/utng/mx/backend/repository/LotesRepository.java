@@ -7,11 +7,14 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface LotesRepository extends MongoRepository<Lote, String> {
 
-   
+        Optional<Lote> findByCodigoLote(String codigoLote);
+
+
     @Aggregation(pipeline = {
             "{ $match: { 'producto': { $regex: ?0, $options: 'i' } } }",
             "{ $sort: { 'fechaCaducidad': -1 } }"
