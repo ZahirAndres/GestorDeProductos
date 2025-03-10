@@ -25,7 +25,7 @@ export class HistorialPrecioService {
   createHistorial(historialPrecio: any): Observable<any> {
     return this.http.post<any>(`${this.apiUri}`, historialPrecio);
   }
-
+ 
   // Eliminar historial de precios por código de barras
   deleteHistorialPorCodigoBarras(codigoBarras: string): Observable<any> {
     return this.http.delete(`${this.apiUri}/${codigoBarras}`, { responseType: 'text' });

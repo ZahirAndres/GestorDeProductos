@@ -16,7 +16,7 @@ public interface HistorialPrecioRepository extends MongoRepository<HistorialPrec
     Optional<HistorialPrecio> encontrarPorCodigoBarras(String codigoBarras);
 
     @Query(value = "{ 'codigoBarras' : ?0 }")  
-    List<HistorialPrecio> encontrarTodosPorCodigoBarras(String codigoBarras);    
+    List<HistorialPrecio> encontrarTodosPorCodigoBarras(String codigoBarras);     
 
     @Transactional
     void deleteByCodigoBarras(String codigoBarras);

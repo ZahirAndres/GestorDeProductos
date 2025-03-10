@@ -3,6 +3,8 @@ import { ProductoService } from '../../../services/crear-productos.service';
 import { Producto } from '../../../models/producto.model';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
 import { VerProductosComponent } from '../ver-productos/ver-productos.component';
+import { HistorialPrecioService } from '../../../services/historialPrecios/historialPrecios.service';
+import { HistorialPrecio } from '../../../models/historial.model';
 
 @Component({
   selector: 'app-editar-productos',
@@ -11,7 +13,8 @@ import { VerProductosComponent } from '../ver-productos/ver-productos.component'
 })
 export class EditarProductosComponent {
   @Input() currentProducto: Producto = this.initProducto();
-  productos: Producto[] = []; 
+  currentProductoHistorial: HistorialPrecio = this.initHistoriaPrecio();
+  productos: Producto[] = [];
   isEditDialogOpen: boolean = false;
   proveedorInputEdit: string = '';
   marcas: string[] = [];
@@ -25,15 +28,19 @@ export class EditarProductosComponent {
     private productoService: ProductoService,
     private catalogosService: CatalogosService,
     private verProductos: VerProductosComponent,
-    private cdr: ChangeDetectorRef 
+    private historialService: HistorialPrecioService
   ) {
     this.loadCatalogos();
   }
 
   updateProducto(): void {
+    this.currentProductoHistorial.codigoBarras = this.currentProducto.codigoBarras;
+    this.currentProductoHistorial.producto = this.currentProducto.nombreProducto;
+    this.currentProductoHistorial.historialPrecios = [{ precio: this.currentProducto.precioPieza, fechaCambio: new Date() }];
     this.productoService.updateProducto(this.currentProducto).subscribe(
       () => {
         this.verProductos.loadProductos();
+        this.historialService.updateHistorial(this.currentProductoHistorial).subscribe();
         this.verProductos.isEditDialogOpen = false;
       },
       (error) => {
@@ -44,13 +51,12 @@ export class EditarProductosComponent {
 
   agregarProveedorEdit(): void {
     if (this.proveedorInputEdit.trim() && !this.currentProducto.proveedor.includes(this.proveedorInputEdit)) {
-        this.currentProducto.proveedor.push(this.proveedorInputEdit.trim());
-        alert('Proveedor agregado correctamente ');
-        this.proveedorInputEdit = ''; 
+      this.currentProducto.proveedor.push(this.proveedorInputEdit.trim());
+      this.proveedorInputEdit = '';
     } else {
-        alert('El proveedor ya ha sido agregado o está vacío.');
+      alert('El proveedor ya ha sido agregado o está vacío.');
     }
-}
+  }
 
 
   eliminarProveedorEdit(index: number): void {
@@ -59,13 +65,13 @@ export class EditarProductosComponent {
 
   agregarImagen(): void {
     if (this.imagenUrlInput.trim() && !this.currentProducto.imagenUrl?.includes(this.imagenUrlInput.trim())) {
-        this.currentProducto.imagenUrl?.push(this.imagenUrlInput.trim());
-        alert('Imagen agregada correctamente');
-        this.imagenUrlInput = ''; 
+      this.currentProducto.imagenUrl?.push(this.imagenUrlInput.trim());
+      alert('Imagen agregada correctamente');
+      this.imagenUrlInput = '';
     } else {
-        alert('La imagen ya está en la lista o el campo está vacío.');
+      alert('La imagen ya está en la lista o el campo está vacío.');
     }
-}
+  }
 
   eliminarImagen(index: number): void {
     this.currentProducto.imagenUrl?.splice(index, 1);
@@ -73,17 +79,17 @@ export class EditarProductosComponent {
 
   prevImage() {
     if (this.currentProducto.imagenUrl?.length) {
-        this.currentImageIndex = (this.currentImageIndex - 1 + this.currentProducto.imagenUrl.length) % this.currentProducto.imagenUrl.length;
+      this.currentImageIndex = (this.currentImageIndex - 1 + this.currentProducto.imagenUrl.length) % this.currentProducto.imagenUrl.length;
     }
-}
+  }
 
-nextImage() {
+  nextImage() {
     if (this.currentProducto.imagenUrl?.length) {
-        this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProducto.imagenUrl.length;
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProducto.imagenUrl.length;
     }
-}
+  }
   closeEditDialog(): void {
-    this.verProductos.isEditDialogOpen = false; 
+    this.verProductos.isEditDialogOpen = false;
   }
 
   loadCatalogos(): void {
@@ -112,4 +118,14 @@ nextImage() {
       cantidadAlmacen: 0
     };
   }
+
+  private initHistoriaPrecio(): HistorialPrecio {
+    return {
+      _id: '',
+      codigoBarras: '',
+      historialPrecios: [{ precio: 0, fechaCambio: new Date() }],
+      producto: ''
+    };
+  }
+
 }
