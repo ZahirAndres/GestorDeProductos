@@ -8,7 +8,7 @@ import java.util.Date;
 @Document(collection = "historialPrecios")
 public class HistorialPrecio {
 
-    @Id
+    @Id 
     private String _id;  // MongoDB lo asignará automáticamente
     private String codigoBarras;
     private String producto;
@@ -69,7 +69,7 @@ public class HistorialPrecio {
             this.precio = precio;
             this.fechaCambio = fechaCambio;
         }
-
+ 
         // Getters y Setters
         public double getPrecio() {
             return precio;

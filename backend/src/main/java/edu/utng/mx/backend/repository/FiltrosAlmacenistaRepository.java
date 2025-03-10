@@ -4,7 +4,6 @@ import edu.utng.mx.backend.documentos.Producto;
 import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
-import java.util.Optional;
 
 public interface FiltrosAlmacenistaRepository extends MongoRepository<Producto, String> {
 
@@ -40,10 +39,5 @@ public interface FiltrosAlmacenistaRepository extends MongoRepository<Producto, 
             "{ $sort: { 'nombreProducto': 1 } }"
     })
     List<Producto> findByCategoriaYNombre(String filtro);
-
-    // Buscar productos con stock en almacén menor a un valor específico (por
-    // defecto 10)
-    // @Query("{ 'existenciaAlmacen': { $lt: ?0 } }")
-    // List<Producto> findByExistenciasMinimas(int stock);
 
 }
