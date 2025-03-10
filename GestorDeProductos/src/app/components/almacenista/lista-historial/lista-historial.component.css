@@ -149,3 +149,7 @@ body {
     cursor: pointer; /* Cambiar cursor a mano al pasar por encima */
   }
 
+  .input-group{
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }

@@ -1,17 +1,18 @@
-import { ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProductoService } from '../../../services/crear-productos.service';
 import { Producto } from '../../../models/producto.model';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
 import { VerProductosComponent } from '../ver-productos/ver-productos.component';
 import { HistorialPrecioService } from '../../../services/historialPrecios/historialPrecios.service';
 import { HistorialPrecio } from '../../../models/historial.model';
+import { AlmacenistasService } from '../../../services/almacenistas/almacenistas.service';
 
 @Component({
   selector: 'app-editar-productos',
   templateUrl: './editar-productos.component.html',
   styleUrls: ['./editar-productos.component.css']
 })
-export class EditarProductosComponent {
+export class EditarProductosComponent implements OnChanges {
   @Input() currentProducto: Producto = this.initProducto();
   currentProductoHistorial: HistorialPrecio = this.initHistoriaPrecio();
   productos: Producto[] = [];
@@ -24,6 +25,9 @@ export class EditarProductosComponent {
   currentImageIndex: number = 0;
   imagenUrlInput: string = '';
 
+  // Propiedad para almacenar el precio anterior del producto
+  originalPrecio: number = 0;
+
   constructor(
     private productoService: ProductoService,
     private catalogosService: CatalogosService,
@@ -33,15 +37,26 @@ export class EditarProductosComponent {
     this.loadCatalogos();
   }
 
+  // Se utiliza ngOnChanges para detectar cuando se carga el producto y guardar el precio original
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['currentProducto'] && this.currentProducto) {
+      this.originalPrecio = this.currentProducto.precioPieza;
+    }
+  }
+
   updateProducto(): void {
+    // Se actualiza el historial con el precio anterior (originalPrecio)
     this.currentProductoHistorial.codigoBarras = this.currentProducto.codigoBarras;
     this.currentProductoHistorial.producto = this.currentProducto.nombreProducto;
-    this.currentProductoHistorial.historialPrecios = [{ precio: this.currentProducto.precioPieza, fechaCambio: new Date() }];
+    this.currentProductoHistorial.historialPrecios = [{ precio: this.originalPrecio, fechaCambio: new Date() }];
+
     this.productoService.updateProducto(this.currentProducto).subscribe(
       () => {
         this.verProductos.loadProductos();
         this.historialService.updateHistorial(this.currentProductoHistorial).subscribe();
         this.verProductos.isEditDialogOpen = false;
+        // Si se requiere, se puede actualizar originalPrecio con el nuevo precio para futuras modificaciones:
+        // this.originalPrecio = this.currentProducto.precioPieza;
       },
       (error) => {
         console.error('Error actualizando producto:', error);
@@ -57,7 +72,6 @@ export class EditarProductosComponent {
       alert('El proveedor ya ha sido agregado o está vacío.');
     }
   }
-
 
   eliminarProveedorEdit(index: number): void {
     this.currentProducto.proveedor.splice(index, 1);
@@ -88,6 +102,7 @@ export class EditarProductosComponent {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.currentProducto.imagenUrl.length;
     }
   }
+
   closeEditDialog(): void {
     this.verProductos.isEditDialogOpen = false;
   }
@@ -127,5 +142,4 @@ export class EditarProductosComponent {
       producto: ''
     };
   }
-
 }
