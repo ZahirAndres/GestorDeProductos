@@ -71,3 +71,28 @@
     overflow-y: auto;
     padding-right: 10px;
 }
+
+
+/* Estilos para tarjetas deshabilitadas */
+.disabled-card {
+    background-color: #e0e0e0 !important; /* Fondo gris claro */
+    color: #6c757d !important;           /* Texto en gris */
+    opacity: 0.6;                        /* Mayor transparencia */
+    pointer-events: none;                /* Evita interacción */
+  }
+  
+  /* Ejemplo de estilos existentes para tarjetas */
+  .custom-card {
+    border: 2px solid #C68FE6;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    cursor: pointer;
+    height: 100%;
+  }
+  
+  .custom-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+  }
+  
