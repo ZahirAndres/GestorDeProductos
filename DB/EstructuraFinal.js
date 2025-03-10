@@ -98,9 +98,14 @@
     "_id": "",
     "codigoBarras": 0,
     "producto": "",
-    "precioAnterior": 0,
-    "precioNuevo": 0,
-    "fechaRegistro": Date,//fecha registro
+    "historialPrecios": [
+      {
+        "precio": 0,
+        "fechaCambio": ISODate('2024-03-01T00:00:00.000Z')
+      },
+      { "precio": 0, 
+        "fechaCambio": ISODate('2024-03-05T00:00:00.000Z') }
+    ]
   }
 ]
 

@@ -44,7 +44,18 @@ export class AlmacenistasService {
   createLote(producto: any): Observable<any> {
     return this.http.post<any[]>(`${this.apiUri}/lotes/crear`, producto);
   }
-  
+
+  /**
+ * Método para actualizar un lote existente
+ * @param id - ID del lote a actualizar
+ * @param lote - Datos actualizados del lote
+ * @returns - Lote actualizado
+ */
+  updateLote(id: string, lote: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUri}/lotes/actualizar/${id}`, lote);
+  }
+
+
   /**
    *  Metodo para eliminar un lote
    * @param id  - id del lote a eliminar

@@ -9,6 +9,13 @@
   <label for="stockNuevo">Nuevo stock</label>
   <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
 
+  <label for="lote">Selecciona un lote:</label>
+  <select id="lote" name="loteSeleccionado" [(ngModel)]="productoExistencias.loteSeleccionado" (ngModelChange)="onLoteChange()">
+    <option *ngFor="let lote of lotesDisponibles" [value]="lote.codigoLote">
+      {{ lote.codigoLote }} - {{ lote.fechaCaducidad | date:'dd/MM/yyyy' }} - {{ lote.cantidadComprada }}
+    </option>
+  </select>  
+
   <div class="dialog-buttons">
     <button type="submit" class="save-button">Actualizar stock</button>
     <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
