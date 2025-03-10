@@ -110,10 +110,10 @@
                 <h5 class="card-title">{{ producto.codigoBarras }}</h5>
                 <p class="card-text text-muted">
                   <strong>Nombre: </strong> {{ producto.nombreProducto }} <br />
-                  <strong>Marca: </strong> {{ producto.marca }}<br />
+                  <!-- <strong>Marca: </strong> {{ producto.marca }}<br /> -->
                   <strong>Categoría: </strong> {{ producto.categoria }}<br />
-                  <strong>Precio: </strong> ${{ producto.precioPieza }} por
-                  pieza <br />
+                  <!-- <strong>Precio: </strong> ${{ producto.precioPieza }} por
+                  pieza <br /> -->
 
                   <strong>Existencias: </strong>
                   <span class="text-primary">{{
@@ -126,7 +126,8 @@
                   }}</span
                   ><br/>
                   <strong>Cantidad faltante en estante: </strong
-                  >{{ producto.faltanteEnEstante }}
+                  ><strong class = "text-danger">{{ producto.faltanteEnEstante }}
+                  </strong>
                 </p>
               </div>
 
