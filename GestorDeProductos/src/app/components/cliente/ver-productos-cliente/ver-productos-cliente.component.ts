@@ -19,49 +19,63 @@ export class VerProductosClienteComponent implements OnInit {
   codigoBarras: string = '';
   isProducto: boolean = false;
   currentProducto: Producto = this.initProducto();
+  rol: string | null = null;
 
   constructor(
     private catalogoService: CatalogosService,
-    private clienteService: ClienteService
-  ) {}
+    private clienteService: ClienteService,
+    private productoService: ProductoService
+  ) { }
 
   ngOnInit(): void {
     this.cargarProductos();
     this.cargarCategorias();
   }
 
-    private initProducto(): Producto {
-      return {
-        _id: '',
-        codigoBarras: '',
-        nombreProducto: '',
-        tamano: '',
-        marca: '',
-        imagenUrl: [],
-        categoria: '',
-        precioPieza: 0,
-        precioCaja: 0,
-        cantidadPiezasPorCaja: 0,
-        proveedor: [],
-        stockExhibe: 0,
-        existenciaExhibida: 0,
-        stockAlmacen: 0,
-        cantidadAlmacen: 0,
-        mensajeExistencia:'',
-        colorMensaje:'',
-        mensajeExistenciaAlmacen:'',
-        colorMensajeAlmacen:''
-      };
-    }
+  private initProducto(): Producto {
+    return {
+      _id: '',
+      codigoBarras: '',
+      nombreProducto: '',
+      tamano: '',
+      marca: '',
+      imagenUrl: [],
+      categoria: '',
+      precioPieza: 0,
+      precioCaja: 0,
+      cantidadPiezasPorCaja: 0,
+      proveedor: [],
+      stockExhibe: 0,
+      existenciaExhibida: 0,
+      stockAlmacen: 0,
+      cantidadAlmacen: 0,
+      mensajeExistencia: '',
+      colorMensaje: '',
+      mensajeExistenciaAlmacen: '',
+      colorMensajeAlmacen: ''
+    };
+  }
   cargarProductos(): void {
-    this.clienteService.getProductosDefecto().subscribe(
-      (response: Producto[]) => {
-        this.productos = this.asignarMensajesExistencia(response);
-      },
-      (error) => {
-        console.error('Error al cargar productos:', error);
-      }
-    );
+    const rol = this.obtenerRol();
+    if (rol != null) {
+      this.productoService.getProductos().subscribe(
+        (response: Producto[]) => {
+          this.productos = this.asignarMensajesExistencia(response);
+        },
+        (error) => {
+          console.error('Error al cargar productos:', error);
+        }
+      );
+    } else {
+      this.clienteService.getProductosDefecto().subscribe(
+        (response: Producto[]) => {
+          this.productos = this.asignarMensajesExistencia(response);
+        },
+        (error) => {
+          console.error('Error al cargar productos:', error);
+        }
+      );
+    }
   }
 
   cargarCategorias(): void {
@@ -98,11 +112,11 @@ export class VerProductosClienteComponent implements OnInit {
         mensajeExistencia = 'Producto agotado en la estantería, ¡sin unidades disponibles!';
         colorMensaje = 'text-danger';
       }
-      
+
       const faltanteAlmacen = ((producto.stockAlmacen - producto.cantidadAlmacen) / producto.stockAlmacen) * 100;
       let mensajeExistenciaAlmacen = '';
       let colorMensajeAlmacen = '';
-      
+
       if (faltanteAlmacen < 0) {
         mensajeExistenciaAlmacen = '';
         colorMensajeAlmacen = '';
@@ -115,11 +129,11 @@ export class VerProductosClienteComponent implements OnInit {
       } else if (faltanteAlmacen < 100) {
         mensajeExistenciaAlmacen = '¡Pocas cajas disponibles! No pierdas la oportunidad.';
         colorMensajeAlmacen = 'text-danger';
-      } else if (faltanteAlmacen == 100) { 
+      } else if (faltanteAlmacen == 100) {
         mensajeExistenciaAlmacen = 'Cajas no disponibles en el almacén, ¡agotado!';
         colorMensajeAlmacen = 'text-danger';
       }
-      
+
 
 
       return { ...producto, mensajeExistencia, colorMensaje, mensajeExistenciaAlmacen, colorMensajeAlmacen };
@@ -164,7 +178,7 @@ export class VerProductosClienteComponent implements OnInit {
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
         },
-        (error) => { 
+        (error) => {
           console.error('Error al cargar productos por categoría y nombre:', error);
         }
       );
@@ -172,12 +186,14 @@ export class VerProductosClienteComponent implements OnInit {
   }
 
 
-  
+
   openProductoDialog(producto: Producto): void {
-    this.currentProducto = { ...producto};
+    this.currentProducto = { ...producto };
     console.log(this.currentProducto);  // 🔍 Verifica que tenga datos antes de abrir el diálogo
     this.isProducto = true;
   }
-  
-  
+
+  obtenerRol() {
+    return localStorage.getItem('rol');
+  }
 }
