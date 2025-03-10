@@ -14,13 +14,22 @@ export class RegistrarLoteComponent {
     producto: '',
     cantidadComprada: 0,
     fechaCaducidad: '',
-    fechaRegistro: new Date()
+    fechaRegistro: this.getLocalDateString()
   };
 
   // Variable para indicar error en el input de código de barras
   codigoBarrasError: boolean = false;
 
   constructor(private almacenistasService: AlmacenistasService, private verLotes: VerLotesComponent) {}
+
+  /**
+   * Devuelve la fecha actual local en formato YYYY-MM-DD.
+   */
+  getLocalDateString(): string {
+    const today = new Date();
+    const localDate = new Date(today.getTime() - today.getTimezoneOffset() * 60000);
+    return localDate.toISOString().split('T')[0];
+  }
 
   /**
    * Busca el producto basado en el código de barras ingresado.
@@ -52,6 +61,9 @@ export class RegistrarLoteComponent {
       window.alert('Por favor, complete todos los campos correctamente.');
       return;
     }
+    
+    // Actualiza la fechaRegistro para asegurarse de tener el día actual en formato correcto.
+    this.lote.fechaRegistro = this.getLocalDateString();
 
     this.almacenistasService.createLote(this.lote).subscribe(
       (response) => {
@@ -61,8 +73,8 @@ export class RegistrarLoteComponent {
       },
       (error) => {
         console.error(error);
-        if (error.status === 409) {  // Si ya existe el producto
-          window.alert('El producto con el código de barras ' + this.lote.codigoBarras + ' ya existe.');
+        if (error.status === 409) {  // Si ya existe
+          window.alert('El lote con el código de lote ' + this.lote.codigoLote + ' ya existe.');
           this.codigoBarrasError = true;
         } else {
           window.alert('Error al registrar el lote.');
@@ -81,7 +93,7 @@ export class RegistrarLoteComponent {
       producto: '',
       cantidadComprada: 0,
       fechaCaducidad: '',
-      fechaRegistro: new Date()
+      fechaRegistro: this.getLocalDateString()
     };
     this.codigoBarrasError = false;
   }

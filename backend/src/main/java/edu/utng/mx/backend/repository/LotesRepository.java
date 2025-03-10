@@ -17,7 +17,7 @@ public interface LotesRepository extends MongoRepository<Lote, String> {
 
     @Aggregation(pipeline = {
             "{ $match: { 'producto': { $regex: ?0, $options: 'i' } } }",
-            "{ $sort: { 'fechaCaducidad': -1 } }"
+            "{ $sort: { 'fechaCaducidad': -1, 'codigoBarras' : 1 } }"
     })
     List<Lote> filtroLotesPorNombre(String producto);
 

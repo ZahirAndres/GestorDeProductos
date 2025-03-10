@@ -30,17 +30,16 @@ export class VerLotesComponent implements OnInit {
   }
 
   /**
-   * Filtrar lotes dependiendo de la selección del usuario
+   * Filtrar lotes dependiendo de la selección del usuario.
    */
   filtrarLotes(): void {
     if (!this.tipoBusqueda || this.tipoBusqueda === 'todos') {
-      // Si no se selecciona filtro o se elige "Todos", se cargan todos los lotes
+      // Si no se selecciona filtro o se elige "Todos", se cargan todos los lotes.
       this.obtenerLotes();
       return;
     }
   
     if (!this.filtroTexto.trim()) {
-      
       return;
     }
   
@@ -57,31 +56,42 @@ export class VerLotesComponent implements OnInit {
     }
   }
   
-
+  /**
+   * Ordenar los lotes, colocando primero los que estén próximos a caducar (1, 3 o 5 días)
+   * y luego el resto, respetando el orden ascendente o descendente según se seleccione.
+   */
   ordenarLotes(): void {
-    if (this.ordenamiento === 'asc') {
-      this.lotes.sort((a, b) => new Date(a.fechaCaducidad).getTime() - new Date(b.fechaCaducidad).getTime());
-    } else {
-      this.lotes.sort((a, b) => new Date(b.fechaCaducidad).getTime() - new Date(a.fechaCaducidad).getTime());
-    }
+    this.lotes.sort((a, b) => {
+      // Determinar prioridad: 0 para prioridad, 1 para el resto.
+      const aPriority = this.esPrioridad(a) ? 0 : 1;
+      const bPriority = this.esPrioridad(b) ? 0 : 1;
+  
+      if (aPriority !== bPriority) {
+        return aPriority - bPriority;
+      } else {
+        // Si tienen la misma prioridad, se ordena según la fecha de caducidad.
+        const diff = new Date(a.fechaCaducidad).getTime() - new Date(b.fechaCaducidad).getTime();
+        return this.ordenamiento === 'asc' ? diff : -diff;
+      }
+    });
   }
-
+  
   seleccionarLote(lote: any): void {
     this.loteSeleccionado = {
       ...lote,
       _id: lote._id || lote.id
     };
   }
-
+  
   eliminarLote(): void {
     if (!this.loteSeleccionado?._id) {
       alert('Error: El lote no tiene un identificador válido.');
       return;
     }
-
+  
     const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el lote ${this.loteSeleccionado.codigoLote}?`);
     if (!confirmacion) return;
-
+  
     this.almacenistasService.deteleteLotes(this.loteSeleccionado._id).subscribe(
       () => {
         alert('Lote eliminado correctamente.');
@@ -94,8 +104,58 @@ export class VerLotesComponent implements OnInit {
       }
     );
   }
-
+  
   regresar(): void {
     this.loteSeleccionado = null;
+  }
+  
+  /**
+   * Función auxiliar que ajusta la fecha obtenida desde la base de datos (UTC)
+   * a la zona horaria local.
+   */
+  ajustarFecha(fechaCaducidad: Date | string): Date {
+    const fecha = new Date(fechaCaducidad);
+    // Suma el desfase de la zona horaria para obtener la fecha local
+    fecha.setMinutes(fecha.getMinutes() + fecha.getTimezoneOffset());
+    return fecha;
+  }
+  
+  /**
+   * Calcula el número de días restantes hasta la fecha de caducidad.
+   * Se normalizan ambas fechas a la medianoche para evitar desfases.
+   */
+  calcularDiasRestantes(fechaCaducidad: Date | string): number {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normaliza la fecha actual a la medianoche
+    
+    // Ajusta la fecha de caducidad y la normaliza
+    const fecha = this.ajustarFecha(fechaCaducidad);
+    fecha.setHours(0, 0, 0, 0);
+  
+    const diffTime = fecha.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 3600 * 24));
+  }
+  
+  /**
+   * Determina si un lote es prioritario (a 1, 3 o 5 días de caducar).
+   */
+  esPrioridad(lote: any): boolean {
+    const diasRestantes = this.calcularDiasRestantes(lote.fechaCaducidad);
+    return diasRestantes === 1 || diasRestantes === 3 || diasRestantes === 5;
+  }
+  
+  /**
+   * Determina si un lote ya está caducado (días restantes menor o igual a 0).
+   */
+  estaCaducado(lote: any): boolean {
+    return this.calcularDiasRestantes(lote.fechaCaducidad) <= 0;
+  }
+  
+  /**
+   * Devuelve la fecha ajustada a la zona local en formato YYYY-MM-DD para mostrar en la card.
+   */
+  mostrarFecha(fechaCaducidad: Date | string): string {
+    const fechaLocal = this.ajustarFecha(fechaCaducidad);
+    return fechaLocal.toISOString().split('T')[0];
   }
 }

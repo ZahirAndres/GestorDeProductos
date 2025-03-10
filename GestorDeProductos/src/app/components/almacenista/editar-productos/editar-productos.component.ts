@@ -45,7 +45,6 @@ export class EditarProductosComponent implements OnChanges {
   }
 
   updateProducto(): void {
-    // Se actualiza el historial con el precio anterior (originalPrecio)
     this.currentProductoHistorial.codigoBarras = this.currentProducto.codigoBarras;
     this.currentProductoHistorial.producto = this.currentProducto.nombreProducto;
     this.currentProductoHistorial.historialPrecios = [{ precio: this.originalPrecio, fechaCambio: new Date() }];
@@ -55,8 +54,6 @@ export class EditarProductosComponent implements OnChanges {
         this.verProductos.loadProductos();
         this.historialService.updateHistorial(this.currentProductoHistorial).subscribe();
         this.verProductos.isEditDialogOpen = false;
-        // Si se requiere, se puede actualizar originalPrecio con el nuevo precio para futuras modificaciones:
-        // this.originalPrecio = this.currentProducto.precioPieza;
       },
       (error) => {
         console.error('Error actualizando producto:', error);
