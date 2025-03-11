@@ -1,45 +1,50 @@
 /* ======= ESTILOS DE LA TABLA ======= */
 /* Asegura que la tabla esté justo debajo del bloque de detalles del producto */
 .col-md-8 {
-    padding-bottom: 20px; /* Espacio inferior entre el contenido de los detalles y la tabla */
-    display: flex; /* Asegura que los elementos dentro del contenedor sigan el flujo correcto */
-    flex-direction: column; /* Organiza los elementos de arriba hacia abajo */
-  }
-  
-  table {
-    width: 60%; /* Reducir el ancho de la tabla */
-    margin-left: auto; /* Alineación a la derecha */
-    margin-right: 0; /* Asegura que la tabla se mantenga a la derecha */
-    border-collapse: collapse; /* Para mejorar la visualización de bordes */
-    margin-top: 10px; /* Espacio entre el contenido y la tabla */
-  }
-  
-  table th, table td {
-    padding: 8px 12px; /* Espaciado dentro de las celdas de la tabla */
-    text-align: left;
-    border-bottom: 1px solid #ddd; /* Añade una línea de separación entre filas */
-  }
-  
-  table th {
-    background-color: #f8f9fa; /* Fondo gris claro para los encabezados de columna */
-    font-weight: bold;
-  }
-  
-  table tbody tr:hover {
-    background-color: #f1f1f1; /* Resaltar fila cuando el usuario pase el mouse por encima */
-  }
-  
-  /* Ajustar las columnas */
-  table th:nth-child(1), table td:nth-child(1) {
-    width: 20%; /* Ancho para la columna "Fechas de cambios" */
-  }
-  
-  table th:nth-child(2), table td:nth-child(2) {
-    width: 20%; /* Ancho para la columna "Precios anteriores" */
-  }
-  
-  table tfoot {
-    font-weight: bold;
-  }
-  
+  padding-bottom: 20px; /* Espacio inferior entre el contenido de los detalles y la tabla */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centra el contenido horizontalmente */
+}
 
+table {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  max-width: 95%; /* Limita el ancho máximo con un pequeño margen */
+  margin: 20px auto; /* Centra la tabla horizontalmente y añade espacio arriba y abajo */
+  border-collapse: collapse; /* Mejora la visualización de bordes */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para un aspecto profesional */
+  border-radius: 8px; /* Bordes redondeados */
+  overflow: hidden; /* Asegura que los bordes redondeados se apliquen correctamente */
+}
+
+table th, table td {
+  padding: 12px 15px; /* Espaciado interno más generoso */
+  text-align: left;
+  border-bottom: 1px solid #ddd; /* Línea de separación entre filas */
+}
+
+table th {
+  background-color: #bd86ea; /* Fondo azul para los encabezados */
+  color: white; /* Texto blanco para contraste */
+  font-weight: bold;
+  text-transform: uppercase; /* Texto en mayúsculas para un aspecto más profesional */
+}
+
+table tbody tr:hover {
+  background-color: #f1f1f1; /* Resaltar fila al pasar el mouse */
+}
+
+/* Ajustar las columnas */
+table th:nth-child(1), table td:nth-child(1) {
+  width: 50%; /* Ancho para la columna "Fechas de cambios" */
+}
+
+table th:nth-child(2), table td:nth-child(2) {
+  width: 50%; /* Ancho para la columna "Precios anteriores" */
+}
+
+/* Estilo para el pie de tabla (si lo usas en el futuro) */
+table tfoot {
+  font-weight: bold;
+  background-color: #f8f9fa; /* Fondo gris claro para el pie de tabla */
+}
