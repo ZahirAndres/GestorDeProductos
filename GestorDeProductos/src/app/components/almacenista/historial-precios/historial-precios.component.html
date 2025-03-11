@@ -1,20 +1,20 @@
 <div class="row">
-    <div class="col-md-4 pe-4 border-end">
-      <app-lista-historial (productoSeleccionado)="recibirProductoSeleccionado($event)"></app-lista-historial>
+  <div class="col-md-4 pe-4 border-end">
+    <app-lista-historial (productoSeleccionado)="recibirProductoSeleccionado($event)"></app-lista-historial>
+  </div>
+
+  <div class="col-md-8">
+    <h3>Detalles del Producto</h3>
+    <div *ngIf="productoSeleccionado">
+      <p><strong>Nombre:</strong> {{ productoSeleccionado.nombreProducto }}</p>
+      <p><strong>Código de Barras:</strong> {{ productoSeleccionado.codigoBarras }}</p>
+      <p><strong>Precio Actual:</strong> ${{ productoSeleccionado.precioPieza }}</p>
     </div>
-  
-    <div class="col-md-8">
-      <h3>Detalles del Producto</h3>
-      <div *ngIf="productoSeleccionado">
-        <p><strong>Nombre:</strong> {{ productoSeleccionado.nombreProducto }}</p>
-        <p><strong>Código de Barras:</strong> {{ productoSeleccionado.codigoBarras }}</p>
-        <p><strong>Precio Actual:</strong> ${{ productoSeleccionado.precioPieza }}</p>
-      </div>
-      <div *ngIf="!productoSeleccionado">
-        <p>Seleccione un producto de la lista.</p>
-      </div>
+    <div *ngIf="!productoSeleccionado">
+      <p>Seleccione un producto de la lista.</p>
     </div>
-  
+
+    <!-- Mover la tabla dentro de col-md-8 -->
     <table class="table table-bordered">
       <thead>
         <tr>
@@ -28,7 +28,6 @@
           <td>{{ historial.precio | currency }}</td>
         </tr>
       </tbody>
-    </table>  
-  
-  
+    </table>
   </div>
+</div>
