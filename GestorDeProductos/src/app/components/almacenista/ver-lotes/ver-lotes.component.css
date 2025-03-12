@@ -75,10 +75,9 @@
 
 /* Estilos para tarjetas deshabilitadas */
 .disabled-card {
-    background-color: #e0e0e0 !important; /* Fondo gris claro */
-    color: #6c757d !important;           /* Texto en gris */
-    opacity: 0.6;                        /* Mayor transparencia */
-    pointer-events: none;                /* Evita interacción */
+    background-color: #e0e0e0 !important; 
+    color: #6c757d !important;        
+    opacity: 0.6;               
   }
   
   /* Ejemplo de estilos existentes para tarjetas */
