@@ -137,11 +137,11 @@ export class VerLotesComponent implements OnInit {
   }
   
   /**
-   * Determina si un lote es prioritario (a 1, 3 o 5 días de caducar).
+   * Determina si un lote es prioritario a menos o igual de 5 dias de caducar
    */
   esPrioridad(lote: any): boolean {
     const diasRestantes = this.calcularDiasRestantes(lote.fechaCaducidad);
-    return diasRestantes === 1 || diasRestantes === 3 || diasRestantes === 5;
+    return diasRestantes <= 5;
   }
   
   /**

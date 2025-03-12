@@ -1,23 +1,69 @@
 <h2>Actualizar existencias</h2>
 <form class="dialog-content" (ngSubmit)="actualizarStock()">
   <label for="codigoBarras">Código de barras</label>
-  <input type="text" id="codigoBarras" [(ngModel)]="productoExistencias.codigoBarras" name="codigoBarras" readonly>
+  <input
+    type="text"
+    id="codigoBarras"
+    [(ngModel)]="productoExistencias.codigoBarras"
+    name="codigoBarras"
+    readonly
+  />
 
   <label for="nombreProducto">Nombre del producto</label>
-  <input type="text" id="nombreProducto" [(ngModel)]="productoExistencias.nombreProducto" name="nombreProducto" readonly>
+  <input
+    type="text"
+    id="nombreProducto"
+    [(ngModel)]="productoExistencias.nombreProducto"
+    name="nombreProducto"
+    readonly
+  />
 
   <label for="stockNuevo">Nuevo stock</label>
-  <input type="number" id="stockNuevo" [(ngModel)]="productoExistencias.stockNuevo" name="stockNuevo">
+  <input
+    type="number"
+    id="stockNuevo"
+    [(ngModel)]="productoExistencias.stockNuevo"
+    name="stockNuevo"
+  />
 
   <label for="lote">Selecciona un lote:</label>
-  <select id="lote" name="loteSeleccionado" [(ngModel)]="productoExistencias.loteSeleccionado" (ngModelChange)="onLoteChange()">
-    <option *ngFor="let lote of lotesDisponibles" [value]="lote.codigoLote">
-      {{ lote.codigoLote }} - {{ lote.fechaCaducidad | date:'dd/MM/yyyy' }} - {{ lote.cantidadComprada }}
+  <select
+    id="lote"
+    name="loteSeleccionado"
+    [(ngModel)]="productoExistencias.loteSeleccionado"
+    (ngModelChange)="onLoteChange()"
+  >
+    <option *ngFor="let lote of lotesDisponibles" [value]="lote.codigoLote"
+    [ngClass]="{
+      'text-danger': estaCaducado(lote),  
+      'text-warning': !estaCaducado(lote) && esPrioridad(lote),  
+      'text-dark': !(estaCaducado(lote) || esPrioridad(lote))  
+    }">
+      <span
+
+      >
+        {{ lote.codigoLote }} -
+        {{ lote.fechaCaducidad | date : "dd/MM/yyyy" }} -
+        {{ lote.cantidadComprada }}
+      </span>
+      <span *ngIf="estaCaducado(lote)" class="badge bg-danger">Caducado</span>
+      <span
+        class="badge bg-warning"
+        *ngIf="!estaCaducado(lote) && esPrioridad(lote)"
+      >
+        {{ calcularDiasRestantes(lote.fechaCaducidad) }} día(s) para caducar
+      </span>
     </option>
-  </select>  
+  </select>
 
   <div class="dialog-buttons">
     <button type="submit" class="save-button">Actualizar stock</button>
-    <button type="button" class="cancel-button" (click)="closeExistenciasDialog()">Cancelar</button>
+    <button
+      type="button"
+      class="cancel-button"
+      (click)="closeExistenciasDialog()"
+    >
+      Cancelar
+    </button>
   </div>
 </form>
