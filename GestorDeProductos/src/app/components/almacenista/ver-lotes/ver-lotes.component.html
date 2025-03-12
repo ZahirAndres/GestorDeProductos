@@ -16,7 +16,7 @@
                                 date:'yyyy-MM-dd' }}</small>
                         </p>
                         <p class="card-text">
-                            <small class="text-muted">Código: {{ loteSeleccionado.codigoLote }}</small>
+                            <small class="text-muted">Código de lote: {{ loteSeleccionado.codigoLote }}</small>
                         </p>
                         <p class="card-text">
                             <small class="text-muted">Código de Barras: {{ loteSeleccionado.codigoBarras }}</small>
@@ -26,11 +26,9 @@
                                 date:'yyyy-MM-dd' }}</small>
                         </p>
 
-                        <!-- Si el lote está caducado, se muestra un badge -->
                         <div *ngIf="estaCaducado(loteSeleccionado)">
                             <span class="badge bg-danger">Caducado</span>
                         </div>
-                        <!-- Badge de prioridad para lotes próximos a caducar -->
                         <div *ngIf="!estaCaducado(loteSeleccionado) && esPrioridad(loteSeleccionado)">
                             <span class="badge bg-warning">
                                 {{ calcularDiasRestantes(loteSeleccionado.fechaCaducidad) }} día(s) para caducar
@@ -76,7 +74,7 @@
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                         <div class="col" *ngFor="let lote of lotes">
                             <div class="card custom-card" [ngClass]="{'disabled-card': estaCaducado(lote)}"
-                                (click)="estaCaducado(lote) ? null : seleccionarLote(lote)">
+                                (click)="seleccionarLote(lote)">
                                 <div class="card-body">
                                     <h5 class="card-title">Producto: {{ lote.producto }}</h5>
                                     <p class="card-text">
