@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import edu.utng.mx.backend.repository.*;
 import edu.utng.mx.backend.documentos.*;
+
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Map;
 
@@ -20,23 +23,68 @@ public class ProductoController {
 
     @Autowired
     private ProductoRepository productoRepo;
+    @Autowired
+    private HistorialPrecioRepository historialPrecioRepo;
 
-
-
-    @PostMapping("/crear")
-    public ResponseEntity<?> saveProducto(@RequestBody Producto producto) {
-        try {
-            Optional<Producto> productoExistente = productoRepo.findByCodigoBarras(producto.getCodigoBarras());
-            if (productoExistente.isPresent()) {
-                return ResponseEntity.status(HttpStatus.CONFLICT)
-                    .body("El producto con el código de barras " + producto.getCodigoBarras() + " ya existe.");
-            }
-            Producto prosave = productoRepo.save(producto);
-            return new ResponseEntity<>(prosave, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+@PostMapping("/crear")
+public ResponseEntity<?> saveProducto(@RequestBody Producto producto) {
+    try {
+        // Verificar si el producto ya existe
+        Optional<Producto> productoExistente = productoRepo.encontrarPorCodigoBarras(producto.getCodigoBarras());
+        if (productoExistente.isPresent()) {
+            return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("El producto con el código de barras " + producto.getCodigoBarras() + " ya existe.");
         }
+
+        // Buscar si ya existe un historial de precios para el mismo código de barras
+        Optional<HistorialPrecio> historialExistente = historialPrecioRepo.encontrarPorCodigoBarras(producto.getCodigoBarras());
+
+        HistorialPrecio historial;
+        if (historialExistente.isPresent()) {
+            // Si ya existe, usar el historial existente
+            historial = historialExistente.get();
+        } else {
+            // Si no existe, crear uno nuevo
+            historial = new HistorialPrecio();
+            historial.setCodigoBarras(producto.getCodigoBarras());
+            historial.setProducto(producto.getNombreProducto()); 
+        }
+
+        // Obtener la lista actual de precios (si ya existe)
+        List<HistorialPrecio.PrecioHistorial> listaPrecios = historial.getHistorialPrecios();
+        if (listaPrecios == null) {
+            listaPrecios = new ArrayList<>();
+        }
+
+        // Marcar fechaFin del último precio si existe
+        if (!listaPrecios.isEmpty()) {
+            listaPrecios.get(listaPrecios.size() - 1).setFechaFin(new Date());
+        }
+
+        // Crear nuevo precio
+        HistorialPrecio.PrecioHistorial nuevoPrecio = new HistorialPrecio.PrecioHistorial(
+            producto.getPrecioPieza(),
+            new Date(),  // Fecha de cambio
+            null  // Fecha de fin (se establecerá cuando haya otro cambio de precio)
+        );
+
+        // Agregar el nuevo precio a la lista
+        listaPrecios.add(nuevoPrecio);
+        historial.setHistorialPrecios(listaPrecios);
+
+        // Guardar el historial actualizado
+        historialPrecioRepo.save(historial);
+
+        // Guardar el producto
+        Producto prosave = productoRepo.save(producto);
+        
+        return new ResponseEntity<>(prosave, HttpStatus.CREATED);
+    } catch (Exception e) {
+        return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+}
+
+    
 
     @GetMapping("/ver")
     public ResponseEntity<?> findAllUsuarios() {

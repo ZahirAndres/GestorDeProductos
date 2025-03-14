@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 @Service
 public class HistorialPrecioService {
@@ -44,9 +45,18 @@ public class HistorialPrecioService {
         Optional<HistorialPrecio> historialPrecioOpt = historialPrecioRepository.encontrarPorCodigoBarras(codigoBarras);
         
         if (historialPrecioOpt.isPresent()) {
-            // Si el historial existe, agregar el nuevo precio al array de precios
+            // Si el historial existe, obtener el historial de precios
             HistorialPrecio historialPrecio = historialPrecioOpt.get();
-            historialPrecio.getHistorialPrecios().add(nuevoPrecio); // Agregar el nuevo precio al historial
+            List<PrecioHistorial> historialPrecios = historialPrecio.getHistorialPrecios();
+            
+            // Si hay precios previos, actualizar el 'fechaFin' del último precio
+            if (!historialPrecios.isEmpty()) {
+                PrecioHistorial ultimoPrecio = historialPrecios.get(historialPrecios.size() - 1);
+                ultimoPrecio.setFechaFin(new Date());  // Establecer la fechaFin del último precio
+            }
+
+            // Agregar el nuevo precio al historial
+            historialPrecios.add(nuevoPrecio); // Agregar el nuevo precio al historial
 
             // Guardar los cambios
             return historialPrecioRepository.save(historialPrecio);

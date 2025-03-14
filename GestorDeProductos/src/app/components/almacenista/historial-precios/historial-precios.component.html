@@ -19,15 +19,17 @@
       <thead>
         <tr>
           <th>Fechas de cambios</th>
-          <th>Precios anteriores</th>
+          <th>Fecha Fin</th>
+          <th>Precios</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let historial of historialPrecios">
           <td>{{ historial.fechaCambio | date: 'dd/MM/yyyy HH:mm' }}</td>
+          <td>{{ historial.fechaFin | date: 'dd/MM/yyyy HH:mm' }}</td> 
           <td>{{ historial.precio | currency }}</td>
         </tr>
       </tbody>
-    </table>
+    </table>    
   </div>
 </div>

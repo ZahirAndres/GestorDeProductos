@@ -1,5 +1,6 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ProductoService } from '../../../services/crear-productos.service';
+import { HistorialPrecioService } from '../../../services/historialPrecios/historialPrecios.service'; // Asegúrate de importar este servicio
 import { Producto } from '../../../models/producto.model';
 import { Categoria } from '../../../models/categoria.model';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
@@ -27,6 +28,7 @@ export class AgregarProductoComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
+    private historialPrecioService: HistorialPrecioService, // Inyectamos el servicio de historial de precios
     private catalogosService: CatalogosService,
     private verProdcutos: VerProductosComponent
   ) { }
@@ -60,18 +62,18 @@ export class AgregarProductoComponent implements OnInit {
 
   addProducto(): void {
     this.mensaje = ''; // Limpiar mensaje previo
-
+  
     if (!this.validarProducto()) {
       this.mensaje = 'Por favor, llena los campos obligatorios correctamente.';
       return;
     }
-
+  
     this.productoService.createProducto(this.newProducto).subscribe(
       (createdProduct) => {
-        this.verProdcutos.loadProductos();
+        console.log('Producto creado:', createdProduct);
+        this.verProdcutos.loadProductos(); // Recargar lista de productos
         this.mensaje = 'Producto creado exitosamente.';
         this.newProducto = this.initProducto(); // Limpiar formulario
-        // Opcional: limpiar mensaje después de unos segundos
         setTimeout(() => this.mensaje = '', 3000);
       },
       (error) => {
@@ -85,6 +87,8 @@ export class AgregarProductoComponent implements OnInit {
       }
     );
   }
+  
+  
 
   agregarProveedor(): void {
     if (!this.proveedorInput.trim()) {

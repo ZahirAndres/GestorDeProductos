@@ -66,12 +66,10 @@ public class HistorialPrecioController {
     // Agregar un nuevo historial de precio (modificar o agregar uno nuevo)
     @PutMapping
     public ResponseEntity<HistorialPrecio> actualizarHistorial(@RequestBody HistorialPrecio historialPrecio) {
-        // Aquí extraemos el código de barras y el nuevo precio de la solicitud
+
         String codigoBarras = historialPrecio.getCodigoBarras();
-        // Asegúrate de que el nuevo precio esté en la lista de historialPrecios del objeto recibido
-        PrecioHistorial nuevoPrecio = historialPrecio.getHistorialPrecios().get(0); // Suponiendo que solo estás agregando un precio nuevo
+        PrecioHistorial nuevoPrecio = historialPrecio.getHistorialPrecios().get(0); 
     
-        // Llamamos al servicio con el código de barras y el nuevo precio
         HistorialPrecio actualizado = historialPrecioService.agregarNuevoHistorial(codigoBarras, nuevoPrecio);
     
         return new ResponseEntity<>(actualizado, HttpStatus.OK);

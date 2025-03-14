@@ -43,23 +43,72 @@ export class EditarProductosComponent implements OnChanges {
       this.originalPrecio = this.currentProducto.precioPieza;
     }
   }
-
+  
   updateProducto(): void {
-    this.currentProductoHistorial.codigoBarras = this.currentProducto.codigoBarras;
-    this.currentProductoHistorial.producto = this.currentProducto.nombreProducto;
-    this.currentProductoHistorial.historialPrecios = [{ precio: this.originalPrecio, fechaCambio: new Date() }];
-
-    this.productoService.updateProducto(this.currentProducto).subscribe(
-      () => {
-        this.verProductos.loadProductos();
-        this.historialService.updateHistorial(this.currentProductoHistorial).subscribe();
-        this.verProductos.isEditDialogOpen = false;
-      },
-      (error) => {
-        console.error('Error actualizando producto:', error);
+    // Obtener el historial de precios actual del producto
+    this.historialService.getHistorialPorCodigoBarras(this.currentProducto.codigoBarras).subscribe(historialArray => {
+      if (!historialArray || historialArray.length === 0) {
+        console.warn('No se encontró historial de precios para este producto, se creará uno nuevo.');
+  
+        // Si no existe historial, crear uno nuevo
+        const nuevoHistorial: HistorialPrecio = {
+          _id: '', // MongoDB generará un nuevo _id
+          codigoBarras: this.currentProducto.codigoBarras,
+          producto: this.currentProducto.nombreProducto,
+          historialPrecios: [
+            { precio: this.currentProducto.precioPieza, fechaCambio: new Date() }
+          ]
+        };
+  
+        // Primero actualizar el producto
+        this.productoService.updateProducto(this.currentProducto).subscribe(() => {
+          // Luego crear el historial de precios
+          this.historialService.createHistorial(nuevoHistorial).subscribe(() => {
+            console.log('Historial de precios creado correctamente.');
+            this.verProductos.loadProductos();
+            this.verProductos.isEditDialogOpen = false;
+          });
+        });
+  
+        return; // Salir de la función para evitar continuar con el código siguiente
       }
-    );
-  }
+  
+      // Si ya existe un historial, actualizarlo
+      let historial = historialArray[0]; // Accede al primer historial
+      let historialPrecios = historial.historialPrecios || []; // Asegurar que existe historialPrecios
+  
+      // Si hay un historial previo, actualizar la fechaFin del último precio registrado
+      if (historialPrecios.length > 0) {
+        historialPrecios[historialPrecios.length - 1].fechaFin = new Date();
+      }
+  
+      // Agregar el nuevo precio con fecha de cambio actual
+      historialPrecios.push({
+        precio: this.currentProducto.precioPieza,
+        fechaCambio: new Date()
+      });
+  
+      // Preparar el objeto a actualizar
+      const updatedHistorial: HistorialPrecio = {
+        _id: historial._id,
+        codigoBarras: this.currentProducto.codigoBarras,
+        producto: this.currentProducto.nombreProducto,
+        historialPrecios: historialPrecios
+      };
+  
+      // Primero actualizar el producto
+      this.productoService.updateProducto(this.currentProducto).subscribe(() => {
+        // Luego actualizar el historial de precios
+        this.historialService.updateHistorial(updatedHistorial).subscribe(() => {
+          console.log('Historial de precios actualizado correctamente.');
+          this.verProductos.loadProductos();
+          this.verProductos.isEditDialogOpen = false;
+        });
+      });
+    }, error => {
+      console.error('Error obteniendo historial de precios:', error);
+    });
+  }  
 
   agregarProveedorEdit(): void {
     if (this.proveedorInputEdit.trim() && !this.currentProducto.proveedor.includes(this.proveedorInputEdit)) {
