@@ -63,11 +63,13 @@ public class HistorialPrecio {
     public static class PrecioHistorial {
         private double precio;
         private Date fechaCambio;
+        private Date fechaFin;  
 
         // Constructor
-        public PrecioHistorial(double precio, Date fechaCambio) {
+        public PrecioHistorial(double precio, Date fechaCambio, Date fechaFin) {
             this.precio = precio;
             this.fechaCambio = fechaCambio;
+            this.fechaFin = fechaFin;  
         }
  
         // Getters y Setters
@@ -85,6 +87,14 @@ public class HistorialPrecio {
 
         public void setFechaCambio(Date fechaCambio) {
             this.fechaCambio = fechaCambio;
+        }
+
+        public Date getFechaFin() {
+            return fechaFin;
+        }
+
+        public void setFechaFin(Date fechaFin) {
+            this.fechaFin = fechaFin;
         }
     }
 }
