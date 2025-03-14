@@ -33,7 +33,7 @@ export class VerLotesComponent implements OnInit {
    * Filtrar lotes dependiendo de la selección del usuario.
    */
   filtrarLotes(): void {
-    if (!this.tipoBusqueda || this.tipoBusqueda === 'todos') {
+    if (!this.tipoBusqueda || this.tipoBusqueda === 'todos' || this.filtroTexto === '') {
       // Si no se selecciona filtro o se elige "Todos", se cargan todos los lotes.
       this.obtenerLotes();
       return;

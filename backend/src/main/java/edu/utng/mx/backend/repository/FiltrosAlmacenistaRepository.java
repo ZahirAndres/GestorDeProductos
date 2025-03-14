@@ -24,7 +24,8 @@ public interface FiltrosAlmacenistaRepository extends MongoRepository<Producto, 
 
     // Buscar productos por codigo de barras
     @Aggregation(pipeline = {
-            "{ $match: { 'codigoBarras': { $regex: ?0, $options: 'i' } } }",
+         "{ $match: { 'codigoBarras': { $regex: ?0, $options: 'i' } } }",
+            "{ $sort: { 'nombreProducto': 1 } }"
     })
     List<Producto> findByCodigoBarras(String codigoBarras);
 
