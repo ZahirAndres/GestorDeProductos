@@ -121,16 +121,16 @@ export class VerProductosClienteComponent implements OnInit {
         mensajeExistenciaAlmacen = '';
         colorMensajeAlmacen = '';
       } else if (faltanteAlmacen < 30) {
-        mensajeExistenciaAlmacen = '¡Alerta! Las cajas están a punto de agotarse en el almacén.';
+        mensajeExistenciaAlmacen = '¡Alerta! La venta por caja esta a punto de agotarse en el almacén.';
         colorMensajeAlmacen = 'text-verde';
       } else if (faltanteAlmacen < 60) {
-        mensajeExistenciaAlmacen = 'Las cajas están casi agotadas, ¡aprovecha mientras hay disponibilidad!';
+        mensajeExistenciaAlmacen = 'La venta por caja esta  casi agotada, ¡aprovecha mientras hay disponibilidad!';
         colorMensajeAlmacen = 'text-orange';
       } else if (faltanteAlmacen < 100) {
-        mensajeExistenciaAlmacen = '¡Pocas cajas disponibles! No pierdas la oportunidad.';
+        mensajeExistenciaAlmacen = '¡Poca venta por caja disponible! No pierdas la oportunidad.';
         colorMensajeAlmacen = 'text-danger';
       } else if (faltanteAlmacen == 100) {
-        mensajeExistenciaAlmacen = 'Cajas no disponibles en el almacén, ¡agotado!';
+        mensajeExistenciaAlmacen = 'La venta por caja no esta disponibles en el almacén, ¡agotado!';
         colorMensajeAlmacen = 'text-danger';
       }
 
