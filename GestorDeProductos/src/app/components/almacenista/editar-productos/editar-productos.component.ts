@@ -52,6 +52,7 @@ export class EditarProductosComponent implements OnChanges {
     this.historialService.getHistorialPorCodigoBarras(this.currentProducto.codigoBarras).subscribe(historialArray => {
 
       if (this.currentProducto.precioPieza != this.originalPrecio) {
+        this.currentProducto.precioPieza = this.originalPrecio;
         if (!historialArray || historialArray.length === 0) {
           console.warn('No se encontró historial de precios para este producto, se creará uno nuevo.');
 
