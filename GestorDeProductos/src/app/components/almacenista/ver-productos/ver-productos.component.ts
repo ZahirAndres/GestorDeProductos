@@ -52,7 +52,7 @@ export class VerProductosComponent implements OnInit {
       stockExhibe: 0,
       existenciaExhibida: 0,
       stockAlmacen: 0,
-      cantidadAlmacen: 0
+      cantidadAlmacen: 0,
     };
   }
 
