@@ -12,6 +12,7 @@ export class VerLotesComponent implements OnInit {
   tipoBusqueda: string = ''; // Selección del tipo de búsqueda (código de lote o nombre)
   ordenamiento: string = 'asc';
   loteSeleccionado: any = null; 
+  lotesLoaded: boolean = false; // Bandera para saber si los lotes han sido cargados
 
   constructor(private almacenistasService: AlmacenistasService) {}
 
@@ -26,6 +27,7 @@ export class VerLotesComponent implements OnInit {
         _id: lote._id || lote.id 
       }));
       this.ordenarLotes();
+      this.lotesLoaded = true;
     });
   }
 
@@ -47,11 +49,13 @@ export class VerLotesComponent implements OnInit {
       this.almacenistasService.filtrarLotesPorCodigoLote(this.filtroTexto).subscribe((data) => {
         this.lotes = data;
         this.ordenarLotes();
+        this.lotesLoaded = true;
       });
     } else if (this.tipoBusqueda === 'nombre') {
       this.almacenistasService.filtrarLotesPorNombre(this.filtroTexto).subscribe((data) => {
         this.lotes = data;
         this.ordenarLotes();
+        this.lotesLoaded = true;
       });
     }
   }
@@ -137,7 +141,7 @@ export class VerLotesComponent implements OnInit {
   }
   
   /**
-   * Determina si un lote es prioritario a menos o igual de 5 dias de caducar
+   * Determina si un lote es prioritario a menos o igual de 5 días de caducar.
    */
   esPrioridad(lote: any): boolean {
     const diasRestantes = this.calcularDiasRestantes(lote.fechaCaducidad);

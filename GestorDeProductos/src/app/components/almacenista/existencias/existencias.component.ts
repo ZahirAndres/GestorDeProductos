@@ -107,8 +107,10 @@ export class ExistenciasComponent implements OnChanges {
         (response) => {
           console.log('Lote actualizado:', response);
           alert('Stock actualizado correctamente');
+           //Actualiza el producto 
+
           this.verProducto.isExistenciasDialogOpen = false;
-          this.cargarLotesDisponibles();
+          this.verProducto.loadProductos();
         },
         (error) => {
           console.error('Error al actualizar el lote:', error);
@@ -142,6 +144,9 @@ export class ExistenciasComponent implements OnChanges {
         }
       );
 
+     
+
+
     } catch (error) {
       console.error('Error en actualizarStock:', error);
       alert('Error inesperado al actualizar el stock.');
@@ -159,19 +164,20 @@ export class ExistenciasComponent implements OnChanges {
       console.warn('No hay código de barras disponible para buscar lotes.');
       return;
     }
-
+  
     console.log('Buscando lotes para el código de barras:', this.currentProducto.codigoBarras);
-
+  
     this.almacenistaService.getLotes().subscribe(
       (lotes: any[]) => {
         console.log('Lotes obtenidos desde el servicio:', lotes);
-
-        // Filtrar lotes que coincidan con el código de barras del producto actual
-        this.lotesDisponibles = lotes.filter(lote => lote.codigoBarras === this.currentProducto.codigoBarras);
-
+  
+        // Filtrar lotes que coincidan con el código de barras del producto actual y tengan cantidad > 0
+        this.lotesDisponibles = lotes.filter(lote => 
+          lote.codigoBarras === this.currentProducto.codigoBarras && lote.cantidadComprada > 0
+        );
+  
         console.log('Lotes disponibles después del filtro:', this.lotesDisponibles);
-
-        // Verificar si hay lotes disponibles
+  
         if (this.lotesDisponibles.length === 0) {
           console.warn('No se encontraron lotes disponibles para el código de barras:', this.currentProducto.codigoBarras);
         }
@@ -181,6 +187,7 @@ export class ExistenciasComponent implements OnChanges {
       }
     );
   }
+  
 
 
   closeExistenciasDialog(): void {
