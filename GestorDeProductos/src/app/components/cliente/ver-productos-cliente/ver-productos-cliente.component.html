@@ -1,64 +1,38 @@
 <body>
   <!-- Filtros -->
-  <div
-    class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 rounded"
-  >
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 p-3 rounded">
     <h4 class="mb-3 mb-md-0">Productos de la tienda</h4>
     <div class="d-flex flex-column flex-sm-row align-items-center gap-3">
       <!-- Select Ordenar por categoría -->
       <div class="input-group">
-        <select
-          [(ngModel)]="filtro"
-          id="filtro"
-          name="filtro"
-          (change)="filtroProductoCategoria(filtro)"
-          class="form-select d-inline w-auto"
-        >
+        <select [(ngModel)]="filtro" id="filtro" name="filtro" (change)="filtroProductoCategoria(filtro)"
+          class="form-select d-inline w-auto">
           <option value="" disabled selected>Ordenar por categoría</option>
           <option value="">Todos</option>
-          <option
-            *ngFor="let categoria of categorias"
-            [value]="categoria.nombreCategoria"
-          >
+          <option *ngFor="let categoria of categorias" [value]="categoria.nombreCategoria">
             {{ categoria.nombreCategoria }}
           </option>
         </select>
       </div>
-
-      <!-- Input de búsqueda por nombre -->
+      <div *ngIf="categoriasError" class="alert alert-danger mt-4">
+        No se pudo cargar la lista
+      </div>
       <div class="input-group">
-        <input
-          class="form-control"
-          type="search"
-          placeholder="Nombre del producto"
-          aria-label="Search"
-          [(ngModel)]="nombreProducto"
-          (input)="filtroProductoNombre(nombreProducto)"
-        />
+        <input class="form-control" type="search" placeholder="Nombre del producto" aria-label="Search"
+          [(ngModel)]="nombreProducto" (input)="filtroProductoNombre(nombreProducto)" />
       </div>
 
-      <!-- Ícono de búsqueda -->
-      <div
-        class="btn-icon"
-        (click)="filtroProductoNombreYCategoria(filtro, nombreProducto)"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          fill="currentColor"
-          class="bi bi-search"
-          viewBox="0 0 16 16"
-        >
+      <div class="btn-icon" (click)="filtroProductoNombreYCategoria(filtro, nombreProducto)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+          viewBox="0 0 16 16">
           <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-          />
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
         </svg>
       </div>
     </div>
   </div>
 
-  <div class="container mt-5" >
+  <div class="container mt-5">
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <!-- Tarjetas de productos -->
       <div class="col" *ngFor="let producto of productos">
@@ -67,32 +41,18 @@
           <div class="producto-img-container">
             <img
               [src]="producto.imagenUrl && producto.imagenUrl.length > 0 ? producto.imagenUrl[0] : 'https://previews.123rf.com/images/georgepanfili/georgepanfili2003/georgepanfili200300742/148466965-404-error-logo-and-icon-vector-isolated-image.jpg'"
-              class="producto-img"
-              alt="{{ producto.nombreProducto }}"
-            />
+              class="producto-img" alt="{{ producto.nombreProducto }}" />
           </div>
-          
 
-          <div
-            class="card-body text-center d-flex flex-column justify-content-between"
-          >
-            <!-- Nombre del producto (truncado si es muy largo) -->
-            <h5
-              class="card-title text-truncate"
-              title="{{ producto.nombreProducto }}"
-            >
+          <div class="card-body text-center d-flex flex-column justify-content-between">
+            <h5 class="card-title text-truncate" title="{{ producto.nombreProducto }}">
               {{ producto.nombreProducto }}
             </h5>
 
-            <!-- Categoría (truncado si es muy larga) -->
-            <p
-              class="card-text text-muted text-truncate"
-              title="{{ producto.categoria }}"
-            >
+            <p class="card-text text-muted text-truncate" title="{{ producto.categoria }}">
               <strong>Categoría: </strong>{{ producto.categoria }}
             </p>
 
-            <!-- Precio -->
             <p class="card-text">
               <strong>Precio: </strong> ${{ producto.precioPieza }} por pieza
             </p>
@@ -109,16 +69,16 @@
         </div>
       </div>
     </div>
+    <!-- Mensaje cuando no se encuentre ninguna coincidencia -->
+    <div *ngIf="productosLoaded && productos.length === 0" class="alert alert-warning text-center mt-4">
+      No se encontró ninguna coincidencia
+    </div>
   </div>
 
-
-  
   <div *ngIf="isProducto" class="edit-dialog">
     <div class="dialog-content">
       <button class="btn btn-danger btn-sm float-end" (click)="isProducto = false">Cerrar</button>
       <app-ver-producto [currentProducto]="currentProducto"></app-ver-producto>
     </div>
   </div>
-  
-
 </body>
