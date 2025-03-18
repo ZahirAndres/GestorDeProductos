@@ -13,3 +13,5 @@ public interface UsuarioRepositorio extends MongoRepository<Usuarios, String> {
     @Query("{'correo': ?0, 'contrasena': ?1}")
     Usuarios findByCorreoAndContrasena(String correo, String contraseña);
 }
+
+

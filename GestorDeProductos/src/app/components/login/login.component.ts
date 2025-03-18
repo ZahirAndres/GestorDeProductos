@@ -22,6 +22,7 @@ export class LoginComponent {
       this.loginService.login(this.usuario).subscribe(
         res => {
           if (res && res.message) {  // Verificamos que 'res' y 'res.message' existen
+
             localStorage.setItem(this.ROL_KEY, res.message);
             
             if (res.message === 'Almacenista') {
