@@ -11,9 +11,11 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   usuario: any = {
     correo: '',
-    contrasena: ''
+    contrasena: '' 
   };
-  private readonly ROL_KEY = 'rol'; 
+  private readonly ROL_KEY = 'rol';
+  // Variable para almacenar el mensaje de error de login
+  loginError: string = '';
 
   constructor(private loginService: LoginService, private router: Router) { }
 
@@ -21,8 +23,8 @@ export class LoginComponent {
     if (form.valid) {
       this.loginService.login(this.usuario).subscribe(
         res => {
-          if (res && res.message) {  // Verificamos que 'res' y 'res.message' existen
-
+          if (res && res.message) { 
+            this.loginError = '';
             localStorage.setItem(this.ROL_KEY, res.message);
             
             if (res.message === 'Almacenista') {
@@ -32,15 +34,16 @@ export class LoginComponent {
             }
           } else {
             console.error('Error: Respuesta del servidor no válida');
+ 
+            this.loginError = 'Credenciales incorrectas. Por favor, re ingrese sus credenciales.';
           }
         },
         err => {
           console.error('Error en el login:', err);
+       
+          this.loginError = 'Credenciales incorrectas. Por favor, re ingrese sus credenciales.';
         }
       );
     }
   }
-  
 }
-
-

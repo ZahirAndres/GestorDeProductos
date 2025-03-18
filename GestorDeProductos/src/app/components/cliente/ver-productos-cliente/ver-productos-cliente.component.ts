@@ -20,6 +20,8 @@ export class VerProductosClienteComponent implements OnInit {
   isProducto: boolean = false;
   currentProducto: Producto = this.initProducto();
   rol: string | null = null;
+  categoriasError: boolean = false;
+  productosLoaded: boolean = false;
 
   constructor(
     private catalogoService: CatalogosService,
@@ -55,24 +57,29 @@ export class VerProductosClienteComponent implements OnInit {
       colorMensajeAlmacen: ''
     };
   }
+
   cargarProductos(): void {
     const rol = this.obtenerRol();
     if (rol != null) {
       this.productoService.getProductos().subscribe(
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
+          this.productosLoaded = true;
         },
         (error) => {
           console.error('Error al cargar productos:', error);
+          this.productosLoaded = true;
         }
       );
     } else {
       this.clienteService.getProductosDefecto().subscribe(
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
+          this.productosLoaded = true;
         },
         (error) => {
           console.error('Error al cargar productos:', error);
+          this.productosLoaded = true;
         }
       );
     }
@@ -85,6 +92,7 @@ export class VerProductosClienteComponent implements OnInit {
       },
       (error) => {
         console.error('Error al cargar categorías:', error);
+        this.categoriasError = true;
       }
     );
   }
@@ -134,8 +142,6 @@ export class VerProductosClienteComponent implements OnInit {
         colorMensajeAlmacen = 'text-danger';
       }
 
-
-
       return { ...producto, mensajeExistencia, colorMensaje, mensajeExistenciaAlmacen, colorMensajeAlmacen };
     });
   }
@@ -147,9 +153,11 @@ export class VerProductosClienteComponent implements OnInit {
       this.clienteService.getProductosPorCategoria(categoria).subscribe(
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
+          this.productosLoaded = true;
         },
         (error) => {
           console.error('Error al cargar productos por categoría:', error);
+          this.productosLoaded = true;
         }
       );
     }
@@ -162,9 +170,11 @@ export class VerProductosClienteComponent implements OnInit {
       this.clienteService.getProductosPorNombre(nombre).subscribe(
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
+          this.productosLoaded = true;
         },
         (error) => {
           console.error('Error al cargar productos por nombre:', error);
+          this.productosLoaded = true;
         }
       );
     }
@@ -177,15 +187,15 @@ export class VerProductosClienteComponent implements OnInit {
       this.clienteService.getProductosPorCategoriaYNombre(categoria, nombre).subscribe(
         (response: Producto[]) => {
           this.productos = this.asignarMensajesExistencia(response);
+          this.productosLoaded = true;
         },
         (error) => {
           console.error('Error al cargar productos por categoría y nombre:', error);
+          this.productosLoaded = true;
         }
       );
     }
   }
-
-
 
   openProductoDialog(producto: Producto): void {
     this.currentProducto = { ...producto };
