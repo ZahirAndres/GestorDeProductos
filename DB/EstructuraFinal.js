@@ -49,7 +49,6 @@
     "_id": "",
     "nombreMarca": ""
   }
-
 ]
 
 //Colección Proveedores

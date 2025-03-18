@@ -23,8 +23,7 @@ export class LoginComponent {
     if (form.valid) {
       this.loginService.login(this.usuario).subscribe(
         res => {
-          if (res && res.message) {  // Verificamos que 'res' y 'res.message' existen
-            // Limpiamos el mensaje de error en caso de login exitoso
+          if (res && res.message) { 
             this.loginError = '';
             localStorage.setItem(this.ROL_KEY, res.message);
             
@@ -35,13 +34,13 @@ export class LoginComponent {
             }
           } else {
             console.error('Error: Respuesta del servidor no válida');
-            // Mostramos el mensaje de error si las credenciales no son correctas
+ 
             this.loginError = 'Credenciales incorrectas. Por favor, re ingrese sus credenciales.';
           }
         },
         err => {
           console.error('Error en el login:', err);
-          // Mostramos el mensaje de error si ocurre un error en el login
+       
           this.loginError = 'Credenciales incorrectas. Por favor, re ingrese sus credenciales.';
         }
       );
