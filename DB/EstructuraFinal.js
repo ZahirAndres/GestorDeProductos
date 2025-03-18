@@ -6,17 +6,9 @@
     "apellidoPaterno": "",
     "apellidoMaterno": "",
     "correo": "",
-    "contraseña": "",
+    "contrasena": "",
     "rol": "",
     "direccion": ""
-  }
-]
-
-//Coleccion Roles (plus - login)
-[
-  {
-    "_id": "",
-    "tipoRol": ""
   }
 ]
 
@@ -26,7 +18,7 @@
     "_id": "",
     "codigoBarras": 0,
     "nombreProducto": "",
-    "tamaño": "",
+    "tamano": "",
     "marca": "",
     "imagenUrl": [],
     "categoria": "",
@@ -118,25 +110,6 @@
   {
     "_id": "",
     "nombreCategoria": "",
-  }
-]
-
-
-
-
-
-//Colección Historial Compras (plus)
-[
-  {
-    "_id": "",
-    "producto": [
-      {
-        "nombreProducto": "",
-        "cantidad": 0
-      }
-    ],
-    "fechaCompra": Date,
-    "totalCompra": 0,
   }
 ]
 
