@@ -66,21 +66,18 @@ public class FiltrosAyudanteController {
         return filtroService.productosDefectoPasillo();
     }
 
+    /*Este controller nos permite solamente actualizar 
+    la existencia de un producto */
     @PutMapping("/actualizarExistenciaPasillo/{codigoBarras}")
     public ResponseEntity<?> actualizarExistenciaPasillo(@PathVariable String codigoBarras,
             @RequestBody int cantidadAgregada) {
         try {
-            // Buscar producto por código de barras
-            Optional<Producto> optionalProducto = productoRepo.encontrarPorCodigoBarras(codigoBarras);
+      Optional<Producto> optionalProducto = productoRepo.encontrarPorCodigoBarras(codigoBarras);
 
             if (optionalProducto.isPresent()) {
                 Producto producto = optionalProducto.get();
-
-                // Actualizar la cantidad existente
                 producto.setExistenciaExhibida(producto.getExistenciaExhibida() + cantidadAgregada);
                 productoRepo.save(producto);
-
-                // Responder con un mensaje en formato JSON
                 return ResponseEntity.ok(Map.of("message", "Producto actualizado exitosamente", "producto", producto));
             } else {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Producto no encontrado"));

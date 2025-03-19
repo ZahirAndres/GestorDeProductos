@@ -30,6 +30,7 @@ export class AbastecimientoComponent implements OnInit {
     this.cargarCategorias();
   }
 
+  //Funcion que carga todos los productos que puede ver el ayudante.
   cargarProductos(): void {
     this.filtrosAyudanteService.getProductosPasilloDefecto().subscribe(
       (response: Producto[]) => {
@@ -42,6 +43,7 @@ export class AbastecimientoComponent implements OnInit {
     );
   }
 
+  //Carga todas las categorias exitentes en la BD para poder filtrar los productos
   cargarCategorias(): void {
     this.catalogoService.getCategorias().subscribe(
       (response: Categoria[]) => {
@@ -53,7 +55,8 @@ export class AbastecimientoComponent implements OnInit {
     );
   }
 
-
+  // Este metodo con ayuda del "Codigo de Barras" puede actualizar (sumar) la cantidad de productos
+  // existente en el estante de un producto determinado.
   actualizarCantidad(form: NgForm, producto: Producto): void {
     if (form.valid) {
       if (producto.cantidadAgregada) {
@@ -76,6 +79,7 @@ export class AbastecimientoComponent implements OnInit {
     }
   }
 
+  //Toggle para mostrar o ocultar el formulario de edición del producto.
   toggleFormulario(producto: Producto): void {
     this.productos.forEach(p => {
       if (p.mostrarFormulario !== producto.mostrarFormulario) {
@@ -86,6 +90,9 @@ export class AbastecimientoComponent implements OnInit {
   }
 
   //Filtros
+
+  //Filtro que cambia el objeto "productos" por el resultado del filtro.
+  // Los filtra por categoria
   filtroProductoCategoria(categoria: string) {
     if (categoria == "") {
       this.cargarProductos();
@@ -101,6 +108,8 @@ export class AbastecimientoComponent implements OnInit {
     }
   }
 
+    //Filtro que cambia el objeto "productos" por el resultado del filtro.
+  // Los filtra por Nombre del producto
   filtroProductoNombre(nombre: string) {
     if (nombre == "") {
       this.cargarProductos();
@@ -116,6 +125,8 @@ export class AbastecimientoComponent implements OnInit {
     }
   }
 
+    //Filtro que cambia el objeto "productos" por el resultado del filtro.
+  // Los filtra por su codigo de barras.
   filtroProductoCodigo(codigo: string) {
     if (codigo == "") {
       this.cargarProductos();

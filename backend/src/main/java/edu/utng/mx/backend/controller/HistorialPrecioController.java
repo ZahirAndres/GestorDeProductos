@@ -33,13 +33,10 @@ public class HistorialPrecioController {
         if (historialPrecios.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-
-        // Crear una lista para almacenar todos los precios de los productos
         List<PrecioHistorial> precios = new ArrayList<>();
 
-        // Recorre cada historial de precio y extrae los precios
         for (HistorialPrecio historial : historialPrecios) {
-            precios.addAll(historial.getHistorialPrecios()); // Aquí estamos agregando los objetos PrecioHistorial
+            precios.addAll(historial.getHistorialPrecios());
         }
 
         return new ResponseEntity<>(precios, HttpStatus.OK);

@@ -19,10 +19,10 @@ public class AuthController {
     public ResponseEntity<?> login(@RequestBody Usuarios usuario) {
         String rol = usuarioService.autenticarUsuario(usuario.getCorreo(), usuario.getContrasena());
         if (rol != null) {
-            return ResponseEntity.ok(new AuthResponse(rol));  // Devuelve el rol en formato JSON
+            return ResponseEntity.ok(new AuthResponse(rol));  
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                                 .body(new AuthResponse("Invalid credentials")); // Devuelve el mensaje de error en formato JSON
+                                 .body(new AuthResponse("Invalid credentials")); 
         }
     }
 }

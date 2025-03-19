@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Producto } from '../../../models/producto.model';
 import { Categoria } from '../../../models/categoria.model';
 import { ProductoService } from '../../../services/crear-productos.service';
-import { CategoriasService } from '../../../services/categorias.service';
 import { ClienteService } from '../../../services/cliente/cliente.service';
 import { CatalogosService } from '../../../services/formularios/catalogos.service';
 
@@ -29,11 +28,19 @@ export class VerProductosClienteComponent implements OnInit {
     private productoService: ProductoService
   ) { }
 
+  /**
+   * Método que se ejecuta al inicializar el componente.
+   * Carga los productos y las categorías al inicio de la vista.
+   */
   ngOnInit(): void {
     this.cargarProductos();
     this.cargarCategorias();
   }
 
+  /**
+   * Método privado que inicializa un objeto de tipo Producto con valores por defecto.
+   * @returns Un objeto Producto con valores inicializados.
+   */
   private initProducto(): Producto {
     return {
       _id: '',
@@ -58,6 +65,10 @@ export class VerProductosClienteComponent implements OnInit {
     };
   }
 
+  /**
+   * Método que carga los productos desde el servicio.
+   * Dependiendo del rol del usuario, se cargan productos por defecto o productos completos.
+   */
   cargarProductos(): void {
     const rol = this.obtenerRol();
     if (rol != null) {
@@ -85,6 +96,10 @@ export class VerProductosClienteComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que carga las categorías desde el servicio.
+   * En caso de error, marca el estado de error en las categorías.
+   */
   cargarCategorias(): void {
     this.catalogoService.getCategorias().subscribe(
       (response: Categoria[]) => {
@@ -97,7 +112,12 @@ export class VerProductosClienteComponent implements OnInit {
     );
   }
 
-  // Función común para calcular y asignar los mensajes de existencia y colores
+  /**
+   * Método privado que asigna mensajes de existencia y colores según el stock de los productos.
+   * Calcula el porcentaje de faltante de los productos tanto en exhibición como en almacén.
+   * @param productos Lista de productos a los cuales se les asignarán los mensajes y colores.
+   * @returns Un nuevo arreglo de productos con los mensajes de existencia asignados.
+   */
   private asignarMensajesExistencia(productos: Producto[]): Producto[] {
     return productos.map((producto) => {
       const faltante = ((producto.stockExhibe - producto.existenciaExhibida) / producto.stockExhibe) * 100;
@@ -146,6 +166,11 @@ export class VerProductosClienteComponent implements OnInit {
     });
   }
 
+  /**
+   * Método que filtra los productos por categoría.
+   * Si no se selecciona categoría, recarga todos los productos.
+   * @param categoria Categoría para filtrar los productos.
+   */
   filtroProductoCategoria(categoria: string): void {
     if (categoria === '') {
       this.cargarProductos();
@@ -163,6 +188,11 @@ export class VerProductosClienteComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que filtra los productos por nombre.
+   * Si no se ingresa nombre, recarga todos los productos.
+   * @param nombre Nombre del producto para filtrar.
+   */
   filtroProductoNombre(nombre: string): void {
     if (nombre === '') {
       this.cargarProductos();
@@ -180,6 +210,12 @@ export class VerProductosClienteComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que filtra los productos por categoría y nombre.
+   * Si no se ingresa ninguno de los dos parámetros, recarga todos los productos.
+   * @param categoria Categoría para filtrar los productos.
+   * @param nombre Nombre del producto para filtrar.
+   */
   filtroProductoNombreYCategoria(categoria: string, nombre: string): void {
     if (categoria === '' && nombre === '') {
       this.cargarProductos();
@@ -197,12 +233,19 @@ export class VerProductosClienteComponent implements OnInit {
     }
   }
 
+  /**
+   * Método que abre un diálogo para ver más detalles del producto seleccionado.
+   * @param producto Producto que se va a mostrar en el diálogo.
+   */
   openProductoDialog(producto: Producto): void {
     this.currentProducto = { ...producto };
-    console.log(this.currentProducto);  // 🔍 Verifica que tenga datos antes de abrir el diálogo
     this.isProducto = true;
   }
 
+  /**
+   * Método que obtiene el rol del usuario desde el almacenamiento local.
+   * @returns El rol del usuario almacenado en el localStorage.
+   */
   obtenerRol() {
     return localStorage.getItem('rol');
   }

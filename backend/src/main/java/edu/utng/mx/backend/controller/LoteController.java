@@ -39,16 +39,13 @@ public class LoteController {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("El lote con el código " + lote.getCodigoLote() + " ya existe.");
             }
-            // Guardar el lote en la base de datos
             Lote loteGuardado = loteRepo.save(lote);
 
             Optional<Producto> productoObtenido = productoRepo.encontrarPorCodigoBarras(lote.getCodigoBarras());
 
             Producto producto = productoObtenido.get();
 
-            producto.setCantidadAlmacen(producto.getCantidadAlmacen() + lote.getCantidadComprada()); // Aqui suma la cantidad
-                                                                                               // de alamcen con la
-                                                                                               // nueva de lote
+            producto.setCantidadAlmacen(producto.getCantidadAlmacen() + lote.getCantidadComprada()); 
             productoRepo.save(producto);
             return new ResponseEntity<>(loteGuardado, HttpStatus.CREATED);
         } catch (Exception e) {
