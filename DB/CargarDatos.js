@@ -88,7 +88,7 @@ var usuarios = [
       precioPieza: 20.50,
       precioCaja: 123.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor A"], // Relacionado con la colección Proveedores
+      proveedor: ["Distribuidora El Águila"], // Relacionado con la colección Proveedores
       stockExhibe: 50,
       existenciaExhibida: 30,
       stockAlmacen: 200,
@@ -107,7 +107,7 @@ var usuarios = [
       precioPieza: 35.75,
       precioCaja: 214.50,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor B"], // Relacionado con la colección Proveedores
+      proveedor: ["Comercializadora del Centro"], // Relacionado con la colección Proveedores
       stockExhibe: 40,
       existenciaExhibida: 20,
       stockAlmacen: 150,
@@ -126,7 +126,7 @@ var usuarios = [
       precioPieza: 50.00,
       precioCaja: 300.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor C"], // Relacionado con la colección Proveedores
+      proveedor: ["Abarrotes Express"], // Relacionado con la colección Proveedores
       stockExhibe: 30,
       existenciaExhibida: 20,
       stockAlmacen: 100,
@@ -145,7 +145,7 @@ var usuarios = [
       precioPieza: 50.00,
       precioCaja: 300.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor C", "Proveedor A"], // Relacionado con la colección Proveedores
+      proveedor: ["Abarrotes Express", "Distribuidora El Águila"], // Relacionado con la colección Proveedores
       stockExhibe: 30,
       existenciaExhibida: 20,
       stockAlmacen: 100,
@@ -164,7 +164,7 @@ var usuarios = [
       precioPieza: 85.00,
       precioCaja: 510.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor B"],
+      proveedor: ["Comercializadora del Centro"],
       stockExhibe: 50,
       existenciaExhibida: 25,
       stockAlmacen: 200,
@@ -184,7 +184,7 @@ var usuarios = [
       precioPieza: 45.50,
       precioCaja: 273.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor A"],
+      proveedor: ["Distribuidora El Águila"],
       stockExhibe: 40,
       existenciaExhibida: 20,
       stockAlmacen: 180,
@@ -204,7 +204,7 @@ var usuarios = [
       precioPieza: 15.75,
       precioCaja: 94.50,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor C"],
+      proveedor: ["Abarrotes Express"],
       stockExhibe: 60,
       existenciaExhibida: 35,
       stockAlmacen: 250,
@@ -223,7 +223,7 @@ var usuarios = [
       precioPieza: 70.00,
       precioCaja: 420.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor A"],
+      proveedor: ["Distribuidora El Águila"],
       stockExhibe: 20,
       existenciaExhibida: 15,
       stockAlmacen: 100,
@@ -242,7 +242,7 @@ var usuarios = [
       precioPieza: 30.00,
       precioCaja: 180.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor C"],
+      proveedor: ["Abarrotes Express"],
       stockExhibe: 70,
       existenciaExhibida: 50,
       stockAlmacen: 180,
@@ -262,7 +262,7 @@ var usuarios = [
       precioPieza: 120.00,
       precioCaja: 720.00,
       cantidadPiezasPorCaja: 6,
-      proveedor: ["Proveedor B"],
+      proveedor: ["Comercializadora del Centro"],
       stockExhibe: 25,
       existenciaExhibida: 15,
       stockAlmacen: 80,
