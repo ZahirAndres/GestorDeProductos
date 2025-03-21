@@ -7,7 +7,7 @@
         <div class="carousel-inner">
           <div *ngFor="let img of currentProducto.imagenUrl; let i = index" 
                class="carousel-item" 
-               [ngClass]="{'active': i === 0}">
+               [ngClass]="{'active': i === 0}"> 
             <img [src]="img" alt="Imagen del producto" class="producto-img">
           </div>
         </div>
