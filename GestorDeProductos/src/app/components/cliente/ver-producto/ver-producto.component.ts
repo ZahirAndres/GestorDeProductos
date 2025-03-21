@@ -77,9 +77,9 @@ export class VerProductoComponent implements OnInit {
    * Si el producto tiene proveedores asociados, hace una solicitud para obtener los datos de esos proveedores.
    */
   getProvedores() {
-    if (this.currentProducto.proveedor.length > 0) {
+    if (this.currentProducto.proveedor && this.currentProducto.proveedor.length > 0) {
       const nombresProveedores = this.currentProducto.proveedor.map(p => p);
-  
+    
       this.verProveedores.obtenerProveedoresPorProducto(nombresProveedores).subscribe(
         (response) => {
           this.proveedores = response;
@@ -88,8 +88,11 @@ export class VerProductoComponent implements OnInit {
           console.error('Error al cargar proveedores:', error);
         }
       );
+    } else {
+      console.log('No hay proveedores disponibles para este producto.');
     }
   }
+  
 
   /**
    * Método para obtener el rol del usuario desde el almacenamiento local.
